@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Hosting Plans &bull; BDIX 10Gbps NVMe | JAAS BD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      color: #0F172A;
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-wrap img { height: 42px; width: auto; }
+    .brand-name { font-size: 24px; font-weight: 900; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #475569;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #0077B6; }
+
+    .btn-login {
+      padding: 9px 20px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #0F172A;
+      font-weight: 700;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13.5px;
+    }
+    .btn-deal {
+      padding: 9px 22px;
+      background: linear-gradient(135deg, #0077B6 0%, #0284C7 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13.5px;
+    }
+
+    /* Page Hero Banner */
+    .page-hero {
+      background: linear-gradient(135deg, #FAF7FD 0%, #F0F6FC 50%, #F0FBF7 100%);
+      padding: 60px 0 50px;
+      text-align: center;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0077B6;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-size: 40px;
+      font-weight: 900;
+      color: #0F172A;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .hero-desc {
+      font-size: 16px;
+      color: #64748B;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Pricing Plans Grid */
+    .pricing-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin: 60px 0 80px;
+    }
+    @media (max-width: 900px) {
+      .pricing-grid-3 { grid-template-columns: 1fr; }
+    }
+    .plan-card {
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 35px 30px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      position: relative;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .plan-card:hover {
+      border-color: #0077B6;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0, 119, 182, 0.12);
+    }
+    .plan-card.featured {
+      border-color: #0077B6;
+      box-shadow: 0 8px 30px rgba(0, 119, 182, 0.15);
+    }
+    .featured-tag {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #0077B6, #06D6A0);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .plan-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+    .plan-subtitle {
+      font-size: 13px;
+      color: #64748B;
+      margin-bottom: 20px;
+    }
+    .plan-price-wrap {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .price-num {
+      font-size: 38px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+    .price-period {
+      font-size: 14px;
+      color: #64748B;
+      font-weight: 600;
+    }
+    .plan-features-list {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    .plan-features-list li {
+      font-size: 13.5px;
+      color: #334155;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .plan-features-list li b {
+      color: #06D6A0;
+    }
+
+    .btn-plan-order {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-plan-order.primary {
+      background: linear-gradient(135deg, #F77F00, #EA580C);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(247, 127, 0, 0.35);
+    }
+    .btn-plan-order.primary:hover {
+      background: #E85D04;
+      transform: translateY(-2px);
+    }
+    .btn-plan-order.secondary {
+      background: #0077B6;
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(0, 119, 182, 0.3);
+    }
+    .btn-plan-order.secondary:hover {
+      background: #023E8A;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 16px 0;
+      font-size: 13.5px;
+      color: #64748B;
+    }
+    .footer-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-bottom-left-payments {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-payments-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1E293B;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .sslcommerz-footer-banner {
+      height: 46px;
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-bottom-right-copy {
+      color: #64748B;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 800px) {
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .footer-bottom-left-payments {
+        justify-content: center;
+      }
+      .footer-bottom-right-copy {
+        text-align: center;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hosting.html" class="active">Web Hosting</a></li>
+        <li><a href="domain.html">Domains</a></li>
+        <li><a href="servers.html">Servers</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="login.html" class="btn-login">&#128100; Login</a>
+        <a href="order.html?plan=business-hosting" class="btn-deal">Get Deal</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="hero-badge">&#9889; 10Gbps BDIX Direct Connectivity &bull; 99.9% Uptime</div>
+      <h1 class="hero-title">High-Performance Web Hosting in Bangladesh</h1>
+      <p class="hero-desc">
+        Equipped with Pure NVMe SSDs, LiteSpeed Web Server, Automated cPanel Provisioning, and 24/7 dedicated support from Mirzapur, Tangail.
+      </p>
+    </div>
+  </div>
+
+  <!-- Pricing Cards -->
+  <div class="container">
+    <div class="pricing-grid-3">
+
+      <!-- Plan 1: Web Hosting -->
+      <div class="plan-card">
+        <div>
+          <h3 class="plan-title">Web Hosting</h3>
+          <p class="plan-subtitle">Ideal for personal blogs, portfolios &amp; beginner sites.</p>
+          <div class="plan-price-wrap">
+            <span class="price-num">৳99</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <ul class="plan-features-list">
+            <li><b>✓</b> 5 GB NVMe SSD Storage</li>
+            <li><b>✓</b> 1 Website Hosted</li>
+            <li><b>✓</b> Free Automated SSL Certificate</li>
+            <li><b>✓</b> Unlimited Bandwidth (BDIX)</li>
+            <li><b>✓</b> cPanel Control Panel</li>
+            <li><b>✓</b> 5 Email Accounts &amp; Databases</li>
+            <li><b>✓</b> Daily Automated Backups</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=web-hosting" class="btn-plan-order secondary">
+          Configure &amp; Order Now &rarr;
+        </a>
+      </div>
+
+      <!-- Plan 2: Business Hosting (Featured) -->
+      <div class="plan-card featured">
+        <div class="featured-tag">Most Popular</div>
+        <div>
+          <h3 class="plan-title">Business Hosting</h3>
+          <p class="plan-subtitle">Optimized for e-commerce, businesses &amp; high traffic.</p>
+          <div class="plan-price-wrap">
+            <span class="price-num">৳399</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <ul class="plan-features-list">
+            <li><b>✓</b> 20 GB Pure NVMe SSD Storage</li>
+            <li><b>✓</b> Free .com Domain Name (Annual)</li>
+            <li><b>✓</b> 5 Websites Hosted</li>
+            <li><b>✓</b> LiteSpeed Web Server + LSCache</li>
+            <li><b>✓</b> Free Wildcard SSL Certificate</li>
+            <li><b>✓</b> Unlimited Corporate Emails</li>
+            <li><b>✓</b> Dedicated CPU &amp; 4 GB RAM</li>
+            <li><b>✓</b> Priority 24/7 VIP Support</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=business-hosting" class="btn-plan-order primary">
+          Configure &amp; Order Now &rarr;
+        </a>
+      </div>
+
+      <!-- Plan 3: BDIX Cloud Hosting -->
+      <div class="plan-card">
+        <div>
+          <h3 class="plan-title">BDIX Cloud Hosting</h3>
+          <p class="plan-subtitle">Ultra low latency (1ms) for Bangladeshi visitors.</p>
+          <div class="plan-price-wrap">
+            <span class="price-num">৳134</span>
+            <span class="price-period">/ month</span>
+          </div>
+          <ul class="plan-features-list">
+            <li><b>✓</b> 15 GB NVMe SSD Storage</li>
+            <li><b>✓</b> 3 Websites Hosted</li>
+            <li><b>✓</b> Direct 10 Gbps BDIX Peering</li>
+            <li><b>✓</b> Free Auto SSL &amp; Cloudflare CDN</li>
+            <li><b>✓</b> cPanel with 400+ 1-Click Apps</li>
+            <li><b>✓</b> Multi-PHP Version (7.4 &ndash; 8.3)</li>
+            <li><b>✓</b> 99.9% Guaranteed SLA Uptime</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=bdix-hosting" class="btn-plan-order secondary">
+          Configure &amp; Order Now &rarr;
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom-bar">
+      <div class="footer-bottom-left-payments">
+        <span class="footer-payments-label">Payments</span>
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+      </div>
+      <div class="footer-bottom-right-copy">
+        &copy; 2026 JAAS BD. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

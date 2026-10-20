@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAAS BD &bull; Website Administration (ADMIN)</title>
+  <link rel="icon" type="image/png" href="assets/images/jaasbd-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Security Authentication Gatekeeper -->
+  <script>
+    if (sessionStorage.getItem('jaas_admin_logged_in') !== 'true' && localStorage.getItem('jaas_admin_logged_in') !== 'true') {
+      window.location.replace('admin-login.html');
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F8FAFC;
+      color: #0F172A;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Sidebar - Crisp Modern WHITE Background with Clear Separation */
+    .admin-sidebar {
+      width: 290px;
+      background: #FFFFFF;
+      color: #0F172A;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid #E2E8F0;
+      box-shadow: 2px 0 16px rgba(15, 23, 42, 0.04);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 20;
+    }
+
+    /* Brand Header with ONLY Logo and ADMIN Badge Directly Below */
+    .admin-brand {
+      padding: 24px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      border-bottom: 1px solid #E2E8F0;
+      background: #FAFAFC;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .admin-brand:hover {
+      background: #F1F5F9;
+    }
+    .admin-brand img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 119, 182, 0.25));
+    }
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 4px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%);
+      color: #FFFFFF;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0, 119, 182, 0.3);
+    }
+
+    .admin-menu {
+      padding: 18px 12px;
+      list-style: none;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .admin-menu li { margin-bottom: 4px; }
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-radius: 9px;
+      color: #475569;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .menu-link:hover {
+      background: #F1F5F9;
+      color: #0077B6;
+    }
+    .menu-link.active {
+      background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0, 119, 182, 0.3);
+    }
+    .menu-link .num-pill {
+      font-size: 11px;
+      background: #E2E8F0;
+      color: #475569;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-left: auto;
+      font-weight: 700;
+    }
+    .menu-link.active .num-pill {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+    }
+
+    .sidebar-user {
+      padding: 16px 20px;
+      border-top: 1px solid #E2E8F0;
+      background: #FAFAFC;
+      font-size: 12px;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-logout {
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: #DC2626;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover {
+      background: #DC2626;
+      color: #FFFFFF;
+      border-color: #DC2626;
+    }
+
+    /* Main Content Area */
+    .admin-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* Top Bar */
+    .admin-header {
+      background: #FFFFFF;
+      height: 70px;
+      padding: 0 32px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-save-all {
+      background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 119, 182, 0.3);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-save-all:hover {
+      background: linear-gradient(135deg, #0284C7 0%, #38BDF8 100%);
+      transform: translateY(-1px);
+    }
+    .btn-view-site {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      padding: 9px 16px;
+      border-radius: 8px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-view-site:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+    }
+
+    /* Content Area */
+    .admin-content {
+      padding: 32px;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .admin-tab { display: none; }
+    .admin-tab.active { display: block; animation: fadeIn 0.2s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .admin-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      border: 1px solid #E2E8F0;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F1F5F9;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    /* Category Filter Tabs for Packages */
+    .cat-filter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      background: #F1F5F9;
+      padding: 6px;
+      border-radius: 10px;
+    }
+    .cat-filter-btn {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cat-filter-btn:hover {
+      color: #0077B6;
+      background: rgba(255, 255, 255, 0.7);
+    }
+    .cat-filter-btn.active {
+      background: #FFFFFF;
+      color: #0077B6;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
+    }
+
+    /* Grid Layouts */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) {
+      .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #0F172A;
+      background: #FFFFFF;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: #0077B6;
+      box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 85px;
+    }
+
+    /* Image Preview Box */
+    .img-preview-box {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border: 1px dashed #CBD5E1;
+      border-radius: 8px;
+      background: #F8FAFC;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .img-preview-box img {
+      max-height: 48px;
+      max-width: 160px;
+      object-fit: contain;
+    }
+
+    /* Data Tables */
+    .table-responsive {
+      overflow-x: auto;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .data-table th {
+      background: #F8FAFC;
+      color: #475569;
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid #E2E8F0;
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #E2E8F0;
+      color: #1E293B;
+      vertical-align: middle;
+    }
+    .data-table tr:hover td {
+      background: #F8FAFC;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-primary { background: #EFF6FF; color: #0077B6; }
+    .badge-success { background: #DCFCE7; color: #166534; }
+    .badge-warning { background: #FEF3C7; color: #B45309; }
+    .badge-purple { background: #F3E8FF; color: #7E22CE; }
+
+    /* Action Buttons */
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-sm:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+    }
+    .btn-sm-danger {
+      border-color: #FCA5A5;
+      color: #DC2626;
+      background: #FEF2F2;
+    }
+    .btn-sm-danger:hover {
+      background: #DC2626;
+      color: #FFFFFF;
+    }
+    .btn-primary-action {
+      background: linear-gradient(135deg, #0077B6, #00B4D8);
+      color: #FFFFFF;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 119, 182, 0.25);
+      transition: all 0.15s;
+    }
+    .btn-primary-action:hover {
+      background: linear-gradient(135deg, #0284C7, #38BDF8);
+      transform: translateY(-1px);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #FFFFFF;
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Toast */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 14px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 9999;
+      border-left: 4px solid #00B4D8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar: Crisp WHITE Background with Clear Separation -->
+  <aside class="admin-sidebar">
+    <!-- Brand Link with ONLY Logo and ADMIN Badge Directly Below -->
+    <a href="index.html" class="admin-brand" title="View Public Website">
+      <img src="assets/images/jaasbd-logo.png" alt="JAAS BD">
+      <div class="brand-badge">ADMIN</div>
+    </a>
+
+    <ul class="admin-menu">
+      <li>
+        <a class="menu-link active" onclick="switchAdminTab('branding', this)">
+          <span>🎨</span> 1. Branding &amp; Logo
+          <span class="num-pill">Favicon/Logo</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('packages', this)">
+          <span>📦</span> 2. Packages &amp; Pricing
+          <span class="num-pill" id="pkgCountPill">12</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('domains', this)">
+          <span>🌐</span> 3. Domain Pricing Table
+          <span class="num-pill">TLDs</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('hero', this)">
+          <span>🚀</span> 4. Hero Section &amp; Orbit
+          <span class="num-pill">Header</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('contact', this)">
+          <span>📍</span> 5. Contact &amp; Office Info
+          <span class="num-pill">Single Office</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('testimonials', this)">
+          <span>⭐</span> 6. Happy Testimonials
+          <span class="num-pill" id="testiCountPill">3</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('orders', this)">
+          <span>📑</span> 7. Orders &amp; Invoices
+          <span class="num-pill" id="orderCountPill">0</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('security', this)">
+          <span>🔒</span> 8. Admin Security
+          <span class="num-pill">Pass</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-user">
+      <div>
+        <div style="font-weight:700; color:#0F172A;">Admin Portal</div>
+        <div style="font-size:11px; color:#0077B6;" id="sidebarUserLabel">User: admin</div>
+      </div>
+      <button type="button" class="btn-logout" onclick="adminLogout()" title="Sign Out">🚪 Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <main class="admin-main">
+    
+    <!-- Top Header -->
+    <header class="admin-header">
+      <div class="header-left">
+        <h1 class="header-title" id="adminHeaderTitle">1. Website Branding &amp; Identity</h1>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" target="_blank" class="btn-view-site">🌐 View Live Website &rarr;</a>
+        <button type="button" class="btn-save-all" onclick="saveAllConfigToServer()">
+          <span>💾</span> Save All Changes
+        </button>
+      </div>
+    </header>
+
+    <div class="admin-content">
+
+      <!-- ==========================================
+           TAB 1: BRANDING & LOGO
+           ========================================== -->
+      <div class="admin-tab active" id="tab-branding">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Logo &amp; Visual Identity</h2>
+              <p class="card-desc">Control website Favicon, Header Logo, Footer Logo, and Meta Information.</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Website Meta Title</label>
+              <input type="text" id="cfgSiteTitle" class="form-control" value="JAAS BD • Web Hosting, BDIX VPS &amp; Cloud Servers in Bangladesh">
+            </div>
+            <div class="form-group">
+              <label>Favicon Image Path / URL</label>
+              <input type="text" id="cfgFavicon" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFavicon', this.value)">
+              <div class="img-preview-box">
+                <img id="previewFavicon" src="assets/images/jaasbd-logo.png" alt="Favicon Preview">
+                <span style="font-size:12px; color:#64748B;">Favicon Preview</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Header Brand Logo Path / URL</label>
+              <input type="text" id="cfgHeaderLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewHeaderLogo', this.value)">
+              <div class="img-preview-box">
+                <img id="previewHeaderLogo" src="assets/images/jaasbd-logo.png" alt="Header Logo Preview">
+                <span style="font-size:12px; color:#64748B;">Header Logo (Logo Only)</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Footer Brand Logo Path / URL</label>
+              <input type="text" id="cfgFooterLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFooterLogo', this.value)">
+              <div class="img-preview-box">
+                <img id="previewFooterLogo" src="assets/images/jaasbd-logo.png" alt="Footer Logo Preview">
+                <span style="font-size:12px; color:#64748B;">Footer Logo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Main Tagline</label>
+              <input type="text" id="cfgTagline" class="form-control" value="We Help Businesses Grow Online">
+            </div>
+            <div class="form-group">
+              <label>Sub-Tagline / Description</label>
+              <textarea id="cfgSubtagline" class="form-control">Get fast, secure and premium web hosting, domain names, business email, SSL, and cloud services to easily build and manage your website.</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 2: PACKAGES & PRICING
+           ========================================== -->
+      <div class="admin-tab" id="tab-packages">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Hosting Packages &amp; Pricing Manager</h2>
+              <p class="card-desc">Manage the 3 packages of Web Hosting, 3 packages of BDIX Hosting, Cloud VPS &amp; Reseller plans.</p>
+            </div>
+            <button type="button" class="btn-primary-action" onclick="openAddPackageModal()">
+              + Add New Package
+            </button>
+          </div>
+
+          <!-- Category Quick Filter Buttons -->
+          <div class="cat-filter-wrap">
+            <button type="button" class="cat-filter-btn active" onclick="filterPackagesByCategory('all', this)">
+              🌐 All Packages (<span id="countAllPkgs">0</span>)
+            </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Web Hosting', this)">
+              💻 Web Hosting (<span id="countWebPkgs">3</span> Packages)
+            </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('BDIX Web Hosting', this)">
+              🇧🇩 BDIX Web Hosting (<span id="countBdixPkgs">3</span> Packages)
+            </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('BDIX Cloud VPS', this)">
+              ⚡ BDIX Cloud VPS (<span id="countVpsPkgs">3</span> Packages)
+            </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Reseller Hosting', this)">
+              🏢 Reseller Hosting (<span id="countResellerPkgs">3</span> Packages)
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Plan Name</th>
+                  <th>Category</th>
+                  <th>Badge</th>
+                  <th>Monthly Price</th>
+                  <th>Annual Price</th>
+                  <th>Storage &amp; Sites</th>
+                  <th>CPU / RAM</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="packagesTableBody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 3: DOMAIN PRICING TABLE
+           ========================================== -->
+      <div class="admin-tab" id="tab-domains">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Domain TLD Pricing Manager</h2>
+              <p class="card-desc">Set registration, renewal, and transfer rates for each domain extension (.com, .bd, etc.).</p>
+            </div>
+            <button type="button" class="btn-primary-action" onclick="addDomainRow()">
+              + Add New TLD
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>TLD Extension</th>
+                  <th>Register Price (BDT)</th>
+                  <th>Renewal Price (BDT)</th>
+                  <th>Transfer Price (BDT)</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="domainsTableBody">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 4: HERO SECTION & ORBIT
+           ========================================== -->
+      <div class="admin-tab" id="tab-hero">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Hero Section &amp; Orbit Circle Settings</h2>
+              <p class="card-desc">Modify top headline, badges, and the center bird logo in the rotating circle.</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Hero Headline Part 1</label>
+              <input type="text" id="cfgHeroLine1" class="form-control" value="We Help Businesses">
+            </div>
+            <div class="form-group">
+              <label>Hero Headline Part 2 (Gradient Colored)</label>
+              <input type="text" id="cfgHeroLine2" class="form-control" value="Grow Online">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Hero Ribbon Badge Text</label>
+              <input type="text" id="cfgHeroBadge" class="form-control" value="Next-Gen Cloud &amp; BDIX Web Hosting">
+            </div>
+            <div class="form-group">
+              <label>Orbit Center Image (No Text &bull; Pure Logo)</label>
+              <input type="text" id="cfgOrbitImg" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewOrbitImg', this.value)">
+              <div class="img-preview-box">
+                <img id="previewOrbitImg" src="assets/images/jaasbd-logo.png" alt="Orbit Preview">
+                <span style="font-size:12px; color:#64748B;">Centered Bird Logo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 5: CONTACT & OFFICE INFO
+           ========================================== -->
+      <div class="admin-tab" id="tab-contact">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Company &amp; Single Office Contact Information</h2>
+              <p class="card-desc">Sole official office in Mirzapur, Tangail and 24/7 hotline numbers.</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Helpline / Contact Phone</label>
+              <input type="text" id="cfgPhone" class="form-control" value="+88-01818-430308">
+            </div>
+            <div class="form-group">
+              <label>WhatsApp Support Number</label>
+              <input type="text" id="cfgWhatsapp" class="form-control" value="8801818430308">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>General Email</label>
+              <input type="email" id="cfgEmail" class="form-control" value="info@jaasbd.com">
+            </div>
+            <div class="form-group">
+              <label>Technical Support Email</label>
+              <input type="email" id="cfgSupportEmail" class="form-control" value="support@jaasbd.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Single Official Office Address (Sole Office)</label>
+            <input type="text" id="cfgAddress" class="form-control" value="843/06, Kadim Dewhata, Mirzapur, Tangail. 1940.">
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 6: HAPPY TESTIMONIALS (WITH PICTURE)
+           ========================================== -->
+      <div class="admin-tab" id="tab-testimonials">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Happy Testimonials &amp; Customer Reviews</h2>
+              <p class="card-desc">Add, edit, and update client reviews with customer picture avatars and star ratings.</p>
+            </div>
+            <button type="button" class="btn-primary-action" onclick="openAddTestimonialModal()">
+              + Add New Testimonial
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Customer Photo</th>
+                  <th>Customer Name</th>
+                  <th>Company / Designation</th>
+                  <th>Rating</th>
+                  <th>Review Summary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="testimonialsTableBody">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 9: ORDERS & INVOICES
+           ========================================== -->
+      <div class="admin-tab" id="tab-orders">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Client Orders &amp; A4 Invoices</h2>
+              <p class="card-desc">View customer purchases, billing status, and print/open official A4 bills.</p>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Invoice ID</th>
+                  <th>Date</th>
+                  <th>Customer Name</th>
+                  <th>Package &amp; Domain</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           TAB 10: ADMIN SECURITY & PASSWORD
+           ========================================== -->
+      <div class="admin-tab" id="tab-security">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Admin Account &amp; Login Security</h2>
+              <p class="card-desc">Update your administrator username and password for backend login.</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Admin Username</label>
+              <input type="text" id="cfgAdminUser" class="form-control" value="admin">
+            </div>
+            <div class="form-group">
+              <label>Admin Email</label>
+              <input type="email" id="cfgAdminEmail" class="form-control" value="admin@jaasbd.com">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>New Admin Password</label>
+              <input type="password" id="cfgAdminPass" class="form-control" placeholder="Leave unchanged or enter new password">
+            </div>
+            <div class="form-group">
+              <label>Confirm Admin Password</label>
+              <input type="password" id="cfgAdminPassConfirm" class="form-control" placeholder="Re-type new password">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Edit/Add Package Modal -->
+  <div class="modal-overlay" id="packageModal">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 class="card-title" id="modalPkgTitle">Edit Hosting Package</h3>
+        <button type="button" class="btn-sm" onclick="closePackageModal()">&times; Close</button>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Plan Name</label>
+          <input type="text" id="editPkgName" class="form-control" placeholder="e.g. BDIX Starter Hosting">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="editPkgCategory" class="form-control">
+            <option value="Web Hosting">Web Hosting (Shared)</option>
+            <option value="BDIX Web Hosting">BDIX Web Hosting</option>
+            <option value="BDIX Cloud VPS">BDIX Cloud VPS</option>
+            <option value="Reseller Hosting">Reseller Hosting</option>
+            <option value="Corporate Hosting">Corporate Hosting</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid-3">
+        <div class="form-group">
+          <label>Badge / Ribbon</label>
+          <input type="text" id="editPkgBadge" class="form-control" placeholder="e.g. Popular, 10Gbps BDIX">
+        </div>
+        <div class="form-group">
+          <label>Monthly Price (BDT)</label>
+          <input type="number" id="editPkgBasePrice" class="form-control" placeholder="e.g. 134">
+        </div>
+        <div class="form-group">
+          <label>Annual Price (BDT)</label>
+          <input type="number" id="editPkgAnnualPrice" class="form-control" placeholder="e.g. 1608">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Storage Disk Space</label>
+          <input type="text" id="editPkgStorage" class="form-control" placeholder="e.g. 5 GB NVMe">
+        </div>
+        <div class="form-group">
+          <label>Hosted Websites Limit</label>
+          <input type="text" id="editPkgWebsites" class="form-control" placeholder="e.g. 1 Website / 5 Websites">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>RAM Allocation</label>
+          <input type="text" id="editPkgRam" class="form-control" placeholder="e.g. 1.5 GB RAM">
+        </div>
+        <div class="form-group">
+          <label>CPU Core Allocation</label>
+          <input type="text" id="editPkgCpu" class="form-control" placeholder="e.g. 1 Core CPU">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Bandwidth Specification</label>
+        <input type="text" id="editPkgBandwidth" class="form-control" placeholder="e.g. Unlimited 10Gbps BDIX">
+      </div>
+
+      <div class="form-group">
+        <label>Features (One per line)</label>
+        <textarea id="editPkgFeatures" class="form-control" style="min-height: 120px;" placeholder="cPanel Control Panel&#10;LiteSpeed Web Server&#10;Free Automated SSL"></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+        <button type="button" class="btn-sm" onclick="closePackageModal()">Cancel</button>
+        <button type="button" class="btn-primary-action" onclick="savePackageFromModal()">Save Plan Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit/Add Testimonial Modal -->
+  <div class="modal-overlay" id="testimonialModal">
+    <div class="modal-box">
+      <div class="card-header">
+        <h3 class="card-title" id="modalTestiTitle">Add Customer Testimonial</h3>
+        <button type="button" class="btn-sm" onclick="closeTestimonialModal()">&times; Close</button>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Customer Full Name</label>
+          <input type="text" id="editTestiName" class="form-control" placeholder="e.g. Arifur Rahman">
+        </div>
+        <div class="form-group">
+          <label>Designation / Company</label>
+          <input type="text" id="editTestiRole" class="form-control" placeholder="e.g. CEO, TechBazaar BD">
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>Customer Picture URL</label>
+          <input type="text" id="editTestiImg" class="form-control" placeholder="https://... or assets/images/..." onchange="previewImg('previewTestiImg', this.value)">
+          <div class="img-preview-box">
+            <img id="previewTestiImg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Avatar Preview" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
+            <span style="font-size:12px; color:#64748B;">Avatar Preview</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Rating (Stars)</label>
+          <select id="editTestiRating" class="form-control">
+            <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+            <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+            <option value="3">⭐⭐⭐ (3 Stars)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Customer Review Quote</label>
+        <textarea id="editTestiReview" class="form-control" style="min-height: 100px;" placeholder="Write client feedback here..."></textarea>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+        <button type="button" class="btn-sm" onclick="closeTestimonialModal()">Cancel</button>
+        <button type="button" class="btn-primary-action" onclick="saveTestimonialFromModal()">Save Testimonial</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Notification Toast -->
+  <div class="toast-msg" id="adminToast">Changes successfully saved!</div>
+
+  <!-- Application Scripts -->
+  <script src="assets/js/jaas-system.js"></script>
+  <script>
+    let siteConfig = null;
+    let currentCategoryFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadConfig();
+      const currentAdmin = sessionStorage.getItem('jaas_admin_user') || localStorage.getItem('jaas_admin_user') || 'admin';
+      const userLabel = document.getElementById('sidebarUserLabel');
+      if (userLabel) userLabel.innerText = 'User: ' + currentAdmin;
+    });
+
+    function adminLogout() {
+      if (confirm('Are you sure you want to log out from the Admin Dashboard?')) {
+        sessionStorage.removeItem('jaas_admin_logged_in');
+        sessionStorage.removeItem('jaas_admin_user');
+        localStorage.removeItem('jaas_admin_logged_in');
+        localStorage.removeItem('jaas_admin_user');
+        window.location.href = 'admin-login.html';
+      }
+    }
+
+    async function loadConfig() {
+      try {
+        const resp = await fetch('/api/config');
+        siteConfig = await resp.json();
+      } catch (e) {
+        console.error('Failed to load /api/config, falling back to localStorage');
+        const raw = localStorage.getItem('jaas_site_config');
+        siteConfig = raw ? JSON.parse(raw) : {};
+      }
+
+      renderConfigToUI();
+    }
+
+    function renderConfigToUI() {
+      if (!siteConfig) return;
+
+      // Tab 1: Branding
+      if (siteConfig.site) {
+        document.getElementById('cfgSiteTitle').value = siteConfig.site.title || '';
+        document.getElementById('cfgFavicon').value = siteConfig.site.favicon || '';
+        document.getElementById('cfgHeaderLogo').value = siteConfig.site.headerLogo || '';
+        document.getElementById('cfgFooterLogo').value = siteConfig.site.footerLogo || '';
+        document.getElementById('cfgTagline').value = siteConfig.site.tagline || '';
+        document.getElementById('cfgSubtagline').value = siteConfig.site.subtagline || '';
+        previewImg('previewFavicon', siteConfig.site.favicon);
+        previewImg('previewHeaderLogo', siteConfig.site.headerLogo);
+        previewImg('previewFooterLogo', siteConfig.site.footerLogo);
+      }
+
+      // Tab 4: Hero
+      if (siteConfig.hero) {
+        document.getElementById('cfgHeroLine1').value = siteConfig.hero.line1 || 'We Help Businesses';
+        document.getElementById('cfgHeroLine2').value = siteConfig.hero.line2 || 'Grow Online';
+        document.getElementById('cfgHeroBadge').value = siteConfig.hero.badge || 'Next-Gen Cloud & BDIX Web Hosting';
+        document.getElementById('cfgOrbitImg').value = siteConfig.hero.orbitImg || 'assets/images/jaasbd-logo.png';
+      }
+
+      // Tab 5: Contact
+      if (siteConfig.contact) {
+        document.getElementById('cfgPhone').value = siteConfig.contact.phone || '+88-01818-430308';
+        document.getElementById('cfgEmail').value = siteConfig.contact.email || 'info@jaasbd.com';
+        document.getElementById('cfgSupportEmail').value = siteConfig.contact.supportEmail || 'support@jaasbd.com';
+        document.getElementById('cfgAddress').value = siteConfig.contact.address || '843/06, Kadim Dewhata, Mirzapur, Tangail. 1940.';
+        document.getElementById('cfgWhatsapp').value = siteConfig.contact.whatsapp || '8801818430308';
+      }
+
+      // Tab 10: Admin Security
+      if (siteConfig.admin) {
+        document.getElementById('cfgAdminUser').value = siteConfig.admin.username || 'admin';
+        document.getElementById('cfgAdminEmail').value = siteConfig.admin.email || 'admin@jaasbd.com';
+      }
+
+      // Tab 2: Packages
+      renderPackagesTable();
+
+      // Tab 3: Domains
+      renderDomainsTable();
+
+      // Tab 6: Testimonials
+      renderTestimonialsTable();
+
+      // Tab 7: Orders
+      renderOrdersTable();
+    }
+
+    function filterPackagesByCategory(cat, btn) {
+      currentCategoryFilter = cat;
+      document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderPackagesTable();
+    }
+
+    function renderPackagesTable() {
+      const tbody = document.getElementById('packagesTableBody');
+      tbody.innerHTML = '';
+      const allPkgs = siteConfig.packages || [];
+      document.getElementById('pkgCountPill').innerText = allPkgs.length;
+      document.getElementById('countAllPkgs').innerText = allPkgs.length;
+
+      // Update category count pills
+      const webPkgs = allPkgs.filter(p => p.category === 'Web Hosting');
+      const bdixPkgs = allPkgs.filter(p => p.category === 'BDIX Web Hosting');
+      const vpsPkgs = allPkgs.filter(p => p.category === 'BDIX Cloud VPS');
+      const resPkgs = allPkgs.filter(p => p.category === 'Reseller Hosting');
+
+      document.getElementById('countWebPkgs').innerText = webPkgs.length;
+      document.getElementById('countBdixPkgs').innerText = bdixPkgs.length;
+      document.getElementById('countVpsPkgs').innerText = vpsPkgs.length;
+      document.getElementById('countResellerPkgs').innerText = resPkgs.length;
+
+      const pkgsToDisplay = currentCategoryFilter === 'all' 
+        ? allPkgs 
+        : allPkgs.filter(p => p.category === currentCategoryFilter);
+
+      if (pkgsToDisplay.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:30px; color:#64748B;">No packages found in this category. Click "+ Add New Package" to create one.</td></tr>`;
+        return;
+      }
+
+      pkgsToDisplay.forEach((p) => {
+        const actualIdx = allPkgs.indexOf(p);
+        const storageVal = p.storage || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].gb + ' GB NVMe' : 'Custom');
+        const sitesVal = p.websites || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].sites + ' Website' : '1');
+        const ramVal = p.ram || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].ram : '-');
+        const cpuVal = p.cpu || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].cpu : '-');
+        const annPrice = p.annualPrice || Math.round(p.basePrice * 12);
+
+        let badgeClass = 'badge-primary';
+        if (p.badge === 'Starter') badgeClass = 'badge-purple';
+        else if (p.badge === 'Most Popular' || p.badge === 'Popular') badgeClass = 'badge-success';
+        else if (p.badge === 'Best Value') badgeClass = 'badge-warning';
+
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <strong>${p.name}</strong><br>
+              <span style="font-size:11px; color:#64748B;">ID: <code>${p.id}</code></span>
+            </td>
+            <td><span class="badge badge-primary">${p.category}</span></td>
+            <td><span class="badge ${badgeClass}">${p.badge || 'Active'}</span></td>
+            <td><strong style="color:#0077B6; font-size:15px;">৳${p.basePrice}</strong><span style="font-size:12px; color:#64748B;">/mo</span></td>
+            <td><strong style="color:#10B981; font-size:14px;">৳${annPrice}</strong><span style="font-size:11px; color:#64748B;">/yr</span></td>
+            <td>
+              <strong>${storageVal}</strong><br>
+              <span style="font-size:11px; color:#64748B;">${sitesVal}</span>
+            </td>
+            <td style="font-size:12px; color:#475569;">
+              ${ramVal} &bull; ${cpuVal}
+            </td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn-sm" onclick="editPackage(${actualIdx})" title="Edit Package">✏️ Edit</button>
+                <button type="button" class="btn-sm btn-sm-danger" onclick="deletePackage(${actualIdx})" title="Delete Package">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function renderDomainsTable() {
+      const tbody = document.getElementById('domainsTableBody');
+      tbody.innerHTML = '';
+      const list = siteConfig.domainPricing || [];
+
+      list.forEach((d, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${d.ext}</strong></td>
+            <td><input type="number" class="form-control" style="width:110px;" value="${d.regPrice}" onchange="updateDomainVal(${idx}, 'regPrice', this.value)"></td>
+            <td><input type="number" class="form-control" style="width:110px;" value="${d.renewPrice}" onchange="updateDomainVal(${idx}, 'renewPrice', this.value)"></td>
+            <td><input type="number" class="form-control" style="width:110px;" value="${d.transferPrice}" onchange="updateDomainVal(${idx}, 'transferPrice', this.value)"></td>
+            <td>
+              <button type="button" class="btn-sm btn-sm-danger" onclick="deleteDomain(${idx})">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    /* Tab 6: Happy Testimonials Manager */
+    function renderTestimonialsTable() {
+      const tbody = document.getElementById('testimonialsTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const list = siteConfig.testimonials || [];
+      const pill = document.getElementById('testiCountPill');
+      if (pill) pill.innerText = list.length;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:#64748B;">No testimonials found. Click "+ Add New Testimonial" to create one.</td></tr>`;
+        return;
+      }
+
+      list.forEach((t, idx) => {
+        const stars = '⭐'.repeat(t.rating || 5);
+        tbody.innerHTML += `
+          <tr>
+            <td>
+              <img src="${t.image}" alt="${t.name}" style="width:44px; height:44px; border-radius:50%; object-fit:cover; border:2px solid #E2E8F0;">
+            </td>
+            <td><strong>${t.name}</strong></td>
+            <td><span class="badge badge-primary">${t.role}</span></td>
+            <td>${stars}</td>
+            <td style="font-size:12px; color:#475569; max-width:320px;"><em>"${t.review}"</em></td>
+            <td>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn-sm" onclick="editTestimonial(${idx})">✏️ Edit</button>
+                <button type="button" class="btn-sm btn-sm-danger" onclick="deleteTestimonial(${idx})">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    let editingTestiIdx = -1;
+    function openAddTestimonialModal() {
+      editingTestiIdx = -1;
+      document.getElementById('modalTestiTitle').innerText = 'Add New Customer Testimonial';
+      document.getElementById('editTestiName').value = '';
+      document.getElementById('editTestiRole').value = 'CEO, Tech Startup';
+      document.getElementById('editTestiImg').value = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face';
+      previewImg('previewTestiImg', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face');
+      document.getElementById('editTestiRating').value = '5';
+      document.getElementById('editTestiReview').value = '';
+      document.getElementById('testimonialModal').style.display = 'flex';
+    }
+
+    function editTestimonial(idx) {
+      editingTestiIdx = idx;
+      const t = siteConfig.testimonials[idx];
+      document.getElementById('modalTestiTitle').innerText = 'Edit Testimonial: ' + t.name;
+      document.getElementById('editTestiName').value = t.name;
+      document.getElementById('editTestiRole').value = t.role;
+      document.getElementById('editTestiImg').value = t.image;
+      previewImg('previewTestiImg', t.image);
+      document.getElementById('editTestiRating').value = t.rating || 5;
+      document.getElementById('editTestiReview').value = t.review;
+      document.getElementById('testimonialModal').style.display = 'flex';
+    }
+
+    function closeTestimonialModal() {
+      document.getElementById('testimonialModal').style.display = 'none';
+    }
+
+    function saveTestimonialFromModal() {
+      const name = document.getElementById('editTestiName').value.trim();
+      const role = document.getElementById('editTestiRole').value.trim();
+      const image = document.getElementById('editTestiImg').value.trim();
+      const rating = parseInt(document.getElementById('editTestiRating').value) || 5;
+      const review = document.getElementById('editTestiReview').value.trim();
+
+      if (!name || !review) {
+        alert('Please enter both customer name and review text.');
+        return;
+      }
+
+      siteConfig.testimonials = siteConfig.testimonials || [];
+      const obj = { id: 'testi-' + Date.now(), name, role, image, rating, review };
+
+      if (editingTestiIdx >= 0) {
+        siteConfig.testimonials[editingTestiIdx] = obj;
+      } else {
+        siteConfig.testimonials.push(obj);
+      }
+
+      closeTestimonialModal();
+      renderTestimonialsTable();
+      showToast('Customer testimonial saved! Click Save All Changes to persist to disk.');
+    }
+
+    function deleteTestimonial(idx) {
+      if (confirm('Are you sure you want to delete this testimonial?')) {
+        siteConfig.testimonials.splice(idx, 1);
+        renderTestimonialsTable();
+        showToast('Testimonial removed.');
+      }
+    }
+
+
+    function renderOrdersTable() {
+      const tbody = document.getElementById('ordersTableBody');
+      tbody.innerHTML = '';
+      const invoices = JaasStore.getInvoices();
+      document.getElementById('orderCountPill').innerText = invoices.length;
+
+      if (invoices.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#64748B;">No customer orders placed yet. Orders will appear here automatically.</td></tr>`;
+        return;
+      }
+
+      invoices.forEach(inv => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${inv.id}</strong></td>
+            <td>${inv.date}</td>
+            <td><strong>Ashish Halder</strong></td>
+            <td>${inv.planName} &bull; <em>${inv.domain}</em></td>
+            <td><strong style="color:#0077B6;">৳${inv.amount.toLocaleString()} BDT</strong></td>
+            <td><span class="badge badge-success">&#10004; ${inv.status}</span></td>
+            <td>
+              <a href="invoice.html?id=${inv.id}" target="_blank" class="btn-sm" style="text-decoration:none;">
+                📄 View A4 Bill
+              </a>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function previewImg(targetId, src) {
+      const el = document.getElementById(targetId);
+      if (el && src) el.src = src;
+    }
+
+    function switchAdminTab(tabId, el) {
+      document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+      if (el) el.classList.add('active');
+
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      const targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) targetTab.classList.add('active');
+
+      const titles = {
+        branding: '1. Website Branding & Identity',
+        packages: '2. Packages & Pricing Manager',
+        domains: '3. Domain Pricing Table',
+        hero: '4. Hero Section & Orbit Settings',
+        contact: '5. Company & Office Contact Information',
+        testimonials: '6. Happy Testimonials & Reviews',
+        orders: '7. Customer Orders & Invoices',
+        security: '8. Admin Security & Credentials'
+      };
+      document.getElementById('adminHeaderTitle').innerText = titles[tabId] || 'Admin Panel';
+    }
+
+    // 10-Minute Inactivity Auto-Logout for Admin Security
+    let adminInactivityTimer;
+    const ADMIN_INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 minutes (600,000 ms)
+
+    function resetAdminInactivity() {
+      clearTimeout(adminInactivityTimer);
+      adminInactivityTimer = setTimeout(() => {
+        sessionStorage.removeItem('jaas_admin_logged_in');
+        sessionStorage.removeItem('jaas_admin_user');
+        localStorage.removeItem('jaas_admin_logged_in');
+        localStorage.removeItem('jaas_admin_user');
+        alert('Admin session expired due to 10 minutes of inactivity. Please log in again.');
+        window.location.replace('admin-login.html');
+      }, ADMIN_INACTIVITY_LIMIT);
+    }
+
+    ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart'].forEach(evt => {
+      window.addEventListener(evt, resetAdminInactivity, { passive: true });
+    });
+    resetAdminInactivity();
+
+    // Edit package modal logic
+    let editingPkgIdx = -1;
+    function editPackage(idx) {
+      editingPkgIdx = idx;
+      const pkg = siteConfig.packages[idx];
+      document.getElementById('modalPkgTitle').innerText = 'Edit Plan: ' + pkg.name;
+      document.getElementById('editPkgName').value = pkg.name;
+      document.getElementById('editPkgCategory').value = pkg.category;
+      document.getElementById('editPkgBadge').value = pkg.badge || 'Popular';
+      document.getElementById('editPkgBasePrice').value = pkg.basePrice;
+      document.getElementById('editPkgAnnualPrice').value = pkg.annualPrice || Math.round(pkg.basePrice * 12);
+      document.getElementById('editPkgStorage').value = pkg.storage || (pkg.storageOptions && pkg.storageOptions[0] ? pkg.storageOptions[0].gb + ' GB NVMe' : '5 GB NVMe');
+      document.getElementById('editPkgWebsites').value = pkg.websites || '1 Website';
+      document.getElementById('editPkgRam').value = pkg.ram || '2 GB RAM';
+      document.getElementById('editPkgCpu').value = pkg.cpu || '1 Core CPU';
+      document.getElementById('editPkgBandwidth').value = pkg.bandwidth || 'Unlimited 10Gbps BDIX';
+      document.getElementById('editPkgFeatures').value = (pkg.features || []).join('\n');
+      document.getElementById('packageModal').style.display = 'flex';
+    }
+
+    function openAddPackageModal() {
+      editingPkgIdx = -1;
+      document.getElementById('modalPkgTitle').innerText = 'Add New Hosting Package';
+      document.getElementById('editPkgName').value = '';
+      document.getElementById('editPkgCategory').value = currentCategoryFilter !== 'all' ? currentCategoryFilter : 'Web Hosting';
+      document.getElementById('editPkgBadge').value = 'Popular';
+      document.getElementById('editPkgBasePrice').value = 199;
+      document.getElementById('editPkgAnnualPrice').value = 2388;
+      document.getElementById('editPkgStorage').value = '15 GB NVMe';
+      document.getElementById('editPkgWebsites').value = '3 Websites';
+      document.getElementById('editPkgRam').value = '2 GB RAM';
+      document.getElementById('editPkgCpu').value = '2 Cores CPU';
+      document.getElementById('editPkgBandwidth').value = 'Unlimited 10Gbps BDIX';
+      document.getElementById('editPkgFeatures').value = 'cPanel Control Panel\nLiteSpeed Web Server\nFree Automated SSL\nDaily Remote Backups\nUnlimited BDIX Bandwidth';
+      document.getElementById('packageModal').style.display = 'flex';
+    }
+
+    function closePackageModal() {
+      document.getElementById('packageModal').style.display = 'none';
+    }
+
+    function savePackageFromModal() {
+      const name = document.getElementById('editPkgName').value.trim();
+      const cat = document.getElementById('editPkgCategory').value.trim();
+      const badge = document.getElementById('editPkgBadge').value.trim();
+      const price = parseInt(document.getElementById('editPkgBasePrice').value) || 99;
+      const annPrice = parseInt(document.getElementById('editPkgAnnualPrice').value) || (price * 12);
+      const storage = document.getElementById('editPkgStorage').value.trim() || '5 GB NVMe';
+      const websites = document.getElementById('editPkgWebsites').value.trim() || '1 Website';
+      const ram = document.getElementById('editPkgRam').value.trim() || '1 GB RAM';
+      const cpu = document.getElementById('editPkgCpu').value.trim() || '1 Core CPU';
+      const bandwidth = document.getElementById('editPkgBandwidth').value.trim() || 'Unlimited BDIX';
+      const featLines = document.getElementById('editPkgFeatures').value.split('\n').map(l => l.trim()).filter(Boolean);
+
+      if (!name) {
+        alert('Please enter a package name.');
+        return;
+      }
+
+      const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const numGbMatch = storage.match(/\d+/);
+      const numGb = numGbMatch ? parseInt(numGbMatch[0]) : 5;
+
+      const updatedObj = {
+        name: name,
+        category: cat,
+        badge: badge,
+        basePrice: price,
+        annualPrice: annPrice,
+        storage: storage,
+        websites: websites,
+        ram: ram,
+        cpu: cpu,
+        bandwidth: bandwidth,
+        features: featLines,
+        storageOptions: [
+          { gb: numGb, price: price, ram: ram, cpu: cpu, sites: websites, bandwidth: bandwidth }
+        ]
+      };
+
+      if (editingPkgIdx >= 0) {
+        siteConfig.packages[editingPkgIdx] = {
+          ...siteConfig.packages[editingPkgIdx],
+          ...updatedObj
+        };
+      } else {
+        siteConfig.packages.push({
+          id: id,
+          ...updatedObj
+        });
+      }
+
+      closePackageModal();
+      renderPackagesTable();
+      showToast('Package updated! Click "Save All Changes" to persist to disk.');
+    }
+
+    function deletePackage(idx) {
+      if (confirm('Are you sure you want to delete this package?')) {
+        siteConfig.packages.splice(idx, 1);
+        renderPackagesTable();
+        showToast('Package removed.');
+      }
+    }
+
+    function addDomainRow() {
+      siteConfig.domainPricing = siteConfig.domainPricing || [];
+      siteConfig.domainPricing.push({ ext: '.new', regPrice: 1500, renewPrice: 1500, transferPrice: 1500 });
+      renderDomainsTable();
+    }
+
+    function updateDomainVal(idx, key, val) {
+      if (siteConfig.domainPricing && siteConfig.domainPricing[idx]) {
+        siteConfig.domainPricing[idx][key] = parseInt(val) || 0;
+      }
+    }
+
+    function deleteDomain(idx) {
+      siteConfig.domainPricing.splice(idx, 1);
+      renderDomainsTable();
+    }
+
+
+    async function saveAllConfigToServer() {
+      // Gather inputs
+      siteConfig.site = {
+        title: document.getElementById('cfgSiteTitle').value,
+        favicon: document.getElementById('cfgFavicon').value,
+        headerLogo: document.getElementById('cfgHeaderLogo').value,
+        footerLogo: document.getElementById('cfgFooterLogo').value,
+        tagline: document.getElementById('cfgTagline').value,
+        subtagline: document.getElementById('cfgSubtagline').value
+      };
+
+      siteConfig.hero = {
+        line1: document.getElementById('cfgHeroLine1').value,
+        line2: document.getElementById('cfgHeroLine2').value,
+        badge: document.getElementById('cfgHeroBadge').value,
+        orbitImg: document.getElementById('cfgOrbitImg').value
+      };
+
+      siteConfig.contact = {
+        phone: document.getElementById('cfgPhone').value,
+        email: document.getElementById('cfgEmail').value,
+        supportEmail: document.getElementById('cfgSupportEmail').value,
+        address: document.getElementById('cfgAddress').value,
+        whatsapp: document.getElementById('cfgWhatsapp').value
+      };
+
+      // Admin security credentials update
+      const newAdminUser = document.getElementById('cfgAdminUser').value.trim();
+      const newAdminEmail = document.getElementById('cfgAdminEmail').value.trim();
+      const newPass = document.getElementById('cfgAdminPass').value;
+      const confirmPass = document.getElementById('cfgAdminPassConfirm').value;
+
+      if (newPass) {
+        if (newPass !== confirmPass) {
+          alert('Password confirmation does not match! Please check and try again.');
+          return;
+        }
+        siteConfig.admin = siteConfig.admin || {};
+        siteConfig.admin.password = newPass;
+      }
+      siteConfig.admin = siteConfig.admin || {};
+      siteConfig.admin.username = newAdminUser || 'admin';
+      siteConfig.admin.email = newAdminEmail || 'admin@jaasbd.com';
+
+      // Always save to localStorage immediately
+      localStorage.setItem('jaas_site_config', JSON.stringify(siteConfig));
+
+      // Save to server API (MySQL via api.php or Node.js via /api/config)
+      try {
+        let savedToServer = false;
+        const endpoints = ['api.php?action=save_config', '/api/config'];
+        for (const ep of endpoints) {
+          try {
+            const resp = await fetch(ep, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(siteConfig)
+            });
+            if (resp.ok) {
+              const resData = await resp.json();
+              if (resData.success) {
+                savedToServer = true;
+                break;
+              }
+            }
+          } catch(err) {}
+        }
+
+        if (savedToServer) {
+          showToast('✓ All settings saved to Server (MySQL & JSON) and applied across website!');
+        } else {
+          showToast('✓ Settings saved in browser local storage.');
+        }
+      } catch (e) {
+        showToast('✓ Saved to browser local storage.');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('adminToast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3500);
+    }
+  </script>
+
+</body>
+</html>

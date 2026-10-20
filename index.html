@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAAS BD - Leading Web Hosting, Domain &amp; Cloud Provider in Bangladesh</title>
+  <meta name="description" content="JAAS BD is Bangladesh's top BDIX hosting, domain registration, VPS and cloud infrastructure provider. Fast NVMe SSD, 99.9% uptime, 24/7 support.">
+  <link rel="icon" type="image/png" href="assets/images/jaasbd-logo.png">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1E293B;
+      background-color: #FFFFFF;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ---------------------------------------------------
+       JAAS BD LOGO BRAND COLOR SYSTEM
+       --------------------------------------------------- */
+    .jaasbd-text {
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+    .jaasbd-text .j  { color: #7B2CBF; } /* Purple */
+    .jaasbd-text .a1 { color: #F77F00; } /* Amber Orange */
+    .jaasbd-text .a2 { color: #5A189A; } /* Deep Violet */
+    .jaasbd-text .s  { color: #0077B6; } /* Royal Blue */
+    .jaasbd-text .sp { display: inline-block; width: 4px; }
+    .jaasbd-text .b  { color: #B5179E; } /* Fuchsia Magenta */
+    .jaasbd-text .d  {
+      background: linear-gradient(135deg, #0077B6 0%, #06D6A0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #06D6A0;
+    }
+
+    /* ---------------------------------------------------
+       1. HEADER & NAVBAR (Clearly distinct white bar)
+       --------------------------------------------------- */
+    .header-nav {
+      background: #FFFFFF;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #E2E8F0;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      flex-wrap: nowrap;
+      gap: 15px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .brand-logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 26px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1F2937;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      position: relative;
+      padding: 8px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      background: #F1F5F9;
+      color: #0077B6;
+    }
+
+    .nav-link svg {
+      width: 10px;
+      height: 10px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-link:hover svg {
+      transform: rotate(180deg);
+    }
+
+    /* Dropdowns */
+    .nav-dropdown {
+      position: absolute;
+      top: 100%;
+      left: -10px;
+      min-width: 250px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+      border: 1px solid #E2E8F0;
+      padding: 10px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-link:hover .nav-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      font-size: 13.5px;
+      color: #334155;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .dropdown-item:hover {
+      background: #F0F9FF;
+      color: #0077B6;
+    }
+
+    .dropdown-item span.icon {
+      font-size: 16px;
+      width: 22px;
+      text-align: center;
+      color: #0077B6;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .btn-search {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.15s;
+    }
+
+    .btn-search:hover {
+      color: #0077B6;
+      background: #F1F5F9;
+    }
+
+    .btn-login {
+      border: 1px solid #D1D5DB;
+      background: #FFFFFF;
+      color: #1F2937;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .btn-login:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+    }
+
+    .btn-deal {
+      background: linear-gradient(135deg, #0077B6 0%, #0284C7 100%);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 9px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 119, 182, 0.35);
+      transition: all 0.2s;
+      border: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-deal:hover {
+      background: linear-gradient(135deg, #023E8A 0%, #0077B6 100%);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------------------------------------------
+       2. HERO SECTION (Tightly Aligned Top, 2 Columns)
+       --------------------------------------------------- */
+    .hero-wrapper {
+      padding: 8px 0 16px;
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #FAFAFA 0%, #F8FAFC 100%);
+      border: 1px solid #F1F5F9;
+      border-radius: 26px;
+      padding: 24px 45px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      min-height: auto;
+    }
+
+    /* Left Side: Prominent Hero Typography & Badges */
+    .hero-left-content {
+      flex: 1;
+      max-width: 580px;
+      text-align: left;
+      z-index: 5;
+    }
+
+    .hero-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      color: #475569;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 16px;
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      border: 1px solid #E2E8F0;
+      margin-bottom: 14px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #06D6A0;
+      box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.25);
+    }
+
+    .hero-headline {
+      font-size: 48px;
+      font-weight: 900;
+      color: #0077B6;
+      line-height: 1.15;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .hero-online-pill {
+      display: inline-block;
+      background: #E2FB42;
+      color: #0F172A;
+      padding: 2px 22px;
+      border-radius: 999px;
+      border: 3px solid #0F172A;
+      font-size: 44px;
+      font-weight: 900;
+      vertical-align: middle;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-subtext {
+      font-size: 15.5px;
+      color: #475569;
+      line-height: 1.55;
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, #0077B6 0%, #0284C7 100%);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 30px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0, 119, 182, 0.35);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-hero-primary:hover {
+      background: linear-gradient(135deg, #023E8A 0%, #0077B6 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 119, 182, 0.45);
+    }
+
+    .btn-hero-secondary {
+      background: #FFFFFF;
+      color: #1E293B;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+      background: #F8FAFC;
+    }
+
+    .hero-features-list {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      color: #64748B;
+      font-weight: 600;
+      flex-wrap: wrap;
+    }
+
+    .hero-features-list span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Right Side: The Moving Orbit Circle (Aligned Top) */
+    .hero-right-orbit {
+      flex: 0 0 510px;
+      height: 440px;
+      position: relative;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orbit-scaler {
+      width: 600px;
+      height: 580px;
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      transform-origin: center center;
+    }
+
+    .orbit-area {
+      position: relative;
+      width: 600px;
+      height: 580px;
+    }
+
+    .core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 128, 213, .25), rgba(72, 190, 220, .1) 55%, transparent 70%);
+      box-shadow: 0 0 70px rgba(70, 163, 223, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .core-inner-badge {
+      position: absolute;
+      inset: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid rgba(70, 150, 220, .35);
+      box-shadow: 0 10px 35px rgba(44, 115, 180, .2);
+      z-index: 5;
+    }
+
+    .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 1px solid rgba(70, 150, 220, 0.35);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .r1 {
+      width: 300px;
+      height: 300px;
+    }
+
+    .r2 {
+      width: 415px;
+      height: 415px;
+      border-style: dashed;
+      border-color: rgba(70, 150, 220, 0.45);
+    }
+
+    .r3 {
+      width: 540px;
+      height: 540px;
+      border-color: rgba(113, 173, 255, 0.6);
+    }
+
+    .ring-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #0077B6;
+      box-shadow: 0 0 12px #0077B6;
+    }
+
+    .d1 { left: 91px; top: 175px; }
+    .d2 { right: 91px; top: 245px; }
+    .d3 { left: 305px; bottom: 20px; }
+    .d4 { right: 170px; top: 83px; }
+
+    .orbit {
+      position: absolute;
+      inset: 0;
+      animation: spin 24s linear infinite;
+    }
+
+    .orbit:hover {
+      animation-play-state: paused;
+    }
+
+    .orbit .item {
+      position: absolute;
+      animation: counter 24s linear infinite;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .orbit:hover .item {
+      animation-play-state: paused;
+    }
+
+    .orbit .item:hover {
+      z-index: 30;
+    }
+
+    .orbit .item-inner {
+      min-width: 72px;
+      padding: 10px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid #DCEAF8;
+      box-shadow: 0 8px 25px rgba(35, 88, 145, .15);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 800;
+      color: inherit;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    }
+
+    .orbit .item:hover .item-inner {
+      transform: scale(1.18);
+      box-shadow: 0 12px 30px rgba(35, 88, 145, 0.28);
+    }
+
+    .orbit .item:nth-child(1) { left: 260px; top: 0px; color: #0077B6; }
+    .orbit .item:nth-child(2) { left: 380px; top: 80px; color: #7B2CBF; }
+    .orbit .item:nth-child(3) { right: 10px; top: 200px; color: #1478C9; }
+    .orbit .item:nth-child(4) { right: 120px; bottom: 35px; color: #F77F00; }
+    .orbit .item:nth-child(5) { left: 250px; bottom: 10px; color: #06D6A0; }
+    .orbit .item:nth-child(6) { left: 120px; bottom: 40px; color: #4C68C9; }
+    .orbit .item:nth-child(7) { left: 50px; top: 260px; color: #06D6A0; }
+    .orbit .item:nth-child(8) { left: 105px; top: 95px; color: #10B981; }
+    .orbit .item:nth-child(9) { left: 265px; top: 360px; color: #F77F00; }
+    .orbit .item:nth-child(10) { right: 140px; top: 180px; color: #7B2CBF; }
+    .orbit .item:nth-child(11) { left: 180px; top: 390px; color: #0284C7; }
+    .orbit .item:nth-child(12) { left: 365px; top: 370px; color: #0077B6; }
+
+    .orbit .item span {
+      display: block;
+      font-size: 9px;
+      color: #8A9AB1;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes counter {
+      to { transform: rotate(-360deg); }
+    }
+
+    .side-card {
+      position: absolute;
+      width: 150px;
+      padding: 13px 15px;
+      border-radius: 16px;
+      background: #FFFFFF;
+      border: 1px solid #E4EDF7;
+      box-shadow: 0 10px 30px rgba(29, 79, 125, .12);
+      font-weight: 800;
+      font-size: 13px;
+      color: #1E293B;
+      z-index: 20;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .side-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(29, 79, 125, .18);
+    }
+
+    .side-card small {
+      display: block;
+      color: #8A98AA;
+      font-weight: 500;
+      margin-top: 3px;
+      font-size: 11px;
+    }
+
+    .c-domain { top: 55px; right: -40px; }
+    .c-cloud  { top: 160px; right: -40px; }
+    .c-bdix   { top: 265px; right: -40px; }
+    .c-erp    { top: 370px; right: -40px; }
+    .c-server { top: 480px; left: -40px; }
+    .c-ssl    { top: 380px; left: -40px; }
+
+    .side-card b { color: #0077B6; }
+    .c-cloud b   { color: #06D6A0; }
+    .c-bdix b    { color: #7B2CBF; }
+    .c-erp b     { color: #F77F00; }
+    .c-server b  { color: #B5179E; }
+    .c-ssl b     { color: #00B4D8; }
+
+    /* ---------------------------------------------------
+       3. REGISTER DOMAIN NAME HERE (DIANA BLUE BANNER)
+       --------------------------------------------------- */
+    .domain-search-section {
+      background-color: #5A189A;
+      background-image: linear-gradient(135deg, rgba(74, 14, 110, 0.94) 0%, rgba(123, 44, 191, 0.92) 100%), url('assets/images/domain-search-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 65px 0 70px;
+      color: #FFFFFF;
+      text-align: center;
+      position: relative;
+    }
+
+    .domain-sec-title {
+      font-size: 38px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .domain-sec-sub {
+      font-size: 15px;
+      color: #F3E8FF;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .search-box-wrap {
+      max-width: 780px;
+      margin: 0 auto 28px;
+      display: flex;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .search-box-input {
+      flex: 1;
+      border: none;
+      padding: 18px 24px;
+      font-size: 15px;
+      outline: none;
+      color: #1F2937;
+    }
+
+    .btn-search-domain {
+      background: #F77F00;
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 0 40px;
+      letter-spacing: 0.8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(247, 127, 0, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-search-domain:hover {
+      background: #E85D04;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(247, 127, 0, 0.5);
+    }
+
+    .domain-features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 24px;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .domain-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #FFFFFF;
+    }
+
+    .feat-check {
+      color: #06D6A0;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* ---------------------------------------------------
+       4. ALL OUR SERVICES (Categorized in JAAS BD Spectrum)
+       --------------------------------------------------- */
+    .services-section {
+      padding: 80px 0;
+      background: #FFFFFF;
+    }
+
+    .section-header-center {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-main-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #0F172A;
+      margin-bottom: 12px;
+    }
+
+    .section-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .section-dots span:nth-child(1) { width: 8px; height: 8px; border-radius: 50%; background: #7B2CBF; }
+    .section-dots span:nth-child(2) { width: 8px; height: 8px; border-radius: 50%; background: #F77F00; }
+    .section-dots span:nth-child(3) { width: 8px; height: 8px; border-radius: 50%; background: #06D6A0; }
+
+    .section-subtitle {
+      font-size: 14.5px;
+      color: #64748B;
+    }
+
+    .category-block {
+      margin-bottom: 50px;
+    }
+
+    .category-header-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+
+    .cat-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .cat-badge-teal    { background: #06D6A0; box-shadow: 0 4px 12px rgba(6, 214, 160, 0.35); }
+    .cat-badge-blue    { background: #0077B6; box-shadow: 0 4px 12px rgba(0, 119, 182, 0.35); }
+    .cat-badge-purple  { background: #7B2CBF; box-shadow: 0 4px 12px rgba(123, 44, 191, 0.35); }
+    .cat-badge-magenta { background: #B5179E; box-shadow: 0 4px 12px rgba(181, 23, 158, 0.35); }
+    .cat-badge-orange  { background: #F77F00; box-shadow: 0 4px 12px rgba(247, 127, 0, 0.35); }
+
+    .cat-title-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0;
+    }
+
+    .cat-count-sub {
+      font-size: 12px;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .cards-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 215px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .service-card:hover {
+      border-color: #0077B6;
+      box-shadow: 0 12px 28px rgba(0, 119, 182, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .card-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #F0F9FF;
+      border: 1px solid #BAE6FD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: #64748B;
+      line-height: 1.45;
+    }
+
+    .card-best-for {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card-best-for strong {
+      color: #0F172A;
+      font-weight: 600;
+    }
+
+    /* Package Price Buttons Styled Harmoniously From Logo Spectrum Colors */
+    .card-btn-price {
+      display: inline-block;
+      align-self: flex-start;
+      background: linear-gradient(135deg, #7B2CBF 0%, #0077B6 100%);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Category 1: Domains & SSL (Logo Teal) */
+    #domains-ssl .card-btn-price {
+      background: #028090;
+      box-shadow: 0 3px 10px rgba(2, 128, 144, 0.3);
+    }
+    #domains-ssl .card-btn-price:hover {
+      background: #00A896;
+      transform: translateY(-1px);
+    }
+
+    /* Category 2: Web Hosting (Logo Royal Blue) */
+    #web-hosting .card-btn-price {
+      background: #0077B6;
+      box-shadow: 0 3px 10px rgba(0, 119, 182, 0.3);
+    }
+    #web-hosting .card-btn-price:hover {
+      background: #023E8A;
+      transform: translateY(-1px);
+    }
+
+    /* Category 3: Cloud & Servers (Logo Purple) */
+    #cloud-servers .card-btn-price {
+      background: #7B2CBF;
+      box-shadow: 0 3px 10px rgba(123, 44, 191, 0.3);
+    }
+    #cloud-servers .card-btn-price:hover {
+      background: #5A189A;
+      transform: translateY(-1px);
+    }
+
+    /* Category 4: Communication (Logo Magenta) */
+    #communication .card-btn-price {
+      background: #B5179E;
+      box-shadow: 0 3px 10px rgba(181, 23, 158, 0.3);
+    }
+    #communication .card-btn-price:hover {
+      background: #831843;
+      transform: translateY(-1px);
+    }
+
+    /* Category 5: Solutions (Logo Amber Orange) */
+    #solutions .card-btn-price {
+      background: #F77F00;
+      box-shadow: 0 3px 10px rgba(247, 127, 0, 0.35);
+    }
+    #solutions .card-btn-price:hover {
+      background: #E85D04;
+      transform: translateY(-1px);
+    }
+
+    /* ---------------------------------------------------
+       5. PACKAGE FEATURES (4 Logo Spectrum Circles)
+       --------------------------------------------------- */
+    .package-features-section {
+      padding: 70px 0 80px;
+      background: #FFFFFF;
+      text-align: center;
+    }
+
+    .feat-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feat-card-item {
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .feat-icon-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 30px;
+    }
+
+    .feat-ic-1 { background: linear-gradient(135deg, #06D6A0, #0077B6); box-shadow: 0 8px 24px rgba(6, 214, 160, 0.3); }
+    .feat-ic-2 { background: linear-gradient(135deg, #0077B6, #0284C7); box-shadow: 0 8px 24px rgba(0, 119, 182, 0.3); }
+    .feat-ic-3 { background: linear-gradient(135deg, #7B2CBF, #5A189A); box-shadow: 0 8px 24px rgba(123, 44, 191, 0.3); }
+    .feat-ic-4 { background: linear-gradient(135deg, #F77F00, #EA580C); box-shadow: 0 8px 24px rgba(247, 127, 0, 0.3); }
+
+    .feat-item-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 12px;
+    }
+
+    .feat-item-desc {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.55;
+    }
+
+    /* ---------------------------------------------------
+       6. COMPANY STATICS (Logo Accent Counters)
+       --------------------------------------------------- */
+    .company-statics-section {
+      background: #FFFFFF;
+      padding: 70px 0;
+      color: #0F172A;
+      text-align: center;
+      border-top: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .stats-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #0F172A;
+    }
+
+    .stats-title span {
+      color: #0077B6;
+    }
+
+    .stats-subtitle {
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 45px;
+    }
+
+    .stats-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-counter-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 35px 20px;
+      box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .stat-counter-card:hover {
+      background: #F8FAFC;
+      border-color: #0077B6;
+      box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .stat-num {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* ---------------------------------------------------
+       7. SERVER STATICS & PRE-SALE FAQ
+       --------------------------------------------------- */
+    .split-section {
+      padding: 80px 0;
+      background: #FFFFFF;
+    }
+
+    .split-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .split-col-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 10px;
+    }
+
+    .progress-group {
+      margin-top: 30px;
+    }
+
+    .progress-item {
+      margin-bottom: 22px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar-bg {
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #0077B6;
+      border-radius: 999px;
+    }
+
+    /* FAQ Accordion */
+    .faq-accordion-wrap {
+      margin-top: 30px;
+    }
+
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      color: #0F172A;
+      background: #F8FAFC;
+      font-size: 14.5px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover {
+      background: #F1F5F9;
+    }
+
+    .faq-arrow {
+      font-size: 12px;
+      color: #0077B6;
+      transition: transform 0.2s;
+    }
+
+    .faq-item.active .faq-question {
+      background: #EFF6FF;
+      color: #0077B6;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .faq-item.active .faq-arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      background: #FFFFFF;
+      color: #334155;
+      font-size: 13.5px;
+      line-height: 1.6;
+      padding: 18px 20px;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    /* ---------------------------------------------------
+       8. START BUILDING 10X FAST BANNER
+       --------------------------------------------------- */
+    .cta-speed-banner {
+      background: linear-gradient(90deg, #F8FAFC 0%, #EFF6FF 50%, #FAF5FF 100%);
+      color: #0F172A;
+      padding: 30px 0;
+      border-top: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .cta-banner-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cta-banner-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    .btn-expert-cta {
+      background: linear-gradient(135deg, #F77F00 0%, #FF9E00 100%);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 12px 28px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(247, 127, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-expert-cta:hover {
+      background: #E85D04;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(247, 127, 0, 0.55);
+    }
+
+    /* ---------------------------------------------------
+       9. HAPPY TESTIMONIALS (DianaHost Olive Green)
+       --------------------------------------------------- */
+    .testimonials-section {
+      background: #FFFFFF;
+      padding: 70px 0 80px;
+      color: #0F172A;
+      text-align: center;
+      border-top: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .test-sec-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      color: #0F172A;
+    }
+
+    .test-sec-title span {
+      color: #0077B6;
+      text-decoration: underline;
+    }
+
+    .test-sec-sub {
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 45px;
+    }
+
+    .testimonials-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      text-align: left;
+    }
+
+    .test-white-card {
+      background: #FFFFFF;
+      color: #1E293B;
+      border-radius: 12px;
+      padding: 30px 24px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07);
+      border: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .test-white-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
+      border-color: #CBD5E1;
+    }
+
+    .test-text {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #334155;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    .test-author-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .test-avatar-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .test-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .test-role {
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    /* ---------------------------------------------------
+       10. TECH LOGOS ROW
+       --------------------------------------------------- */
+    .tech-logos-row {
+      padding: 40px 0;
+      background: #FFFFFF;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .tech-logos-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    .tech-logos-flex img {
+      max-height: 38px;
+      width: auto;
+      filter: grayscale(20%);
+      opacity: 0.85;
+      transition: all 0.2s;
+    }
+
+    .tech-logos-flex img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    /* ---------------------------------------------------
+       11. NEED HELP? WE ARE HERE TO HELP YOU
+       --------------------------------------------------- */
+    .need-help-section {
+      padding: 50px 0 60px;
+      background: #FFFFFF;
+    }
+
+    .need-help-card {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 50%, #FAF5FF 100%);
+      border-radius: 24px;
+      padding: 45px 50px;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+      border: 1px solid #E2E8F0;
+    }
+
+    .need-help-left {
+      max-width: 650px;
+      z-index: 2;
+    }
+
+    .help-badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #0077B6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    }
+
+    .need-help-title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      color: #0F172A;
+    }
+
+    .need-help-desc {
+      font-size: 14.5px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .help-action-pills {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pill-call-white {
+      background: #F77F00;
+      color: #FFFFFF;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(247, 127, 0, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .pill-call-white:hover {
+      background: #E85D04;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(247, 127, 0, 0.5);
+    }
+
+    .pill-glass-action {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      color: #0F172A;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .pill-glass-action:hover {
+      background: #F8FAFC;
+      border-color: #0077B6;
+      color: #0077B6;
+      transform: translateY(-2px);
+    }
+
+    .need-help-art {
+      flex: 0 0 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .need-help-art img {
+      max-width: 250px;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+    }
+
+    /* ---------------------------------------------------
+       12. MAIN FOOTER (DianaHost Layout, EPS, Single Office)
+       --------------------------------------------------- */
+    .site-footer {
+      background: #F8FAFC;
+      color: #475569;
+      padding: 70px 0 0;
+      font-size: 13.5px;
+      border-top: 4px solid transparent;
+      border-image: linear-gradient(90deg, #7B2CBF 0%, #F77F00 25%, #0077B6 50%, #B5179E 75%, #06D6A0 100%) 1;
+      box-shadow: 0 -12px 30px -4px rgba(15, 23, 42, 0.05);
+      position: relative;
+    }
+
+    .footer-top-grid {
+      display: grid;
+      grid-template-columns: 280px repeat(5, 1fr);
+      gap: 30px;
+      padding-bottom: 45px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .footer-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand-logo img {
+      height: 38px;
+      width: auto;
+    }
+
+    .footer-brand-name {
+      font-size: 24px;
+    }
+
+    .footer-brand-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #64748B;
+      margin-bottom: 22px;
+    }
+
+    .footer-social-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .social-circle-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .social-circle-btn:hover {
+      background: #0077B6;
+      border-color: #0077B6;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .footer-col-header {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .footer-col-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, #7B2CBF, #0077B6);
+    }
+
+    .footer-links-list li {
+      margin-bottom: 11px;
+    }
+
+    .footer-links-list a {
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .footer-links-list a:hover {
+      color: #0077B6;
+      transform: translateX(3px);
+    }
+
+    .footer-links-list a span.chevron {
+      color: #0077B6;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* Contact Boxes Row (Single Office Address, Clean English) */
+    .footer-contact-boxes-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      padding: 30px 0 35px;
+    }
+
+    .footer-contact-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 14px;
+      font-size: 12.5px;
+      color: #334155;
+      line-height: 1.55;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .footer-contact-card strong {
+      display: block;
+      color: #0F172A;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .footer-contact-card a {
+      color: #0077B6;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer-contact-card a:hover {
+      text-decoration: underline;
+    }
+
+
+
+    /* DIANAHOST STYLE BOTTOM BAR: FULL-WIDTH WHITE BACKGROUND */
+    .footer-bottom-wrap {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 16px 0;
+      margin-top: 35px;
+      width: 100%;
+    }
+
+    .footer-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-bottom-left-payments {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-payments-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1E293B;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .sslcommerz-footer-banner {
+      height: 46px;
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .footer-bottom-right-copy {
+      color: #64748B;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* Floating WhatsApp Button */
+    .floating-whatsapp-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      z-index: 9999;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-whatsapp-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 1180px) {
+      .hero-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      .hero-left-content {
+        text-align: center;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .hero-features-list {
+        justify-content: center;
+      }
+      .hero-right-orbit {
+        flex: 0 0 380px;
+        height: 380px;
+      }
+      .orbit-scaler {
+        transform: translate(-50%, -50%) scale(0.68);
+      }
+      .footer-top-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .footer-contact-boxes-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+      .cards-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .feat-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stats-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .split-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .need-help-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 35px 20px;
+      }
+      .help-action-pills {
+        justify-content: center;
+      }
+      .need-help-art {
+        margin-top: 25px;
+      }
+      .footer-top-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-contact-boxes-row {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .footer-bottom-left-payments {
+        justify-content: center;
+      }
+      .footer-bottom-right-copy {
+        text-align: center;
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .domain-features-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-headline {
+        font-size: 34px;
+      }
+      .hero-online-pill {
+        font-size: 30px;
+      }
+      .orbit-scaler {
+        transform: translate(-50%, -50%) scale(0.55);
+      }
+    }
+  
+    .pay-name-tag {
+      display: inline-block;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #334155;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: all 0.2s ease;
+    }
+    .pay-name-tag:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+      background: #EFF6FF;
+    }
+  
+</style>
+</head>
+<body>
+
+  <!-- ===================================================
+       1. HEADER & NAVBAR (Clearly distinct white bar)
+       =================================================== -->
+  <header class="header-nav">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" class="brand-logo-img">
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li class="nav-link">
+            Company
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="about.html" class="dropdown-item"><span class="icon">🏢</span> About JAAS BD</a>
+              <a href="about.html#stats" class="dropdown-item"><span class="icon">📊</span> Company Statistics</a>
+              <a href="#testimonials" class="dropdown-item"><span class="icon">⭐</span> Client Testimonials</a>
+              <a href="about.html#partners" class="dropdown-item"><span class="icon">🤝</span> Technology Partners</a>
+              <a href="contact.html" class="dropdown-item"><span class="icon">📍</span> Contact &amp; Office</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Domain
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="domain.html" class="dropdown-item"><span class="icon">🔍</span> Register Domain</a>
+              <a href="domain.html#transfer" class="dropdown-item"><span class="icon">🔄</span> Domain Transfer</a>
+              <a href="domain.html#reseller" class="dropdown-item"><span class="icon">🏷️</span> Domain Reseller</a>
+              <a href="domain.html#ssl" class="dropdown-item"><span class="icon">🔒</span> SSL Certificates</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Hosting
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="hosting.html" class="dropdown-item"><span class="icon">🌐</span> Web Hosting</a>
+              <a href="hosting.html?plan=bdix-hosting" class="dropdown-item"><span class="icon">⚡</span> BDIX Web Hosting</a>
+              <a href="order.html?plan=starter-hosting" class="dropdown-item"><span class="icon">💰</span> Cheap Hosting</a>
+              <a href="order.html?plan=premium-hosting" class="dropdown-item"><span class="icon">👑</span> Premium Hosting</a>
+              <a href="order.html?plan=wordpress-hosting" class="dropdown-item"><span class="icon">📝</span> WordPress Cloud Hosting</a>
+              <a href="order.html?plan=windows-hosting" class="dropdown-item"><span class="icon">🪟</span> Windows Hosting</a>
+              <a href="order.html?plan=corporate-hosting" class="dropdown-item"><span class="icon">💼</span> Corporate Hosting</a>
+              <a href="order.html?plan=reseller-hosting" class="dropdown-item"><span class="icon">👥</span> Reseller Hosting</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Server
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="servers.html#vps" class="dropdown-item"><span class="icon">☁️</span> Managed Cloud VPS</a>
+              <a href="servers.html#kvm" class="dropdown-item"><span class="icon">🖥️</span> BDIX KVM VPS</a>
+              <a href="servers.html#rdp" class="dropdown-item"><span class="icon">💻</span> BDIX RDP</a>
+              <a href="servers.html#aws" class="dropdown-item"><span class="icon">☁️</span> AWS Managed VPS</a>
+              <a href="servers.html#digitalocean" class="dropdown-item"><span class="icon">🌊</span> DigitalOcean VPS</a>
+              <a href="servers.html#dedicated" class="dropdown-item"><span class="icon">🗄️</span> BDIX Dedicated Server</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Solution
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="order.html?plan=business-email" class="dropdown-item"><span class="icon">✉️</span> Business Email</a>
+              <a href="contact.html?service=whatsapp" class="dropdown-item"><span class="icon">💬</span> WhatsApp Service</a>
+              <a href="#communication" class="dropdown-item"><span class="icon">📱</span> Bulk &amp; Masking SMS</a>
+              <a href="#solutions" class="dropdown-item"><span class="icon">📈</span> SEO Optimization</a>
+              <a href="order.html?plan=web-hosting" class="dropdown-item"><span class="icon">🎨</span> Website Builder</a>
+              <a href="contact.html?service=software" class="dropdown-item"><span class="icon">💻</span> Software Development</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Help
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="#support-section" class="dropdown-item"><span class="icon">🎧</span> 24/7 Live Support</a>
+              <a href="#faq" class="dropdown-item"><span class="icon">❓</span> Pre-Sale FAQ</a>
+              <a href="#support-section" class="dropdown-item"><span class="icon">🎫</span> Open a Ticket</a>
+              <a href="tel:+8801818430308" class="dropdown-item"><span class="icon">📞</span> +88-01818-430308</a>
+            </div>
+          </li>
+          <li class="nav-link">
+            Products
+            <svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+            <div class="nav-dropdown">
+              <a href="#domains-ssl" class="dropdown-item"><span class="icon">🛡️</span> SSL Certificates</a>
+              <a href="#cloud-servers" class="dropdown-item"><span class="icon">💾</span> BDIX S3 Cloud Storage</a>
+              <a href="#solutions" class="dropdown-item"><span class="icon">👥</span> HR &amp; Payroll Software</a>
+              <a href="#solutions" class="dropdown-item"><span class="icon">🎓</span> Education Management</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-search" title="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        </button>
+        <a href="login.html" class="btn-login" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Login</a>
+        <button class="btn-deal" onclick="window.location.href='order.html?plan=business-hosting'">Get Deal</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       2. HERO SECTION (Tightly Aligned Top, 2 Columns)
+       =================================================== -->
+  <section class="hero-wrapper">
+    <div class="container">
+      <div class="hero-card">
+        <!-- Left Side: Prominent Hero Typography & Badges -->
+        <div class="hero-left-content">
+          <div class="hero-top-badge">
+            <span class="pulse-dot"></span>
+            <span>Next-Gen Cloud &amp; BDIX Web Hosting</span>
+          </div>
+
+          <h1 class="hero-headline">
+            We Help Businesses<br>
+            Grow <span class="hero-online-pill">Online</span>
+          </h1>
+
+          <p class="hero-subtext">
+            Get fast, secure and premium web hosting, domain names, business email, SSL, and cloud services to easily build and manage your website.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#domain-search" class="btn-hero-primary">Register Domain</a>
+            <a href="#web-hosting" class="btn-hero-secondary">Explore Hosting &rarr;</a>
+          </div>
+
+          <div class="hero-features-list">
+            <span><b style="color:#06D6A0;">✓</b> NVMe SSD Storage</span>
+            <span><b style="color:#06D6A0;">✓</b> 99.9% Uptime SLA</span>
+            <span><b style="color:#06D6A0;">✓</b> 24/7 Live Support</span>
+          </div>
+        </div>
+
+        <!-- Right Side: MOVING ORBIT CIRCLE (from jaasbd.vercel.app) -->
+        <div class="hero-right-orbit">
+          <div class="orbit-scaler">
+            <div class="orbit-area">
+              <div class="core">
+                <div class="core-inner-badge">
+                  <img src="assets/images/jaasbd-logo.png" alt="JAAS BD Logo" style="width: 54px; height: 54px; object-fit: contain; display: block;">
+                </div>
+              </div>
+              <div class="ring r1"></div>
+              <div class="ring r2"></div>
+              <div class="ring r3"></div>
+              <i class="ring-dot d1"></i>
+              <i class="ring-dot d2"></i>
+              <i class="ring-dot d3"></i>
+              <i class="ring-dot d4"></i>
+              
+              <div class="orbit">
+                <div class="item"><div class="item-inner">.com<span>Domain</span></div></div>
+                <div class="item"><div class="item-inner">.info<span>Domain</span></div></div>
+                <div class="item"><div class="item-inner">.bd<span>Bangladesh</span></div></div>
+                <div class="item"><div class="item-inner">.store<span>Business</span></div></div>
+                <div class="item"><div class="item-inner">.tv<span>Media</span></div></div>
+                <div class="item"><div class="item-inner">.pk<span>Country</span></div></div>
+                <div class="item"><div class="item-inner">.net<span>Network</span></div></div>
+                <div class="item"><div class="item-inner">.org<span>Organization</span></div></div>
+                <div class="item"><div class="item-inner">.co<span>Company</span></div></div>
+                <div class="item"><div class="item-inner">.me<span>Personal</span></div></div>
+                <div class="item"><div class="item-inner">.com.bd<span>BD Domain</span></div></div>
+                <div class="item"><div class="item-inner">.ai<span>AI Domain</span></div></div>
+              </div>
+
+              <div class="side-card c-domain">◉ <b>DOMAIN</b><small>World Wide</small></div>
+              <div class="side-card c-cloud">☁ <b>CLOUD</b><small>High Performance</small></div>
+              <div class="side-card c-bdix">◉ <b>BDIX</b><small>Ultra Fast Network</small></div>
+              <div class="side-card c-erp">▣ <b>ERP</b><small>Business Solution</small></div>
+              <div class="side-card c-server">▤ <b>SERVER</b><small>NVMe SSD Hosting</small></div>
+              <div class="side-card c-ssl">♢ <b>SSL</b><small>Free Auto SSL</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       3. REGISTER DOMAIN NAME HERE (DIANA BLUE BANNER)
+       =================================================== -->
+  <section class="domain-search-section" id="domain-search">
+    <div class="container">
+      <h2 class="domain-sec-title">Register Domain Name here!</h2>
+      <p class="domain-sec-sub">Engage customers / users with the best domain..</p>
+
+      <form class="search-box-wrap" id="domainSearchForm" onsubmit="runDomainSearch(event)">
+        <input type="text" id="domainInput" name="domain" class="search-box-input" placeholder="Search your domain name (e.g. mycompany.com)" required>
+        <button type="submit" class="btn-search-domain">SEARCH</button>
+      </form>
+      <div id="domainResult" style="max-width: 780px; margin: 0 auto; display: none;"></div>
+
+      <div class="domain-features-grid">
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>Easy Setup With Instant Activation</span>
+        </div>
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>DNS Management</span>
+        </div>
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>No Hidden Cost</span>
+        </div>
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>Full Domain Control Panel</span>
+        </div>
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>URL Forwarding</span>
+        </div>
+        <div class="domain-feat-item">
+          <span class="feat-check">✓</span>
+          <span>Email Forwarding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       4. ALL OUR SERVICES (Exact DianaHost 35 Cards)
+       =================================================== -->
+  <section class="services-section" id="all-services">
+    <div class="container">
+      <div class="section-header-center">
+        <h2 class="section-main-title">All Our Services</h2>
+        <div class="section-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <p class="section-subtitle">Browse by category &mdash; find the right service for your needs</p>
+      </div>
+
+      <!-- CATEGORY 1: Domains & SSL (3 Services) - Teal -->
+      <div class="category-block" id="domains-ssl">
+        <div class="category-header-wrap">
+          <div class="cat-icon-badge cat-badge-teal">🌐</div>
+          <div>
+            <h3 class="cat-title-text">Domains &amp; SSL</h3>
+            <span class="cat-count-sub">3 services</span>
+          </div>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🌐</div>
+                <div>
+                  <h4 class="card-title">Domain</h4>
+                  <p class="card-desc">Register Your Domain Names</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Any website or brand</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=domain-registration'">From ৳350/yr</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🏷️</div>
+                <div>
+                  <h4 class="card-title">Domain Reseller</h4>
+                  <p class="card-desc">Sell domains with competitive reseller pricing and easy management.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Web agencies, hosting providers, and entrepreneurs selling domains.</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='domain.html#reseller'">Custom Price</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🔒</div>
+                <div>
+                  <h4 class="card-title">SSL Certificate</h4>
+                  <p class="card-desc">Boost customer confidence</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Ecommerce &amp; user data sites</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=ssl-cert'">From ৳1,499/yr</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 2: Web Hosting (13 Services) - Royal Blue -->
+      <div class="category-block" id="web-hosting">
+        <div class="category-header-wrap">
+          <div class="cat-icon-badge cat-badge-blue">💻</div>
+          <div>
+            <h3 class="cat-title-text">Web Hosting</h3>
+            <span class="cat-count-sub">13 services</span>
+          </div>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📄</div>
+                <div>
+                  <h4 class="card-title">Web Hosting</h4>
+                  <p class="card-desc">Fast and secure hosting for small &amp; medium sites</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Blogs &amp; small business sites</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=web-hosting'">From ৳99/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📶</div>
+                <div>
+                  <h4 class="card-title">BDIX Web Hosting</h4>
+                  <p class="card-desc">Fast and secure BDIX hosting</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Any website or brand</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=bdix-hosting'">From ৳134/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">💲</div>
+                <div>
+                  <h4 class="card-title">Cheap Hosting</h4>
+                  <p class="card-desc">Fast and secure hosting for small &amp; medium sites</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Students &amp; hobby projects</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=starter-hosting'">From ৳399/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">👑</div>
+                <div>
+                  <h4 class="card-title">Premium Hosting</h4>
+                  <p class="card-desc">Fast and secure hosting for small &amp; medium sites</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>High-traffic business sites</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=premium-hosting'">From ৳299/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🖥️</div>
+                <div>
+                  <h4 class="card-title">Windows Hosting</h4>
+                  <p class="card-desc">10x Faster Windows hosting</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>ASP.NET &amp; Windows developers</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=windows-hosting'">From ৳1,599/yr</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">☁️</div>
+                <div>
+                  <h4 class="card-title">BDIX WordPress Cloud Hosting</h4>
+                  <p class="card-desc">WordPress websites targeting Bangladeshi users</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>High-traffic business sites</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=wordpress-hosting'">From ৳4,499/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🔗</div>
+                <div>
+                  <h4 class="card-title">USA Shared Hosting</h4>
+                  <p class="card-desc">Reliable shared hosting on USA-based servers.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Websites targeting international visitors</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=web-hosting'">From ৳199/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🏛️</div>
+                <div>
+                  <h4 class="card-title">Corporate Hosting</h4>
+                  <p class="card-desc">Secure hosting designed for business websites.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Company websites, portfolios, and business apps</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=corporate-hosting'">From ৳4,000/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">☁️</div>
+                <div>
+                  <h4 class="card-title">Cloud Hosting</h4>
+                  <p class="card-desc">Scalable cloud hosting with flexible resources.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Growing websites and scalable applications</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=web-hosting'">From ৳99/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">💾</div>
+                <div>
+                  <h4 class="card-title">BDIX S3 Cloud Storage</h4>
+                  <p class="card-desc">Fast object storage with BDIX network support.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Backups, media storage, and large file hosting</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=managed-vps'">From ৳492/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">⚡</div>
+                <div>
+                  <h4 class="card-title">PNR Hosting</h4>
+                  <p class="card-desc">Python, Ruby, NodeJS Supported Shared Hosting</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Python/Node.js developers</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=web-hosting'">From ৳1,299/yr</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">👻</div>
+                <div>
+                  <h4 class="card-title">Ghost CMS Hosting</h4>
+                  <p class="card-desc">Fast, secure hosting optimized for Ghost websites and blogs.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Bloggers, publishers, and content-focused websites</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=wordpress-hosting'">From ৳999/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🔄</div>
+                <div>
+                  <h4 class="card-title">Reseller Hosting</h4>
+                  <p class="card-desc">Powerful hosting resources to start and manage your own hosting business.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Web developers, agencies, and hosting resellers</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=reseller-hosting'">From ৳21,999/yr</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 3: Cloud & Servers (8 Services) - Purple -->
+      <div class="category-block" id="cloud-servers">
+        <div class="category-header-wrap">
+          <div class="cat-icon-badge cat-badge-purple">☁️</div>
+          <div>
+            <h3 class="cat-title-text">Cloud &amp; Servers</h3>
+            <span class="cat-count-sub">8 services</span>
+          </div>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">☁️</div>
+                <div>
+                  <h4 class="card-title">Managed Cloud VPS</h4>
+                  <p class="card-desc">Managed Webuzo/cPanel BDIX VPS Server</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Growing apps &amp; dedicated resources</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=managed-vps'">From ৳1,650/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🖥️</div>
+                <div>
+                  <h4 class="card-title">BDIX KVM VPS</h4>
+                  <p class="card-desc">Start Your website with BDIX VPS</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>BD-focused SaaS &amp; game servers</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=bdix-vps'">From ৳1,999/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">💻</div>
+                <div>
+                  <h4 class="card-title">BDIX RDP</h4>
+                  <p class="card-desc">BDIX Windows Remote Desktop from Bangladesh</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Remote workers &amp; forex traders</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=bdix-rdp'">From ৳1,999/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">☁️</div>
+                <div>
+                  <h4 class="card-title">AWS Managed VPS</h4>
+                  <p class="card-desc">Scalable managed VPS powered by AWS global cloud infrastructure.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Businesses needing scalable cloud apps, high uptime, and global reach</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=aws-vps'">From ৳13,040/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🌊</div>
+                <div>
+                  <h4 class="card-title">DigitalOcean Managed VPS</h4>
+                  <p class="card-desc">Fast and simple managed VPS built on DigitalOcean cloud.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Developers, startups, and SaaS applications</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=digitalocean-vps'">From ৳4,499/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">⚡</div>
+                <div>
+                  <h4 class="card-title">n8n Managed VPS Server</h4>
+                  <p class="card-desc">Ready-to-use VPS optimized for n8n automation workflows.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Automation workflows, integrations, and no-code/low-code systems</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=managed-vps'">From ৳999/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🗄️</div>
+                <div>
+                  <h4 class="card-title">BDIX Dedicated Server</h4>
+                  <p class="card-desc">High-performance dedicated server with ultra-fast BDIX connectivity.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>High-traffic websites, streaming, gaming, and local enterprise solutions</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=dedicated-server'">From ৳35,000/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🛡️</div>
+                <div>
+                  <h4 class="card-title">eToken VPS Server</h4>
+                  <p class="card-desc">High-Speed BDIX Connectivity in Bangladesh</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>From personal use to resource-intensive server applications.</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=managed-vps'">From ৳1,499/mo</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 4: Communication (6 Services) - Magenta -->
+      <div class="category-block" id="communication">
+        <div class="category-header-wrap">
+          <div class="cat-icon-badge cat-badge-magenta">💬</div>
+          <div>
+            <h3 class="cat-title-text">Communication</h3>
+            <span class="cat-count-sub">6 services</span>
+          </div>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📧</div>
+                <div>
+                  <h4 class="card-title">G Suite &ndash; Gmail</h4>
+                  <p class="card-desc">Use Gmail, Drive, Docs With Own Domain</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Google ecosystem users</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=gsuite'">From ৳1,049/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">✉️</div>
+                <div>
+                  <h4 class="card-title">Business Email</h4>
+                  <p class="card-desc">OX Business Email for Small Business</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Startup branded email</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=business-email'">From ৳159/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📱</div>
+                <div>
+                  <h4 class="card-title">WhatsApp Service</h4>
+                  <p class="card-desc">Connect with customers through fast and reliable WhatsApp messaging.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Businesses needing customer communication, alerts, and promotional messaging.</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=whatsapp'">From ৳1,170/mo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">💭</div>
+                <div>
+                  <h4 class="card-title">Masking SMS</h4>
+                  <p class="card-desc">Send Bulk SMS to Targeted Audience</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Sending OTP &amp; notifications</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=masking-sms'">From ৳3,500</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📢</div>
+                <div>
+                  <h4 class="card-title">Non-Masking SMS</h4>
+                  <p class="card-desc">Send Bulk SMS to Targeted Audience</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Marketing &amp; promotional campaigns</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=non-masking-sms'">From ৳20,000</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🔑</div>
+                <div>
+                  <h4 class="card-title">OTP SMS</h4>
+                  <p class="card-desc">Fast and secure OTP SMS service for user verification.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Login authentication, account security, and verification systems</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=otp-sms'">From ৳50,000</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY 5: Solutions (5 Services) - Amber Orange -->
+      <div class="category-block" id="solutions">
+        <div class="category-header-wrap">
+          <div class="cat-icon-badge cat-badge-orange">⚙️</div>
+          <div>
+            <h3 class="cat-title-text">Solutions</h3>
+            <span class="cat-count-sub">5 services</span>
+          </div>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">📈</div>
+                <div>
+                  <h4 class="card-title">SEO</h4>
+                  <p class="card-desc">Optimization service to improve search rankings and visibility.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Increasing website traffic and online presence</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=seo'">From ৳18,000/yr</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🎨</div>
+                <div>
+                  <h4 class="card-title">Website Builder</h4>
+                  <p class="card-desc">Easy drag-and-drop tool to create websites without coding.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Beginners, small businesses, and quick website launches</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='order.html?plan=web-hosting'">Included Free</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">💻</div>
+                <div>
+                  <h4 class="card-title">Software Development</h4>
+                  <p class="card-desc">Custom software solutions tailored to your business needs.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Web apps, automation tools, and business systems</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=software'">Custom Quote</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">👥</div>
+                <div>
+                  <h4 class="card-title">HR and Payroll Software</h4>
+                  <p class="card-desc">Manage employees, attendance, and payroll in one system.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Businesses needing HR automation and payroll management</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=hr'">Custom Demo</button>
+          </div>
+
+          <div class="service-card">
+            <div>
+              <div class="card-top-row">
+                <div class="card-icon-box">🎓</div>
+                <div>
+                  <h4 class="card-title">Education Management Software</h4>
+                  <p class="card-desc">Complete system to manage schools, students, and operations.</p>
+                </div>
+              </div>
+              <p class="card-best-for">Best for: <strong>Schools, colleges, and training institutes</strong></p>
+            </div>
+            <button class="card-btn-price" onclick="window.location.href='contact.html?service=education'">Custom Demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       5. PACKAGE FEATURES (4 Logo Spectrum Circles)
+       =================================================== -->
+  <section class="package-features-section">
+    <div class="container">
+      <h2 class="section-main-title" style="letter-spacing: 1px;">PACKAGE FEATURES</h2>
+      <div class="section-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="section-subtitle">
+        If you are looking premium quality web hosting package for your website, you are right place! We offer outstanding user friendly web hosting package for all!
+      </p>
+
+      <div class="feat-grid-4">
+        <div class="feat-card-item">
+          <div class="feat-icon-circle feat-ic-1">💻</div>
+          <h4 class="feat-item-title">Powerful Hardware</h4>
+          <p class="feat-item-desc">
+            We are using enterprise grade hardware to give your site extra speed boost! All of our servers comes with SSD RAID-10.
+          </p>
+        </div>
+
+        <div class="feat-card-item">
+          <div class="feat-icon-circle feat-ic-2">🎧</div>
+          <h4 class="feat-item-title">24/7x365 Support</h4>
+          <p class="feat-item-desc">
+            Our customer support is 24x7x365. With your hosting package you also gain 24x7 accesses to our expert support team.
+          </p>
+        </div>
+
+        <div class="feat-card-item">
+          <div class="feat-icon-circle feat-ic-3">🛡️</div>
+          <h4 class="feat-item-title">Feed &amp; High-Security</h4>
+          <p class="feat-item-desc">
+            Protection against all known attacks up to 30 Gbps, our network protects from over 95% of the most common DDoS attacks.
+          </p>
+        </div>
+
+        <div class="feat-card-item">
+          <div class="feat-icon-circle feat-ic-4">⚡</div>
+          <h4 class="feat-item-title">10x Faster Speed</h4>
+          <p class="feat-item-desc">
+            Speed is the key of any website. With our Web Hosting we are using Lite Speed webserver which is 9x faster than Apache.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       6. COMPANY STATICS (Logo Accent Counters)
+       =================================================== -->
+  <section class="company-statics-section" id="company-statics">
+    <div class="container">
+      <h2 class="stats-title">COMPANY <span>STATICS</span></h2>
+      <div class="section-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="stats-subtitle">
+        Let's see what others say about JAAS BD, the fastest growing web hosting company in Bangladesh! 16543+ customers cannot be wrong!
+      </p>
+
+      <div class="stats-cards-grid">
+        <div class="stat-counter-card">
+          <div class="stat-num" style="color: #06D6A0;">5,375+</div>
+          <div class="stat-label">Sites Hosted</div>
+        </div>
+
+        <div class="stat-counter-card">
+          <div class="stat-num" style="color: #38BDF8;">7,544+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+
+        <div class="stat-counter-card">
+          <div class="stat-num" style="color: #F77F00;">5,681+</div>
+          <div class="stat-label">Tickets Solved</div>
+        </div>
+
+        <div class="stat-counter-card">
+          <div class="stat-num" style="color: #A78BFA;">7,962+</div>
+          <div class="stat-label">Sold Domains</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       7. SERVER STATICS & PRE-SALE FAQ
+       =================================================== -->
+  <section class="split-section" id="faq">
+    <div class="container">
+      <div class="split-grid-2">
+        <!-- Left: Server Statics -->
+        <div>
+          <h3 class="split-col-title">Our Server Statics</h3>
+          <div class="section-dots" style="justify-content: flex-start; margin-bottom: 25px;">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="progress-group">
+            <div class="progress-item">
+              <div class="progress-header">
+                <span>Up-Time Guarantee</span>
+                <span>98%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 98%; background: linear-gradient(90deg, #0077B6, #06D6A0);"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span>CPU</span>
+                <span>80%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 80%; background: #0077B6;"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span>RAM</span>
+                <span>93%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 93%; background: #0077B6;"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span>SSD</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 90%; background: #0077B6;"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-header">
+                <span>Memory</span>
+                <span>93%</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 93%; background: #0077B6;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Pre-Sale Questions (Accordion) -->
+        <div>
+          <h3 class="split-col-title">Pre-Sale Questions</h3>
+          <div class="section-dots" style="justify-content: flex-start; margin-bottom: 25px;">
+            <span></span><span></span><span></span>
+          </div>
+
+          <div class="faq-accordion-wrap">
+            <div class="faq-item active">
+              <div class="faq-question">
+                <span>How long does it take to setup my account?</span>
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                We manually review every order to protect us from fraud. So, account setup can take 12hrs time but usually much quicker.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Can I upgrade my plan later?</span>
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                Yes, you can easily upgrade your hosting plan at any time through your JAAS BD client dashboard with zero downtime.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Will you transfer over my website?</span>
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                Yes, our expert technical migration team provides 100% free, seamless website and cPanel migrations with zero data loss.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What type of payment do you accept?</span>
+                <span class="faq-arrow">▼</span>
+              </div>
+              <div class="faq-answer">
+                We accept bKash, Nagad, Rocket, Upay, VISA, MasterCard, American Express, DBBL Nexus, and all major bank transfers via EPS (Easy Payment System).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       8. START BUILDING 10X FAST BANNER
+       =================================================== -->
+  <section class="cta-speed-banner">
+    <div class="container cta-banner-inner">
+      <div class="cta-banner-title">Start Building Your 10x Fast Website Today!</div>
+      <button class="btn-expert-cta" onclick="window.location.href='tel:+8801818430308';">Talk with an expert Now</button>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       9. HAPPY TESTIMONIALS (DianaHost Olive Green)
+       =================================================== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <h2 class="test-sec-title">HAPPY <span>TESTIMONIALS</span></h2>
+      <div class="section-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="test-sec-sub">
+        Let's see what other's say about JAAS BD web hosting company! 1251+ customers cannot be wrong!
+      </p>
+
+      <div class="testimonials-grid-3" id="testimonialsGrid">
+        <div class="test-white-card">
+          <p class="test-text">
+            “I found it so useful and they fulfill my desire with complete it support.It's no.1 solution company to me.”
+          </p>
+          <div class="test-author-box">
+            <img src="assets/images/test-ashish.jpg" alt="Ashish Halder" class="test-avatar-img">
+            <div>
+              <div class="test-name">Ashish Halder</div>
+              <div class="test-role">Photographer, Golden Frame BD</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-white-card">
+          <p class="test-text">
+            “Wonderful service. Very quick respond and good customer service. New corners can learn from JAAS BD.”
+          </p>
+          <div class="test-author-box">
+            <img src="assets/images/test-mehedi.jpg" alt="Mohammad Mehedi Hasan" class="test-avatar-img">
+            <div>
+              <div class="test-name">Mohammad Mehedi Hasan</div>
+              <div class="test-role">Director, Innovadeus Ltd</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-white-card">
+          <p class="test-text">
+            “Good Service , quick and effective support.I order them time to time.”
+          </p>
+          <div class="test-author-box">
+            <img src="assets/images/test-susmita.jpg" alt="Ar Susmita Biswas Sathi" class="test-avatar-img">
+            <div>
+              <div class="test-name">Ar Susmita Biswas Sathi</div>
+              <div class="test-role">Director, StudioMirage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       10. TECH LOGOS ROW
+       =================================================== -->
+  <section class="tech-logos-row" id="partners">
+    <div class="container tech-logos-flex">
+      <img src="assets/images/tech-wordpress.png" alt="WordPress">
+      <img src="assets/images/tech-windows.png" alt="Windows Server">
+      <img src="assets/images/tech-virtualizor.png" alt="Virtualizor">
+      <img src="assets/images/tech-sql.png" alt="SQL Server">
+      <img src="assets/images/tech-spamexperts.png" alt="SpamExperts">
+    </div>
+  </section>
+
+  <!-- ===================================================
+       11. NEED HELP? WE ARE HERE TO HELP YOU
+       =================================================== -->
+  <section class="need-help-section" id="support-section">
+    <div class="container">
+      <div class="need-help-card">
+        <div class="need-help-left">
+          <div class="help-badge-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <h2 class="need-help-title">Need Help? We Are<br>Here To Help You</h2>
+          <p class="need-help-desc">
+            Please feel free to consult with one of our experts, who will thoroughly evaluate your specific requirements and provide a tailored proposal that perfectly aligns with your company's unique needs and realities.
+          </p>
+
+          <div class="help-action-pills">
+            <a href="tel:+8801818430308" class="pill-call-white">
+              <span style="font-size: 16px;">&#128222;</span>
+              <div>
+                <div style="font-size: 11px; color: #FFF1E6; font-weight: 600; line-height: 1;">Call Us</div>
+                <div style="color: #FFFFFF; font-weight: 800; font-size: 13.5px;">+88-01818-430308</div>
+              </div>
+            </a>
+
+            <button class="pill-glass-action" onclick="window.open('https://wa.me/8801818430308', '_blank')">
+              <span style="font-size: 16px; color: #0077B6;">&#128172;</span>
+              <div style="text-align: left;">
+                <div style="font-size: 11px; color: #64748B; font-weight: 600; line-height: 1;">Live Chat</div>
+                <div style="font-size: 13px; font-weight: 700; color: #0F172A;">Chat with our team</div>
+              </div>
+            </button>
+
+            <button class="pill-glass-action" onclick="window.location.href='contact.html#ticket'">
+              <span style="font-size: 16px; color: #7B2CBF;">&#127915;</span>
+              <div style="text-align: left;">
+                <div style="font-size: 11px; color: #64748B; font-weight: 600; line-height: 1;">Open Ticket</div>
+                <div style="font-size: 13px; font-weight: 700; color: #0F172A;">Submit a ticket</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="need-help-art">
+          <img src="assets/images/help-headphones.png" alt="JAAS BD 24/7 Expert Support">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       12. MAIN FOOTER (Matching DianaHost Layout, Single Office)
+       =================================================== -->
+  
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <!-- 5 Column Links Grid + Brand -->
+      <div class="footer-top-grid">
+        <div>
+          <a href="index.html" class="footer-brand-logo">
+            <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height: 48px; width: auto;">
+          </a>
+          <p class="footer-brand-desc">
+            Reliable hosting and infrastructure solutions designed to help businesses start, build and scale online.
+          </p>
+          <div class="footer-social-row">
+            <a href="#" class="social-circle-btn" title="Facebook">f</a>
+            <a href="#" class="social-circle-btn" title="Instagram">📷</a>
+            <a href="#" class="social-circle-btn" title="YouTube">▶</a>
+            <a href="#" class="social-circle-btn" title="LinkedIn">in</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-header">HOSTING</h4>
+          <ul class="footer-links-list">
+            <li><a href="hosting.html"><span class="chevron">›</span> Web Hosting</a></li>
+            <li><a href="order.html?plan=premium-hosting"><span class="chevron">›</span> Premium Hosting</a></li>
+            <li><a href="hosting.html?plan=bdix-hosting"><span class="chevron">›</span> BDIX Hosting</a></li>
+            <li><a href="order.html?plan=wordpress-hosting"><span class="chevron">›</span> WordPress Hosting</a></li>
+            <li><a href="hosting.html"><span class="chevron">›</span> Cloud Hosting</a></li>
+            <li><a href="order.html?plan=corporate-hosting"><span class="chevron">›</span> Corporate Hosting</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-header">DOMAINS</h4>
+          <ul class="footer-links-list">
+            <li><a href="domain.html"><span class="chevron">›</span> Domain Registration</a></li>
+            <li><a href="domain.html#transfer"><span class="chevron">›</span> Domain Transfer</a></li>
+            <li><a href="domain.html#pricing"><span class="chevron">›</span> Domain Pricing</a></li>
+            <li><a href="domain.html#reseller"><span class="chevron">›</span> Domain Reseller</a></li>
+            <li><a href="domain.html#ssl"><span class="chevron">›</span> SSL Certificates</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-header">SERVERS</h4>
+          <ul class="footer-links-list">
+            <li><a href="servers.html#vps"><span class="chevron">›</span> VPS Hosting</a></li>
+            <li><a href="servers.html#vps"><span class="chevron">›</span> Managed VPS</a></li>
+            <li><a href="servers.html#dedicated"><span class="chevron">›</span> Dedicated Server</a></li>
+            <li><a href="servers.html"><span class="chevron">›</span> Cloud Server</a></li>
+            <li><a href="servers.html"><span class="chevron">›</span> BDIX S3 Storage</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-header">SOLUTIONS</h4>
+          <ul class="footer-links-list">
+            <li><a href="order.html?plan=business-email"><span class="chevron">›</span> Business Email</a></li>
+            <li><a href="contact.html?service=software"><span class="chevron">›</span> Website Development</a></li>
+            <li><a href="contact.html?service=seo"><span class="chevron">›</span> Digital Marketing</a></li>
+            <li><a href="contact.html?service=sms"><span class="chevron">›</span> SMS Gateway</a></li>
+            <li><a href="contact.html"><span class="chevron">›</span> Security Solutions</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-header">SUPPORT</h4>
+          <ul class="footer-links-list">
+            <li><a href="contact.html"><span class="chevron">›</span> Help Center</a></li>
+            <li><a href="contact.html"><span class="chevron">›</span> Contact Support</a></li>
+            <li><a href="contact.html#ticket"><span class="chevron">›</span> Open Ticket</a></li>
+            <li><a href="clientarea.html"><span class="chevron">›</span> Network Status</a></li>
+            <li><a href="#support-section"><span class="chevron">›</span> Client Login</a></li>
+          </ul>
+        </div>
+      </div>
+
+      
+
+
+
+    </div><!-- /.container -->
+ 
+     <!-- DIANAHOST STYLE BOTTOM BAR: FULL-WIDTH WHITE BACKGROUND -->
+     <div class="footer-bottom-wrap">
+       <div class="container footer-bottom-bar">
+         <div class="footer-bottom-left-payments">
+           <span class="footer-payments-label">Payments</span>
+           <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+         </div>
+ 
+         <div class="footer-bottom-right-copy">
+           &copy; 2026 JAAS BD. All rights reserved.
+         </div>
+       </div>
+     </div>
+   </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/8801818430308" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" title="Chat on WhatsApp">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.204 8.204 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.42 0-2.82-.37-4.06-1.08l-.29-.17-3.02.79.81-2.94-.19-.3a8.214 8.214 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.02 2.61c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/>
+    </svg>
+  </a>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    // FAQ Accordion Toggle
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-question');
+      if (q) {
+        q.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+          if (!isOpen) {
+            item.classList.add('active');
+          }
+        });
+      }
+    });
+
+    // Interactive Domain Search
+    function runDomainSearch(e) {
+      e.preventDefault();
+      const val = document.getElementById('domainInput').value.trim();
+      if (!val) return;
+      const clean = val.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+      const domainName = clean.includes('.') ? clean : clean + '.com';
+      const resultBox = document.getElementById('domainResult');
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <div style="background: #FFFFFF; color: #0F172A; border-radius: 12px; padding: 22px 28px; margin-top: 24px; box-shadow: 0 16px 40px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; text-align: left; animation: fadeIn 0.3s ease;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="background: #06D6A0; color: #FFFFFF; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 12px; letter-spacing: 0.5px;">AVAILABLE</span>
+              <strong style="font-size: 20px; color: #0077B6;">${domainName}</strong>
+            </div>
+            <p style="margin: 6px 0 0 0; font-size: 13.5px; color: #64748B;">
+              ✓ Instant DNS Activation &bull; ✓ Free SSL Certificate &bull; ✓ 24/7 JAAS BD Support
+            </p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="text-align: right;">
+              <div style="font-size: 22px; font-weight: 800; color: #0F172A;">৳ 1,450<span style="font-size: 13px; font-weight: 500; color: #64748B;">/year</span></div>
+              <div style="font-size: 11px; color: #06D6A0; font-weight: 600;">Renewal at same price</div>
+            </div>
+            <button type="button" onclick="window.location.href='order.html?plan=domain-registration&domain=' + encodeURIComponent('${domainName}')" style="background: #F77F00; color: white; border: none; font-weight: 700; font-size: 14px; padding: 12px 26px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 14px rgba(247,127,0,0.35);">Order Now</button>
+          </div>
+        </div>
+      `;
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+
+  <script src="assets/js/jaas-system.js"></script>
+  <script>
+    function executeHeroDomainSearch() {
+      const input = document.getElementById('heroDomainInput');
+      const val = input ? input.value.trim() : '';
+      if (val) {
+        window.location.href = 'order.html?plan=domain-registration&domain=' + encodeURIComponent(val);
+      } else {
+        window.location.href = 'domain.html';
+      }
+    }
+    // Enter key support for hero search
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('heroDomainInput');
+      if (input) {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            executeHeroDomainSearch();
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    // Dynamic Testimonials & Payment Methods Sync from Admin Config
+    (async function syncDynamicFrontEnd() {
+      try {
+        let cfg = null;
+        try {
+          const resp = await fetch('/api/config');
+          if (resp.ok) cfg = await resp.json();
+        } catch(e) {}
+        if (!cfg) {
+          const raw = localStorage.getItem('jaas_site_config');
+          if (raw) cfg = JSON.parse(raw);
+        }
+        if (!cfg) return;
+
+        // 1. Sync Testimonials
+        if (cfg.testimonials && Array.isArray(cfg.testimonials) && cfg.testimonials.length > 0) {
+          const tGrid = document.getElementById('testimonialsGrid');
+          if (tGrid) {
+            tGrid.innerHTML = '';
+            cfg.testimonials.forEach(t => {
+              const stars = '⭐'.repeat(t.rating || 5);
+              tGrid.innerHTML += `
+                <div class="test-white-card">
+                  <div style="margin-bottom:8px; font-size:13px;">${stars}</div>
+                  <p class="test-text">
+                    “${t.review}”
+                  </p>
+                  <div class="test-author-box">
+                    <img src="${t.image}" alt="${t.name}" class="test-avatar-img">
+                    <div>
+                      <div class="test-name">${t.name}</div>
+                      <div class="test-role">${t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+          }
+        }
+
+        // 2. Sync Payment Methods in Footer
+        if (cfg.gateways && cfg.gateways.paymentMethods && Array.isArray(cfg.gateways.paymentMethods)) {
+          const payRow = document.getElementById('footerPaymentMethodsRow');
+          if (payRow) {
+            const activeMethods = cfg.gateways.paymentMethods.filter(m => m.active !== false);
+            if (activeMethods.length > 0) {
+              payRow.innerHTML = '';
+              activeMethods.forEach(m => {
+                const logoHtml = m.logo ? `<img src="${m.logo}" alt="${m.name}" style="height:14px; max-width:24px; object-fit:contain;">` : '';
+                payRow.innerHTML += `
+                  <span class="pay-name-tag">
+                    ${logoHtml}
+                    <span>${m.name}</span>
+                  </span>
+                `;
+              });
+            }
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+</body>
+</html>

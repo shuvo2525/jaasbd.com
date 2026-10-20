@@ -1,0 +1,926 @@
+{
+  "admin": {
+    "username": "admin",
+    "email": "admin@jaasbd.com",
+    "password": "admin123"
+  },
+  "site": {
+    "title": "JAAS BD • Web Hosting, BDIX VPS & Cloud Servers in Bangladesh",
+    "favicon": "assets/images/jaasbd-logo.png",
+    "headerLogo": "assets/images/jaasbd-logo.png",
+    "footerLogo": "assets/images/jaasbd-logo.png",
+    "tagline": "We Help Businesses Grow Online",
+    "subtagline": "Get fast, secure and premium web hosting, domain names, business email, SSL, and cloud services to easily build and manage your website."
+  },
+  "contact": {
+    "phone": "+88-01818-430308",
+    "email": "info@jaasbd.com",
+    "supportEmail": "support@jaasbd.com",
+    "address": "843/06, Kadim Dewhata, Mirzapur, Tangail. 1940.",
+    "whatsapp": "8801818430308"
+  },
+  "gateways": {
+    "eps": {
+      "name": "EPS Easy Payment System",
+      "psoLicensed": "Bangladesh Bank PSO Licensed",
+      "active": true
+    },
+    "bkash": {
+      "name": "bKash Online Payment",
+      "merchantNumber": "01818430308",
+      "active": true
+    },
+    "nagad": {
+      "name": "Nagad Payment",
+      "merchantNumber": "01818430308",
+      "active": true
+    },
+    "paymentMethods": [
+      {
+        "id": "eps",
+        "name": "EPS (Easy Payment System)",
+        "logo": "assets/images/jaasbd-logo.png",
+        "note": "Bangladesh Bank PSO Licensed",
+        "active": true
+      },
+      {
+        "id": "bkash",
+        "name": "bKash",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/bkash.png",
+        "note": "Merchant: 01818430308",
+        "active": true
+      },
+      {
+        "id": "nagad",
+        "name": "Nagad",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/nagad.png",
+        "note": "Merchant: 01818430308",
+        "active": true
+      },
+      {
+        "id": "rocket",
+        "name": "Rocket",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/rocket.png",
+        "note": "DBBL Mobile Banking",
+        "active": true
+      },
+      {
+        "id": "upay",
+        "name": "Upay",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/upay.png",
+        "note": "UCB Fintech",
+        "active": true
+      },
+      {
+        "id": "visa",
+        "name": "Visa Card",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/visa.png",
+        "note": "Credit / Debit Card",
+        "active": true
+      },
+      {
+        "id": "mastercard",
+        "name": "MasterCard",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/mastercard.png",
+        "note": "Credit / Debit Card",
+        "active": true
+      },
+      {
+        "id": "amex",
+        "name": "American Express",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/amex.png",
+        "note": "AMEX Card",
+        "active": true
+      },
+      {
+        "id": "nexus",
+        "name": "DBBL NexusPay",
+        "logo": "https://raw.githubusercontent.com/manirujjamanakash/bd-payment-gateways/master/icons/nexus.png",
+        "note": "Dutch Bangla Bank",
+        "active": true
+      },
+      {
+        "id": "ibanking",
+        "name": "Internet Banking",
+        "logo": "assets/images/jaasbd-logo.png",
+        "note": "All Major BD Banks",
+        "active": true
+      }
+    ],
+    "paymentNames": [
+      "EPS (Easy Payment System)",
+      "bKash",
+      "Nagad",
+      "Rocket",
+      "Upay",
+      "Visa",
+      "MasterCard",
+      "American Express",
+      "UnionPay",
+      "DBBL NexusPay"
+    ]
+  },
+  "testimonials": [
+    {
+      "id": "testi-1",
+      "name": "Arifur Rahman",
+      "role": "CEO, TechBazaar BD",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      "rating": 5,
+      "review": "I found JAAS BD so useful and they fulfilled my requirements with complete IT support. It is the number one hosting solution for our fast-growing e-commerce platform."
+    },
+    {
+      "id": "testi-2",
+      "name": "Nusrat Jahan",
+      "role": "Founder, ShopStyle Online",
+      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face",
+      "rating": 5,
+      "review": "Wonderful service! Very quick response and extraordinary customer service. Their BDIX NVMe hosting gave us 1ms loading speeds across Bangladesh."
+    },
+    {
+      "id": "testi-3",
+      "name": "Mahmudul Hasan",
+      "role": "Managing Director, Global Media Ltd",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+      "rating": 5,
+      "review": "Most popular and reliable web hosting service provider in Bangladesh. Their technical team migrated our sites smoothly with zero downtime."
+    }
+  ],
+  "domainPricing": [
+    {
+      "ext": ".com",
+      "regPrice": 1450,
+      "renewPrice": 1550,
+      "transferPrice": 1450
+    },
+    {
+      "ext": ".com.bd",
+      "regPrice": 2200,
+      "renewPrice": 2200,
+      "transferPrice": 2200,
+      "note": "2 Years"
+    },
+    {
+      "ext": ".net",
+      "regPrice": 1850,
+      "renewPrice": 1950,
+      "transferPrice": 1850
+    },
+    {
+      "ext": ".org",
+      "regPrice": 1750,
+      "renewPrice": 1850,
+      "transferPrice": 1750
+    },
+    {
+      "ext": ".xyz",
+      "regPrice": 450,
+      "renewPrice": 1450,
+      "transferPrice": 1450
+    },
+    {
+      "ext": ".info",
+      "regPrice": 650,
+      "renewPrice": 1950,
+      "transferPrice": 1950
+    }
+  ],
+  "packages": [
+    {
+      "id": "web-starter",
+      "name": "Web Hosting Starter",
+      "category": "Web Hosting",
+      "badge": "Starter",
+      "basePrice": 99,
+      "annualPrice": 1188,
+      "storage": "5 GB NVMe",
+      "websites": "1 Website",
+      "ram": "1 GB RAM",
+      "cpu": "1 Core CPU",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 5,
+          "price": 99,
+          "ram": "1 GB",
+          "cpu": "1 Core",
+          "sites": 1,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "5 GB NVMe SSD Storage",
+        "1 Hosted Website",
+        "cPanel Control Panel",
+        "LiteSpeed Web Server",
+        "Free Automated SSL",
+        "Daily Remote Backups",
+        "Unlimited BDIX Bandwidth"
+      ]
+    },
+    {
+      "id": "web-business",
+      "name": "Web Hosting Business",
+      "category": "Web Hosting",
+      "badge": "Most Popular",
+      "basePrice": 199,
+      "annualPrice": 2388,
+      "storage": "15 GB NVMe",
+      "websites": "5 Websites",
+      "ram": "2 GB RAM",
+      "cpu": "2 Cores CPU",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 15,
+          "price": 199,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 5,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "15 GB NVMe SSD Storage",
+        "5 Hosted Websites",
+        "Free .COM Domain (Annual)",
+        "cPanel Control Panel",
+        "LiteSpeed + LSCache",
+        "Free Wildcard SSL",
+        "Daily Remote Backups"
+      ]
+    },
+    {
+      "id": "web-pro",
+      "name": "Web Hosting Ultimate Pro",
+      "category": "Web Hosting",
+      "badge": "Best Value",
+      "basePrice": 349,
+      "annualPrice": 4188,
+      "storage": "30 GB NVMe",
+      "websites": "Unlimited Websites",
+      "ram": "4 GB RAM",
+      "cpu": "2 Cores CPU",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 30,
+          "price": 349,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "30 GB NVMe SSD Storage",
+        "Unlimited Hosted Websites",
+        "Free .COM Domain",
+        "cPanel with 400+ Apps",
+        "Enterprise LiteSpeed Server",
+        "Dedicated IP Available",
+        "Priority VIP 24/7 Support"
+      ]
+    },
+    {
+      "id": "bdix-starter",
+      "name": "BDIX Starter Hosting",
+      "category": "BDIX Web Hosting",
+      "badge": "10Gbps BDIX",
+      "basePrice": 134,
+      "annualPrice": 1608,
+      "storage": "5 GB NVMe",
+      "websites": "1 Website",
+      "ram": "1.5 GB RAM",
+      "cpu": "1 Core CPU",
+      "bandwidth": "Unlimited 10Gbps BDIX",
+      "storageOptions": [
+        {
+          "gb": 5,
+          "price": 134,
+          "ram": "1.5 GB",
+          "cpu": "1 Core",
+          "sites": 1,
+          "bandwidth": "Unlimited 10Gbps"
+        }
+      ],
+      "features": [
+        "Direct 10 Gbps BDIX Peering",
+        "1ms Ultra-Low Latency in BD",
+        "5 GB Pure NVMe SSD",
+        "1 Hosted Website",
+        "cPanel Control Panel",
+        "Free SSL & Daily Backup"
+      ]
+    },
+    {
+      "id": "bdix-pro",
+      "name": "BDIX Professional Hosting",
+      "category": "BDIX Web Hosting",
+      "badge": "Ultra Fast",
+      "basePrice": 299,
+      "annualPrice": 3588,
+      "storage": "15 GB NVMe",
+      "websites": "3 Websites",
+      "ram": "3 GB RAM",
+      "cpu": "2 Cores CPU",
+      "bandwidth": "Unlimited 10Gbps BDIX",
+      "storageOptions": [
+        {
+          "gb": 15,
+          "price": 299,
+          "ram": "3 GB",
+          "cpu": "2 Cores",
+          "sites": 3,
+          "bandwidth": "Unlimited 10Gbps"
+        }
+      ],
+      "features": [
+        "Direct 10 Gbps BDIX Peering",
+        "15 GB Pure NVMe SSD",
+        "3 Websites Hosted",
+        "3 GB DDR4 RAM & 2 Cores",
+        "LiteSpeed Web Server",
+        "Free SSL & Daily Remote Backup"
+      ]
+    },
+    {
+      "id": "bdix-business",
+      "name": "BDIX Business Enterprise",
+      "category": "BDIX Web Hosting",
+      "badge": "High Traffic",
+      "basePrice": 499,
+      "annualPrice": 5988,
+      "storage": "30 GB NVMe",
+      "websites": "10 Websites",
+      "ram": "4 GB RAM",
+      "cpu": "2 Cores CPU",
+      "bandwidth": "Unlimited 10Gbps BDIX",
+      "storageOptions": [
+        {
+          "gb": 30,
+          "price": 499,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": 10,
+          "bandwidth": "Unlimited 10Gbps"
+        }
+      ],
+      "features": [
+        "Direct 10 Gbps BDIX Peering",
+        "30 GB Pure NVMe SSD",
+        "10 Hosted Websites",
+        "Free .COM Domain",
+        "Isolated Cloud Container",
+        "LiteSpeed + Redis Cache",
+        "24/7 Phone & WhatsApp VIP Support"
+      ]
+    },
+    {
+      "id": "vps-1",
+      "name": "BDIX Cloud VPS 1",
+      "category": "BDIX Cloud VPS",
+      "badge": "Dedicated Power",
+      "basePrice": 1650,
+      "annualPrice": 19800,
+      "storage": "40 GB NVMe",
+      "websites": "Unlimited",
+      "ram": "4 GB DDR4",
+      "cpu": "2 vCPU",
+      "bandwidth": "2 TB BDIX Bandwidth",
+      "storageOptions": [
+        {
+          "gb": 40,
+          "price": 1650,
+          "ram": "4 GB DDR4",
+          "cpu": "2 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "2 TB BDIX"
+        }
+      ],
+      "features": [
+        "2 vCPU Intel Xeon / AMD EPYC",
+        "4 GB DDR4 RAM",
+        "40 GB Pure NVMe Storage",
+        "1 Dedicated IPv4",
+        "Full Root SSH Access",
+        "Tier-III BDIX Data Center"
+      ]
+    },
+    {
+      "id": "vps-2",
+      "name": "BDIX Cloud VPS 2",
+      "category": "BDIX Cloud VPS",
+      "badge": "High Performance",
+      "basePrice": 2950,
+      "annualPrice": 35400,
+      "storage": "80 GB NVMe",
+      "websites": "Unlimited",
+      "ram": "8 GB DDR4",
+      "cpu": "4 vCPU",
+      "bandwidth": "4 TB BDIX Bandwidth",
+      "storageOptions": [
+        {
+          "gb": 80,
+          "price": 2950,
+          "ram": "8 GB DDR4",
+          "cpu": "4 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "4 TB BDIX"
+        }
+      ],
+      "features": [
+        "4 vCPU Processor",
+        "8 GB DDR4 RAM",
+        "80 GB Pure NVMe Storage",
+        "1 Dedicated IPv4",
+        "Full Root Access & IPMI",
+        "Instant 60-Second OS Reload"
+      ]
+    },
+    {
+      "id": "vps-3",
+      "name": "BDIX Cloud VPS 3",
+      "category": "BDIX Cloud VPS",
+      "badge": "Enterprise VPS",
+      "basePrice": 4950,
+      "annualPrice": 59400,
+      "storage": "160 GB NVMe",
+      "websites": "Unlimited",
+      "ram": "16 GB DDR4",
+      "cpu": "6 vCPU",
+      "bandwidth": "6 TB BDIX Bandwidth",
+      "storageOptions": [
+        {
+          "gb": 160,
+          "price": 4950,
+          "ram": "16 GB DDR4",
+          "cpu": "6 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "6 TB BDIX"
+        }
+      ],
+      "features": [
+        "6 vCPU High Clock Processor",
+        "16 GB DDR4 RAM",
+        "160 GB Pure NVMe Storage",
+        "1 Dedicated IPv4 + /64 IPv6",
+        "Custom OS & Automated Backups",
+        "10Gbps BDIX Connectivity"
+      ]
+    },
+    {
+      "id": "reseller-silver",
+      "name": "Silver Reseller Hosting",
+      "category": "Reseller Hosting",
+      "badge": "Reseller 15",
+      "basePrice": 799,
+      "annualPrice": 9588,
+      "storage": "25 GB NVMe",
+      "websites": "15 cPanel Accounts",
+      "ram": "2 GB Per cPanel",
+      "cpu": "1 Core",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 25,
+          "price": 799,
+          "ram": "2 GB",
+          "cpu": "1 Core",
+          "sites": 15,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "25 GB NVMe SSD Storage",
+        "15 cPanel Accounts",
+        "WHM Control Panel Access",
+        "100% White Label Branding",
+        "Free Private Nameservers",
+        "Free Automated SSL For Clients"
+      ]
+    },
+    {
+      "id": "reseller-gold",
+      "name": "Gold Reseller Hosting",
+      "category": "Reseller Hosting",
+      "badge": "Reseller 30",
+      "basePrice": 1399,
+      "annualPrice": 16788,
+      "storage": "50 GB NVMe",
+      "websites": "30 cPanel Accounts",
+      "ram": "2 GB Per cPanel",
+      "cpu": "2 Cores",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 50,
+          "price": 1399,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 30,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "50 GB NVMe SSD Storage",
+        "30 cPanel Accounts",
+        "WHM Control Panel Access",
+        "LiteSpeed + LSCache Support",
+        "Free Private Nameservers",
+        "Daily Automated Client Backups"
+      ]
+    },
+    {
+      "id": "reseller-plat",
+      "name": "Platinum Reseller Hosting",
+      "category": "Reseller Hosting",
+      "badge": "Unlimited cPanels",
+      "basePrice": 2499,
+      "annualPrice": 29988,
+      "storage": "100 GB NVMe",
+      "websites": "Unlimited cPanel Accounts",
+      "ram": "4 GB Per cPanel",
+      "cpu": "2 Cores",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 100,
+          "price": 2499,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "100 GB NVMe SSD Storage",
+        "Unlimited cPanel Accounts",
+        "WHM & Master Reseller Access",
+        "Free Dedicated IP",
+        "Custom Nameservers",
+        "VIP Priority Reseller Support"
+      ]
+    },
+    {
+      "id": "web-hosting",
+      "name": "Web Hosting (Multi-Tier)",
+      "category": "Web Hosting",
+      "badge": "Popular",
+      "basePrice": 99,
+      "annualPrice": 1188,
+      "storage": "5 GB - 50 GB",
+      "websites": "1 - 10 Websites",
+      "ram": "1 - 4 GB",
+      "cpu": "1 - 2 Cores",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 5,
+          "price": 99,
+          "ram": "1 GB",
+          "cpu": "1 Core",
+          "sites": 1,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 10,
+          "price": 199,
+          "ram": "2 GB",
+          "cpu": "1 Core",
+          "sites": 2,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 20,
+          "price": 349,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 5,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 50,
+          "price": 599,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": 10,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "cPanel Control Panel",
+        "LiteSpeed Web Server",
+        "Free Automated SSL",
+        "Daily Remote Backups",
+        "BDIX Ultra Fast Peering",
+        "99.9% Uptime Guarantee"
+      ]
+    },
+    {
+      "id": "bdix-hosting",
+      "name": "BDIX Web Hosting (Multi-Tier)",
+      "category": "BDIX Web Hosting",
+      "badge": "Ultra Fast",
+      "basePrice": 134,
+      "annualPrice": 1608,
+      "storage": "5 GB - 60 GB",
+      "websites": "1 - 20 Websites",
+      "ram": "1.5 - 6 GB",
+      "cpu": "1 - 4 Cores",
+      "bandwidth": "Unlimited 10Gbps",
+      "storageOptions": [
+        {
+          "gb": 5,
+          "price": 134,
+          "ram": "1.5 GB",
+          "cpu": "1 Core",
+          "sites": 1,
+          "bandwidth": "Unlimited 10Gbps"
+        },
+        {
+          "gb": 15,
+          "price": 299,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 3,
+          "bandwidth": "Unlimited 10Gbps"
+        },
+        {
+          "gb": 30,
+          "price": 499,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": 10,
+          "bandwidth": "Unlimited 10Gbps"
+        },
+        {
+          "gb": 60,
+          "price": 899,
+          "ram": "6 GB",
+          "cpu": "4 Cores",
+          "sites": 20,
+          "bandwidth": "Unlimited 10Gbps"
+        }
+      ],
+      "features": [
+        "Direct 10 Gbps BDIX Connectivity",
+        "1ms Latency in Bangladesh",
+        "NVMe SSD Storage",
+        "cPanel with Softaculous",
+        "Free SSL & Daily Backup"
+      ]
+    },
+    {
+      "id": "business-hosting",
+      "name": "Business Hosting",
+      "category": "Corporate Hosting",
+      "badge": "Best Value",
+      "basePrice": 399,
+      "annualPrice": 4788,
+      "storage": "10 GB - 100 GB",
+      "websites": "3 - Unlimited",
+      "ram": "3 - 8 GB",
+      "cpu": "2 - 6 Cores",
+      "bandwidth": "Unlimited",
+      "storageOptions": [
+        {
+          "gb": 10,
+          "price": 399,
+          "ram": "3 GB",
+          "cpu": "2 Cores",
+          "sites": 3,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 20,
+          "price": 699,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": 5,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 50,
+          "price": 1199,
+          "ram": "6 GB",
+          "cpu": "4 Cores",
+          "sites": 15,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 100,
+          "price": 1999,
+          "ram": "8 GB",
+          "cpu": "6 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "Dedicated Resource Allocation",
+        "Isolated Cloud Environment",
+        "Dedicated IP Available",
+        "Priority 24/7 VIP Support",
+        "Enterprise Mail Server"
+      ]
+    },
+    {
+      "id": "starter-hosting",
+      "name": "Cheap Starter Hosting",
+      "category": "Web Hosting",
+      "badge": "Budget",
+      "basePrice": 99,
+      "annualPrice": 1188,
+      "storage": "2 GB - 10 GB",
+      "websites": "1 - 3 Websites",
+      "ram": "1 - 2 GB",
+      "cpu": "1 - 2 Cores",
+      "bandwidth": "100 GB - Unlimited",
+      "storageOptions": [
+        {
+          "gb": 2,
+          "price": 99,
+          "ram": "1 GB",
+          "cpu": "1 Core",
+          "sites": 1,
+          "bandwidth": "100 GB"
+        },
+        {
+          "gb": 5,
+          "price": 175,
+          "ram": "1.5 GB",
+          "cpu": "1 Core",
+          "sites": 2,
+          "bandwidth": "250 GB"
+        },
+        {
+          "gb": 10,
+          "price": 299,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 3,
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "cPanel Control Panel",
+        "LiteSpeed Server",
+        "Free SSL",
+        "1-Click WordPress"
+      ]
+    },
+    {
+      "id": "premium-hosting",
+      "name": "Premium Hosting",
+      "category": "Web Hosting",
+      "badge": "High Traffic",
+      "basePrice": 299,
+      "annualPrice": 3588,
+      "storage": "10 GB - 50 GB",
+      "websites": "2 - Unlimited",
+      "ram": "2 - 6 GB",
+      "cpu": "2 - 4 Cores",
+      "bandwidth": "Unlimited",
+      "storageOptions": [
+        {
+          "gb": 10,
+          "price": 299,
+          "ram": "2 GB",
+          "cpu": "2 Cores",
+          "sites": 2,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 25,
+          "price": 549,
+          "ram": "4 GB",
+          "cpu": "2 Cores",
+          "sites": 5,
+          "bandwidth": "Unlimited"
+        },
+        {
+          "gb": 50,
+          "price": 899,
+          "ram": "6 GB",
+          "cpu": "4 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited"
+        }
+      ],
+      "features": [
+        "NVMe Storage RAID-10",
+        "LiteSpeed + LSCache",
+        "cPanel with 400+ Apps",
+        "DDoS Protection 30 Gbps",
+        "Free Site Migration"
+      ]
+    },
+    {
+      "id": "corporate-hosting",
+      "name": "Corporate Hosting",
+      "category": "Corporate Hosting",
+      "badge": "Enterprise",
+      "basePrice": 4000,
+      "annualPrice": 48000,
+      "storage": "100 GB - 500 GB",
+      "websites": "Unlimited",
+      "ram": "16 - 64 GB",
+      "cpu": "8 - 16 Cores",
+      "bandwidth": "Unlimited BDIX",
+      "storageOptions": [
+        {
+          "gb": 100,
+          "price": 4000,
+          "ram": "16 GB",
+          "cpu": "8 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited BDIX"
+        },
+        {
+          "gb": 250,
+          "price": 7500,
+          "ram": "32 GB",
+          "cpu": "12 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited BDIX"
+        },
+        {
+          "gb": 500,
+          "price": 12000,
+          "ram": "64 GB",
+          "cpu": "16 Cores",
+          "sites": "Unlimited",
+          "bandwidth": "Unlimited BDIX"
+        }
+      ],
+      "features": [
+        "Custom Enterprise SLA",
+        "Dedicated Cloud Node",
+        "Daily Off-site Backup",
+        "Account Manager Support",
+        "Compliance & Security Audits"
+      ]
+    },
+    {
+      "id": "managed-vps",
+      "name": "Managed Cloud VPS",
+      "category": "BDIX Cloud VPS",
+      "badge": "Dedicated Power",
+      "basePrice": 1650,
+      "annualPrice": 19800,
+      "storage": "40 GB - 320 GB",
+      "websites": "Unlimited",
+      "ram": "4 - 32 GB",
+      "cpu": "2 - 8 vCPU",
+      "bandwidth": "2 - 10 TB BDIX",
+      "storageOptions": [
+        {
+          "gb": 40,
+          "price": 1650,
+          "ram": "4 GB DDR4",
+          "cpu": "2 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "2 TB BDIX"
+        },
+        {
+          "gb": 80,
+          "price": 2950,
+          "ram": "8 GB DDR4",
+          "cpu": "4 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "4 TB BDIX"
+        },
+        {
+          "gb": 160,
+          "price": 4950,
+          "ram": "16 GB DDR4",
+          "cpu": "6 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "6 TB BDIX"
+        },
+        {
+          "gb": 320,
+          "price": 8500,
+          "ram": "32 GB DDR4",
+          "cpu": "8 vCPU",
+          "sites": "Unlimited",
+          "bandwidth": "10 TB BDIX"
+        }
+      ],
+      "features": [
+        "Full Root Access",
+        "cPanel/WHM or Webuzo License",
+        "Dedicated IPv4 + IPv6",
+        "Tier-III BDIX Connectivity",
+        "Instant 60s OS Reload"
+      ]
+    }
+  ],
+  "hero": {
+    "line1": "We Help Businesses",
+    "line2": "Grow Online",
+    "badge": "Next-Gen Cloud & BDIX Web Hosting",
+    "orbitImg": "assets/images/jaasbd-logo.png"
+  }
+}

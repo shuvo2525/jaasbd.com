@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domain Registration &bull; .COM ৳1,450 | JAAS BD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      color: #0F172A;
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-wrap img { height: 42px; width: auto; }
+    .brand-name { font-size: 24px; font-weight: 900; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #475569;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #0077B6; }
+
+    /* Hero */
+    .domain-hero {
+      background: linear-gradient(135deg, rgba(74, 14, 110, 0.94) 0%, rgba(123, 44, 191, 0.92) 100%), url('assets/images/domain-search-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 70px 0 80px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+    .hero-title { font-size: 42px; font-weight: 900; margin-bottom: 10px; }
+    .hero-sub { font-size: 16px; color: #F3E8FF; margin-bottom: 35px; }
+
+    .search-box-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+    .search-box-input {
+      flex: 1;
+      border: none;
+      padding: 18px 24px;
+      font-size: 15px;
+      outline: none;
+    }
+    .btn-search {
+      background: #F77F00;
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 0 40px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-search:hover { background: #E85D04; }
+
+    /* Domain Pricing Table */
+    .pricing-table-section {
+      padding: 70px 0 80px;
+    }
+    .table-title {
+      font-size: 26px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .table-sub {
+      text-align: center;
+      font-size: 14px;
+      color: #64748B;
+      margin-bottom: 40px;
+    }
+    .domain-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    }
+    .domain-table th {
+      background: #F8FAFC;
+      padding: 16px 20px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #334155;
+      text-transform: uppercase;
+      text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .domain-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid #F1F5F9;
+      font-size: 14px;
+    }
+    .ext-badge {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+    .btn-order-dom {
+      background: #0077B6;
+      color: #FFFFFF;
+      padding: 8px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-order-dom:hover { background: #023E8A; }
+
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 16px 0;
+      font-size: 13.5px;
+      color: #64748B;
+    }
+    .footer-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-bottom-left-payments {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-payments-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1E293B;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .sslcommerz-footer-banner {
+      height: 46px;
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-bottom-right-copy {
+      color: #64748B;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 800px) {
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .footer-bottom-left-payments {
+        justify-content: center;
+      }
+      .footer-bottom-right-copy {
+        text-align: center;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hosting.html">Web Hosting</a></li>
+        <li><a href="domain.html" class="active">Domains</a></li>
+        <li><a href="servers.html">Servers</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="login.html" style="padding:9px 20px; border:1px solid #CBD5E1; color:#0F172A; text-decoration:none; font-weight:700; border-radius:6px;">&#128100; Login</a>
+        <a href="order.html?plan=business-hosting" style="padding:9px 22px; background:#0077B6; color:#FFFFFF; text-decoration:none; font-weight:700; border-radius:6px;">Get Deal</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="domain-hero">
+    <div class="container">
+      <h1 class="hero-title">Search &amp; Register Your Domain</h1>
+      <p class="hero-sub">Engage customers and build your digital brand with the perfect domain name.</p>
+
+      <form class="search-box-wrap" onsubmit="event.preventDefault(); window.location.href='order.html?plan=domain-registration';">
+        <input type="text" class="search-box-input" placeholder="Search your dream domain name (e.g. mycompany.com)">
+        <button type="submit" class="btn-search">SEARCH</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container pricing-table-section">
+    <h2 class="table-title">Domain Pricing &bull; Registration &amp; Renewal</h2>
+    <p class="table-sub">Transparent pricing with free DNS management and email forwarding.</p>
+
+    <table class="domain-table">
+      <thead>
+        <tr>
+          <th>TLD Extension</th>
+          <th>Registration (1 Yr)</th>
+          <th>Renewal (1 Yr)</th>
+          <th>Transfer</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="ext-badge">.com</span></td>
+          <td><strong>৳1,450</strong></td>
+          <td>৳1,450</td>
+          <td>৳1,450</td>
+          <td><a href="order.html?plan=domain-registration" class="btn-order-dom">Register &rarr;</a></td>
+        </tr>
+        <tr>
+          <td><span class="ext-badge" style="color:#06D6A0;">.com.bd</span></td>
+          <td><strong>৳2,200 (2 Yrs)</strong></td>
+          <td>৳2,200</td>
+          <td>৳2,200</td>
+          <td><a href="order.html?plan=domain-registration" class="btn-order-dom">Register &rarr;</a></td>
+        </tr>
+        <tr>
+          <td><span class="ext-badge">.net</span></td>
+          <td><strong>৳1,850</strong></td>
+          <td>৳1,850</td>
+          <td>৳1,850</td>
+          <td><a href="order.html?plan=domain-registration" class="btn-order-dom">Register &rarr;</a></td>
+        </tr>
+        <tr>
+          <td><span class="ext-badge">.org</span></td>
+          <td><strong>৳1,750</strong></td>
+          <td>৳1,750</td>
+          <td>৳1,750</td>
+          <td><a href="order.html?plan=domain-registration" class="btn-order-dom">Register &rarr;</a></td>
+        </tr>
+        <tr>
+          <td><span class="ext-badge" style="color:#F77F00;">.xyz</span></td>
+          <td><strong>৳450</strong></td>
+          <td>৳1,350</td>
+          <td>৳1,350</td>
+          <td><a href="order.html?plan=domain-registration" class="btn-order-dom">Register &rarr;</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom-bar">
+      <div class="footer-bottom-left-payments">
+        <span class="footer-payments-label">Payments</span>
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+      </div>
+      <div class="footer-bottom-right-copy">
+        &copy; 2026 JAAS BD. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

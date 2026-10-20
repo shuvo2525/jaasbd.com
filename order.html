@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure Hosting Package & Checkout | JAAS BD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F8FAFC;
+      color: #0F172A;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-wrap img {
+      height: 42px;
+      width: auto;
+    }
+    .brand-name {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #475569;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #0077B6; }
+    .header-btns {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-outline {
+      padding: 9px 20px;
+      border: 1px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #0F172A;
+      font-weight: 700;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: #0077B6;
+      color: #0077B6;
+    }
+
+    /* Step indicator */
+    .steps-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 16px 0;
+    }
+    .steps-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+    .step-item.active {
+      color: #0077B6;
+    }
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .step-item.active .step-num {
+      background: #0077B6;
+      color: #FFFFFF;
+    }
+
+    /* Main Checkout Layout */
+    .order-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 30px;
+      margin: 40px 0 80px;
+    }
+    @media (max-width: 992px) {
+      .order-layout { grid-template-columns: 1fr; }
+    }
+
+    /* Config Cards */
+    .config-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+    }
+    /* Deal Section Picker Card */
+    .deal-section-picker-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .deal-badge-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #EFF6FF;
+      color: #0077B6;
+      margin-bottom: 8px;
+    }
+    .deal-picker-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .deal-picker-desc {
+      font-size: 13.5px;
+      color: #64748B;
+      margin-bottom: 18px;
+    }
+    .deal-categories-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 820px) {
+      .deal-categories-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    .deal-cat-tab {
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .deal-cat-tab:hover {
+      border-color: #0077B6;
+      background: #F0F9FF;
+    }
+    .deal-cat-tab.active {
+      border-color: #0077B6;
+      background: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(0, 119, 182, 0.15);
+    }
+    .deal-cat-icon { font-size: 24px; }
+    .deal-cat-title { font-size: 13.5px; font-weight: 800; color: #0F172A; }
+    .deal-cat-subtitle { font-size: 11.5px; color: #64748B; }
+
+    .deal-packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .deal-packages-grid { grid-template-columns: 1fr; }
+    }
+    .deal-pkg-card {
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .deal-pkg-card:hover {
+      border-color: #0077B6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 119, 182, 0.1);
+    }
+    .deal-pkg-card.active {
+      border-color: #0077B6;
+      background: #F0F9FF;
+      box-shadow: 0 0 0 2px #0077B6;
+    }
+    .deal-pkg-card .pkg-name { font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
+    .deal-pkg-card .pkg-badge { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: #DCFCE7; color: #166534; display: inline-block; margin-bottom: 10px; }
+    .deal-pkg-card .pkg-price { font-size: 22px; font-weight: 900; color: #0077B6; margin-bottom: 6px; }
+    .deal-pkg-card .pkg-meta { font-size: 12px; color: #64748B; line-height: 1.5; margin-bottom: 14px; }
+    .deal-pkg-card .btn-choose-plan {
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      background: #0077B6;
+      color: #FFFFFF;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .deal-pkg-card.active .btn-choose-plan {
+      background: #059669;
+    }
+
+    .card-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-subheading {
+      font-size: 13.5px;
+      color: #64748B;
+      margin-bottom: 22px;
+    }
+
+    /* Storage Selector */
+    .storage-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    @media (max-width: 600px) {
+      .storage-buttons-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .storage-btn {
+      border: 2px solid #E2E8F0;
+      background: #F8FAFC;
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .storage-btn:hover {
+      border-color: #0077B6;
+      background: #EFF6FF;
+    }
+    .storage-btn.active {
+      border-color: #0077B6;
+      background: #EFF6FF;
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.15);
+    }
+    .storage-val {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0F172A;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .storage-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0077B6;
+    }
+
+    /* Specs Grid */
+    .specs-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 18px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+      .specs-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    .spec-item {
+      text-align: center;
+    }
+    .spec-item .label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .spec-item .value {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+
+    /* Billing Cycle Options */
+    .cycles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 600px) {
+      .cycles-grid { grid-template-columns: 1fr; }
+    }
+    .cycle-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      position: relative;
+      background: #FFFFFF;
+      transition: all 0.2s;
+    }
+    .cycle-card:hover {
+      border-color: #0077B6;
+    }
+    .cycle-card.active {
+      border-color: #0077B6;
+      background: #F0F9FF;
+    }
+    .cycle-badge {
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      background: #F77F00;
+      color: #FFFFFF;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+    .cycle-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 4px;
+    }
+    .cycle-price {
+      font-size: 16px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+    .cycle-save {
+      font-size: 11px;
+      color: #06D6A0;
+      font-weight: 700;
+    }
+
+    /* Domain Selection */
+    .domain-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 8px;
+    }
+    .domain-tab-btn {
+      padding: 8px 16px;
+      border: none;
+      background: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #64748B;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .domain-tab-btn.active {
+      background: #EFF6FF;
+      color: #0077B6;
+      font-weight: 700;
+    }
+    .domain-input-group {
+      display: flex;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #CBD5E1;
+    }
+    .domain-input {
+      flex: 1;
+      padding: 14px 18px;
+      border: none;
+      outline: none;
+      font-size: 14.5px;
+    }
+    .domain-ext-select {
+      background: #F8FAFC;
+      border: none;
+      border-left: 1px solid #CBD5E1;
+      padding: 0 16px;
+      font-weight: 700;
+      color: #0F172A;
+      outline: none;
+    }
+    .btn-check-domain {
+      background: #0077B6;
+      color: #FFFFFF;
+      border: none;
+      padding: 0 22px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-check-domain:hover { background: #023E8A; }
+
+    /* Client Form Fields */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .form-control:focus {
+      border-color: #0077B6;
+      box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+    }
+
+    /* Hosting Package Toggle Button */
+    .btn-toggle-hosting {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-toggle-hosting:hover {
+      background: #E2E8F0;
+      color: #0F172A;
+    }
+    .btn-toggle-hosting.is-deselected {
+      background: #E0F2FE;
+      border-color: #0077B6;
+      color: #0077B6;
+    }
+    .hosting-deselected-banner {
+      background: #F8FAFC;
+      border: 1.5px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 22px;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    /* Order Summary Sidebar */
+    .summary-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      position: sticky;
+      top: 100px;
+    }
+    .summary-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13.5px;
+      color: #475569;
+      margin-bottom: 12px;
+    }
+    .summary-line strong {
+      color: #0F172A;
+    }
+    .summary-divider {
+      height: 1px;
+      background: #E2E8F0;
+      margin: 18px 0;
+    }
+    .total-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .total-label {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .total-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+    .btn-checkout {
+      width: 100%;
+      background: linear-gradient(135deg, #F77F00 0%, #EA580C 100%);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(247, 127, 0, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-checkout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(247, 127, 0, 0.5);
+    }
+    .btn-remove-line {
+      background: none;
+      border: none;
+      color: #EF4444;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 4px;
+      text-decoration: underline;
+      margin-left: 6px;
+    }
+    .btn-remove-line:hover {
+      color: #B91C1C;
+    }
+
+    .btn-domain-action {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #0077B6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-domain-action:hover {
+      background: #023E8A;
+    }
+    .btn-domain-action.is-added {
+      background: #059669;
+    }
+    .btn-domain-action.is-added:hover {
+      background: #DC2626;
+    }
+
+    /* Gateway Modal Simulation */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      text-align: left;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .gw-tabs {
+      display: flex;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 16px;
+      gap: 6px;
+    }
+    .gw-tab-btn {
+      flex: 1;
+      padding: 8px 6px;
+      background: none;
+      border: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #64748B;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      text-align: center;
+    }
+    .gw-tab-btn.active {
+      color: #0077B6;
+      border-bottom-color: #0077B6;
+    }
+    .gw-methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .gw-method-item {
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 12px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #FFFFFF;
+    }
+    .gw-method-item:hover, .gw-method-item.selected {
+      border-color: #0077B6;
+      background: #F0F9FF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header with Spectrum Brand -->
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hosting.html">Web Hosting</a></li>
+        <li><a href="domain.html">Domains</a></li>
+        <li><a href="servers.html">Servers</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+
+      <div class="header-btns">
+        <a href="clientarea.html" class="btn-outline">&#128100; Client Area</a>
+        <a href="index.html" class="btn-outline">Back to Site</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Step Bar -->
+  <div class="steps-bar">
+    <div class="container steps-wrap">
+      <div class="step-item active">
+        <span class="step-num">1</span>
+        <span>Configure Plan</span>
+      </div>
+      <span style="color:#CBD5E1;">&rarr;</span>
+      <div class="step-item active">
+        <span class="step-num">2</span>
+        <span>Domain &amp; Details</span>
+      </div>
+      <span style="color:#CBD5E1;">&rarr;</span>
+      <div class="step-item">
+        <span class="step-num">3</span>
+        <span>Payment (EPS / bKash)</span>
+      </div>
+      <span style="color:#CBD5E1;">&rarr;</span>
+      <div class="step-item">
+        <span class="step-num">4</span>
+        <span>Invoice &amp; cPanel Access</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Order Layout -->
+  <div class="container">
+    <div class="order-layout">
+
+      <!-- Left Column: Configurator & Client Details -->
+      <div>
+
+        <!-- Section / Category Picker (Web Hosting, BDIX Hosting, Cloud VPS, Software) -->
+        <div class="deal-section-picker-card" id="dealSectionPicker">
+          <div class="deal-picker-header">
+            <span class="deal-badge-pill">🔥 SELECT SERVICE SECTION / CATEGORY</span>
+            <h2 class="deal-picker-title">Choose Service Category to View All Packages</h2>
+            <p class="deal-picker-desc">Select a category below to see all packages and instantly configure your desired plan:</p>
+          </div>
+
+          <div class="deal-categories-row">
+            <button type="button" class="deal-cat-tab active" id="tabCatBdix" onclick="switchOrderCategory('BDIX Web Hosting', this)">
+              <span class="deal-cat-icon">🇧🇩</span>
+              <div>
+                <div class="deal-cat-title">BDIX Web Hosting</div>
+                <div class="deal-cat-subtitle">3 Ultra-Fast Plans</div>
+              </div>
+            </button>
+            <button type="button" class="deal-cat-tab" id="tabCatWeb" onclick="switchOrderCategory('Web Hosting', this)">
+              <span class="deal-cat-icon">💻</span>
+              <div>
+                <div class="deal-cat-title">Web Hosting</div>
+                <div class="deal-cat-subtitle">3 NVMe cPanel Plans</div>
+              </div>
+            </button>
+            <button type="button" class="deal-cat-tab" id="tabCatCloud" onclick="switchOrderCategory('BDIX Cloud VPS', this)">
+              <span class="deal-cat-icon">⚡</span>
+              <div>
+                <div class="deal-cat-title">Cloud &amp; VPS</div>
+                <div class="deal-cat-subtitle">3 Dedicated Root Plans</div>
+              </div>
+            </button>
+            <button type="button" class="deal-cat-tab" id="tabCatSoftware" onclick="switchOrderCategory('Software', this)">
+              <span class="deal-cat-icon">🚀</span>
+              <div>
+                <div class="deal-cat-title">Software &amp; Licenses</div>
+                <div class="deal-cat-subtitle">cPanel, SSL, LiteSpeed</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- All packages under selected category -->
+          <div class="deal-packages-grid" id="categoryPackagesShowcase">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- 1. Package Configuration -->
+        <div class="config-card" id="hostingConfigCard">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="color:#0077B6; font-size:20px;">⚙️</span>
+              <span id="planNameDisplay" style="font-size:18px; font-weight:800; color:#0F172A;">Business Hosting</span>
+              <span id="planBadgeDisplay" style="background:#06D6A0; color:#FFFFFF; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Best Value</span>
+            </div>
+            <button type="button" id="btnToggleHosting" class="btn-toggle-hosting" onclick="toggleHostingPackage()">
+              ✕ Deselect Package (Domain Only)
+            </button>
+          </div>
+
+          <div id="hostingDeselectedNotice" class="hosting-deselected-banner" style="display:none;">
+            <div style="font-size:20px; margin-bottom:6px;">🌐</div>
+            <div style="font-size:15px; font-weight:800; color:#0F172A; margin-bottom:4px;">Hosting Package Deselected (Domain Only Mode)</div>
+            <p style="font-size:13px; color:#64748B; margin:0 auto; max-width:440px;">
+              You are currently purchasing <strong>Domain Registration Only</strong> (Hosting cost: ৳0). If you wish to include hosting, click above or select any package from the category list.
+            </p>
+          </div>
+
+          <div id="hostingConfigBody">
+            <p class="card-subheading">Select your preferred NVMe SSD storage capacity and server resources.</p>
+
+            <!-- Storage Selector -->
+            <label style="font-size:13px; font-weight:700; color:#334155; display:block; margin-bottom:10px;">Select Storage (NVMe SSD):</label>
+            <div class="storage-buttons-grid" id="storageGrid">
+              <!-- Populated via JS -->
+            </div>
+
+            <!-- Dynamic Server Specs Overview -->
+            <div class="specs-grid-4">
+              <div class="spec-item">
+                <div class="label">Dedicated RAM</div>
+                <div class="value" id="specRam">4 GB DDR4</div>
+              </div>
+              <div class="spec-item">
+                <div class="label">CPU Cores</div>
+                <div class="value" id="specCpu">2 Cores</div>
+              </div>
+              <div class="spec-item">
+                <div class="label">Bandwidth</div>
+                <div class="value" id="specBandwidth">Unlimited</div>
+              </div>
+              <div class="spec-item">
+                <div class="label">BDIX Speed</div>
+                <div class="value" style="color:#06D6A0;">10 Gbps Tier-III</div>
+              </div>
+            </div>
+
+            <!-- Billing Cycle -->
+            <label style="font-size:13px; font-weight:700; color:#334155; display:block; margin-bottom:10px;">Choose Billing Cycle:</label>
+            <div class="cycles-grid">
+              <div class="cycle-card" onclick="selectCycle('monthly', 1, 0, this)">
+                <div class="cycle-title">1 Month</div>
+                <div class="cycle-price" id="cyclePriceMonthly">৳399</div>
+                <div style="font-size:11px; color:#64748B;">Standard billing</div>
+              </div>
+
+              <div class="cycle-card active" onclick="selectCycle('annually', 12, 0.20, this)">
+                <div class="cycle-badge">Save 20%</div>
+                <div class="cycle-title">1 Year (12 Mos)</div>
+                <div class="cycle-price" id="cyclePriceAnnual">৳3,830</div>
+                <div class="cycle-save">৳319 / month</div>
+              </div>
+
+              <div class="cycle-card" onclick="selectCycle('biennially', 24, 0.30, this)">
+                <div class="cycle-badge">Save 30%</div>
+                <div class="cycle-title">2 Years (24 Mos)</div>
+                <div class="cycle-price" id="cyclePriceBiennial">৳6,703</div>
+                <div class="cycle-save">৳279 / month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Domain Selection -->
+        <div class="config-card">
+          <div class="card-heading">
+            <span style="color:#0077B6;">🌐</span> 2. Choose Your Domain Name &amp; Availability
+          </div>
+          <p class="card-subheading">Search for a new domain to register, transfer your domain, use your existing domain (৳0), or skip domain.</p>
+
+          <div class="domain-tabs">
+            <button type="button" class="domain-tab-btn active" id="tabDomNew" onclick="selectDomainMode('new', this)">Register New Domain</button>
+            <button type="button" class="domain-tab-btn" id="tabDomTransfer" onclick="selectDomainMode('transfer', this)">Transfer Domain</button>
+            <button type="button" class="domain-tab-btn" id="tabDomExisting" onclick="selectDomainMode('existing', this)">Use Existing Domain (Free ৳0)</button>
+            <button type="button" class="domain-tab-btn" id="tabDomNone" onclick="selectDomainMode('none', this)">Skip / No Domain (৳0)</button>
+          </div>
+
+          <div class="domain-input-group" id="domainInputGroup">
+            <input type="text" id="domainInput" class="domain-input" placeholder="Enter domain name (e.g. mycompany)" value="mycompany" oninput="handleDomainInputChange()">
+            <select id="domainExt" class="domain-ext-select" onchange="handleDomainExtChange()">
+              <option value=".com" data-price="1450" selected>.com (৳1,450/yr)</option>
+              <option value=".com.bd" data-price="2200">.com.bd (৳2,200/2yrs)</option>
+              <option value=".net" data-price="1850">.net (৳1,850/yr)</option>
+              <option value=".org" data-price="1750">.org (৳1,750/yr)</option>
+              <option value=".xyz" data-price="450">.xyz (৳450/yr)</option>
+            </select>
+            <button type="button" class="btn-check-domain" id="btnCheckDomain" onclick="checkDomainAvailability()">Check Domain</button>
+          </div>
+
+          <div id="domainStatusBox" style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:14px 16px; margin-top:12px;">
+            <div id="domainStatusMsg" style="font-size:13.5px; color:#15803D; font-weight:700;">
+              ✔ mycompany.com is AVAILABLE for instant registration! (৳1,450/yr)
+            </div>
+            <button type="button" class="btn-domain-action is-added" id="btnToggleDomainCart" onclick="toggleDomainCart()">
+              ✓ Added to Order (Click to Remove)
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Client Account & Personal Information -->
+        <div class="config-card">
+          <div class="card-heading">
+            <span style="color:#0077B6;">👤</span> 3. Client Information (For Account &amp; Billing)
+          </div>
+          <p class="card-subheading">Your client account will be automatically created in the JAAS BD Client Portal.</p>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="custName" class="form-control" value="Ashish Halder" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address (For Bill &amp; cPanel Details) *</label>
+              <input type="email" id="custEmail" class="form-control" value="ashish@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Phone Number (SMS Activation) *</label>
+              <input type="text" id="custPhone" class="form-control" value="+88-01818-430308" required>
+            </div>
+            <div class="form-group">
+              <label>Company / Organization Name</label>
+              <input type="text" id="custCompany" class="form-control" value="Golden Frame BD">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Billing Address *</label>
+            <input type="text" id="custAddress" class="form-control" value="843/06, Kadim Dewhata, Mirzapur, Tangail. 1940." required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Client Portal Password *</label>
+              <input type="password" id="custPassword" class="form-control" value="JaasBd#2026!" required>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password *</label>
+              <input type="password" id="custPasswordConfirm" class="form-control" value="JaasBd#2026!" required>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Order Summary Sidebar -->
+      <div>
+        <div class="summary-card">
+          <h3 class="summary-title">🛒 Order Summary</h3>
+
+          <div class="summary-line" id="summaryHostingRow">
+            <span>Hosting Package:</span>
+            <div style="text-align:right;">
+              <strong id="summaryPlanName">Business Hosting (20 GB NVMe)</strong>
+              <button type="button" class="btn-remove-line" id="btnRemoveHostingSummary" onclick="toggleHostingPackage()">✕ Remove</button>
+            </div>
+          </div>
+
+          <div class="summary-line" id="summaryHostingCycleRow">
+            <span>Billing Term:</span>
+            <strong id="summaryCycle">1 Year (Save 20%)</strong>
+          </div>
+
+          <div class="summary-line" id="summaryHostingPriceRow">
+            <span>Hosting Rate:</span>
+            <strong id="summaryHostingRate">৳3,830</strong>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-line" id="summaryDomainRow">
+            <span>Domain Name:</span>
+            <div style="text-align:right;">
+              <strong id="summaryDomain">mycompany.com</strong>
+              <button type="button" class="btn-remove-line" id="btnRemoveDomainSummary" onclick="removeDomainFromCart()">✕ Remove</button>
+            </div>
+          </div>
+
+          <div class="summary-line" id="summaryDomainPriceRow">
+            <span>Domain Rate:</span>
+            <strong id="summaryDomainRate">৳1,450 / 1 yr</strong>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-line">
+            <span>Subtotal:</span>
+            <strong id="summarySubtotal">৳6,238</strong>
+          </div>
+
+          <div class="summary-line" id="summaryDiscountRow" style="color:#06D6A0;">
+            <span id="summaryDiscountLabel">Discount (20% Off):</span>
+            <strong style="color:#06D6A0;" id="summaryDiscount">-৳958</strong>
+          </div>
+
+          <div class="summary-line">
+            <span>Free Automated SSL:</span>
+            <strong style="color:#06D6A0;">FREE</strong>
+          </div>
+
+          <div class="summary-line">
+            <span>cPanel + LiteSpeed:</span>
+            <strong style="color:#06D6A0;">INCLUDED</strong>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="total-line">
+            <span class="total-label">Total Due Today:</span>
+            <span class="total-val" id="summaryTotal">৳5,280</span>
+          </div>
+
+          <div id="selectionWarningAlert" style="display:none; background:#FEF2F2; border:1px solid #FCA5A5; color:#DC2626; padding:10px; border-radius:8px; font-size:12.5px; font-weight:700; margin-bottom:16px;">
+            ⚠️ Please select either a hosting package or a domain to proceed.
+          </div>
+
+          <button type="button" class="btn-checkout" id="btnOrderSummarySubmit" onclick="openPaymentGatewayModal()">
+            🔒 Process Payment &rarr;
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="assets/js/jaas-system.js"></script>
+  <script>
+    // URL Params
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedPlanParam = urlParams.get('plan');
+
+    let isHostingSelected = selectedPlanParam !== 'none';
+    let currentPlan = JAAS_CATALOG[selectedPlanParam || 'business-hosting'] || JAAS_CATALOG['business-hosting'];
+    let currentStorageIndex = 1; // Default 2nd tier
+    let currentCycle = { key: 'annually', months: 12, discount: 0.20 };
+    let domainMode = 'new'; // 'new' | 'transfer' | 'existing' | 'none'
+
+    const DOMAIN_PRICING = {
+      '.com': 1450,
+      '.com.bd': 2200,
+      '.net': 1850,
+      '.org': 1750,
+      '.xyz': 450
+    };
+
+    let isDomainAdded = true;
+    let currentCategoryHead = 'Web Hosting';
+
+    function getPlanHead(p) {
+      if (!p) return 'Web Hosting';
+      const id = (p.id || '').toLowerCase();
+      const cat = (p.category || '').toLowerCase();
+      const name = (p.name || '').toLowerCase();
+
+      if (id.includes('bdix') || name.includes('bdix') || cat.includes('bdix')) {
+        if (id.includes('vps') || id.includes('rdp') || cat.includes('vps') || cat.includes('server')) {
+          return 'BDIX Cloud VPS';
+        }
+        return 'BDIX Web Hosting';
+      }
+      if (id.includes('vps') || id.includes('server') || cat.includes('server') || cat.includes('vps')) {
+        return 'BDIX Cloud VPS';
+      }
+      if (id.includes('ssl') || id.includes('cpanel') || id.includes('license') || id.includes('software') || cat.includes('software')) {
+        return 'Software';
+      }
+      return 'Web Hosting';
+    }
+
+    function initPage() {
+      // Check for domain param in URL
+      const urlDomain = urlParams.get('domain');
+      if (urlDomain) {
+        const cleanDomain = urlDomain.trim();
+        const dotIdx = cleanDomain.indexOf('.');
+        if (dotIdx > 0) {
+          document.getElementById('domainInput').value = cleanDomain.substring(0, dotIdx);
+          const ext = cleanDomain.substring(dotIdx);
+          const extEl = document.getElementById('domainExt');
+          for (let i = 0; i < extEl.options.length; i++) {
+            if (extEl.options[i].value === ext) {
+              extEl.selectedIndex = i;
+              break;
+            }
+          }
+        } else {
+          document.getElementById('domainInput').value = cleanDomain;
+        }
+      }
+
+      // Check if arriving specifically for domain-only
+      if (selectedPlanParam === 'none' || selectedPlanParam === 'domain-only') {
+        isHostingSelected = false;
+        domainMode = 'new';
+        isDomainAdded = true;
+      }
+
+      const activeHead = urlParams.get('cat') || getPlanHead(currentPlan);
+      initStorageGrid();
+      syncHostingUI();
+      switchOrderCategory(activeHead);
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function initStorageGrid() {
+      const grid = document.getElementById('storageGrid');
+      if (!grid || !currentPlan) return;
+      grid.innerHTML = '';
+      const opts = currentPlan.storageOptions || [{ gb: 5, price: currentPlan.basePrice, ram: '2 GB', cpu: '1 Core', sites: 1, bandwidth: 'Unlimited' }];
+      if (currentStorageIndex >= opts.length) currentStorageIndex = 0;
+
+      opts.forEach((opt, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `storage-btn ${idx === currentStorageIndex ? 'active' : ''}`;
+        btn.onclick = () => selectStorage(idx);
+        btn.innerHTML = `
+          <span class="storage-val">${opt.gb} GB</span>
+          <span class="storage-price">৳${opt.price}/mo</span>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function syncHostingUI() {
+      const btn = document.getElementById('btnToggleHosting');
+      const body = document.getElementById('hostingConfigBody');
+      const notice = document.getElementById('hostingDeselectedNotice');
+
+      if (isHostingSelected && currentPlan) {
+        btn.innerHTML = '✕ Deselect Package (Domain Only)';
+        btn.classList.remove('is-deselected');
+        body.style.display = 'block';
+        notice.style.display = 'none';
+        document.getElementById('planNameDisplay').innerText = currentPlan.name;
+        document.getElementById('planBadgeDisplay').innerText = currentPlan.badge || 'Popular';
+      } else {
+        btn.innerHTML = '+ Select a Hosting Package';
+        btn.classList.add('is-deselected');
+        body.style.display = 'none';
+        notice.style.display = 'block';
+        document.getElementById('planNameDisplay').innerText = 'Hosting Deselected';
+        document.getElementById('planBadgeDisplay').innerText = 'Domain Only Mode';
+      }
+    }
+
+    function toggleHostingPackage() {
+      isHostingSelected = !isHostingSelected;
+      syncHostingUI();
+      renderCategoryPackages(currentCategoryHead);
+      updateCalculations();
+    }
+
+    function switchOrderCategory(catName, btnEl) {
+      currentCategoryHead = catName;
+      document.querySelectorAll('.deal-cat-tab').forEach(b => b.classList.remove('active'));
+      const tabIdMap = {
+        'BDIX Web Hosting': 'tabCatBdix',
+        'Web Hosting': 'tabCatWeb',
+        'BDIX Cloud VPS': 'tabCatCloud',
+        'Software': 'tabCatSoftware'
+      };
+      const activeBtn = btnEl || document.getElementById(tabIdMap[catName]);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const titleMap = {
+        'BDIX Web Hosting': '1. BDIX Ultra-Fast Web Hosting Packages',
+        'Web Hosting': '1. NVMe cPanel Web Hosting Packages',
+        'BDIX Cloud VPS': '1. Dedicated BDIX Cloud & VPS Servers',
+        'Software': '1. Software & cPanel Licenses'
+      };
+      const titleEl = document.querySelector('.deal-picker-title');
+      if (titleEl) titleEl.innerText = titleMap[catName] || `${catName} Packages`;
+
+      renderCategoryPackages(catName);
+    }
+
+    function renderCategoryPackages(catName) {
+      const showcase = document.getElementById('categoryPackagesShowcase');
+      if (!showcase) return;
+      showcase.innerHTML = '';
+
+      let pkgs = [];
+      const allList = Object.values(JAAS_CATALOG);
+
+      if (catName === 'Software') {
+        pkgs = [
+          { id: 'ssl-cert', name: 'PositiveSSL Certificate', category: 'Security', badge: 'Essential', basePrice: 125, storage: '256-bit Encryption', websites: '1 Domain', ram: 'Browser Padlock', features: ['Instant SSL Activation', 'Free Reissues', 'Green HTTPS Padlock'] },
+          { id: 'cpanel-solo', name: 'cPanel Solo License', category: 'Software', badge: 'Official Partner', basePrice: 1899, storage: '1 Account', websites: '1 User', ram: 'Full WHM/cPanel', features: ['Official cPanel License', '1 Account Provisioning', 'Automatic Updates'] },
+          { id: 'litespeed-ent', name: 'LiteSpeed Enterprise', category: 'Software', badge: 'Ultra Fast', basePrice: 1250, storage: 'Unlimited Cache', websites: 'High Traffic', ram: 'LSCache Engine', features: ['5x Apache Speed', 'Built-in Anti-DDoS', 'WordPress Accelerator'] }
+        ];
+      } else if (catName === 'BDIX Web Hosting') {
+        pkgs = allList.filter(p => (p.category === 'BDIX Web Hosting' || p.id === 'bdix-hosting' || p.id === 'wordpress-hosting') && !p.id.includes('vps') && !p.id.includes('rdp'));
+        if (pkgs.length === 0) pkgs = [JAAS_CATALOG['bdix-hosting'], JAAS_CATALOG['wordpress-hosting']];
+      } else if (catName === 'BDIX Cloud VPS') {
+        pkgs = allList.filter(p => p.category === 'Cloud & Servers' || p.id.includes('vps') || p.id.includes('rdp'));
+      } else {
+        // Web Hosting
+        pkgs = allList.filter(p => (p.category === 'Shared Hosting' || p.category === 'Corporate Hosting' || p.category === 'Enterprise Hosting' || p.category === 'Windows Cloud' || p.category === 'Reseller Hosting') && p.id !== 'bdix-hosting' && !p.id.includes('vps') && !p.id.includes('rdp'));
+      }
+
+      // De-duplicate by ID
+      const seen = new Set();
+      pkgs = pkgs.filter(p => {
+        if (!p || seen.has(p.id)) return false;
+        seen.add(p.id);
+        return true;
+      });
+
+      if (pkgs.length === 0) {
+        showcase.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#64748B;">No packages in this head.</div>`;
+        return;
+      }
+
+      pkgs.forEach(p => {
+        const isCurrent = isHostingSelected && currentPlan && currentPlan.id === p.id;
+        const opt = p.storageOptions && p.storageOptions[0] ? p.storageOptions[0] : null;
+        const storageVal = p.storage || (opt ? opt.gb + ' GB NVMe' : 'Dedicated');
+        const sitesVal = p.websites || (opt ? opt.sites + ' Website' : '1 Website');
+        const ramVal = p.ram || (opt ? opt.ram : '');
+        const cpuVal = p.cpu || (opt ? opt.cpu : '');
+
+        showcase.innerHTML += `
+          <div class="deal-pkg-card ${isCurrent ? 'active' : ''}" onclick="handleCategoryPackageClick('${p.id}')">
+            <div>
+              <span class="pkg-badge">${p.badge || 'Popular'}</span>
+              <div class="pkg-name">${p.name}</div>
+              <div class="pkg-price">৳${p.basePrice}<span style="font-size:13px; font-weight:500; color:#64748B;">/mo</span></div>
+              <div class="pkg-meta">
+                • <strong>${storageVal}</strong><br>
+                • ${sitesVal}<br>
+                • ${ramVal} ${cpuVal ? '• ' + cpuVal : ''}
+              </div>
+            </div>
+            <button type="button" class="btn-choose-plan">
+              ${isCurrent ? '✓ Selected (Click to Deselect)' : 'Select This Plan →'}
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    function handleCategoryPackageClick(planId) {
+      if (isHostingSelected && currentPlan && currentPlan.id === planId) {
+        // Clicking selected plan deselects it (Domain only)
+        toggleHostingPackage();
+        return;
+      }
+
+      isHostingSelected = true;
+      if (JAAS_CATALOG[planId]) {
+        currentPlan = JAAS_CATALOG[planId];
+      } else {
+        currentPlan = {
+          id: planId,
+          name: planId === 'ssl-cert' ? 'PositiveSSL Certificate' : (planId === 'cpanel-solo' ? 'cPanel License' : 'LiteSpeed Enterprise'),
+          category: 'Software',
+          badge: 'Licensed',
+          basePrice: planId === 'ssl-cert' ? 125 : 1250,
+          storageOptions: [{ gb: 1, price: planId === 'ssl-cert' ? 125 : 1250, ram: '-', cpu: '-', sites: 1, bandwidth: 'Unlimited' }]
+        };
+      }
+
+      currentStorageIndex = 0;
+      initStorageGrid();
+      syncHostingUI();
+      renderCategoryPackages(currentCategoryHead);
+      updateCalculations();
+
+      const el = document.getElementById('hostingConfigCard');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function selectStorage(idx) {
+      currentStorageIndex = idx;
+      const btns = document.querySelectorAll('.storage-btn');
+      btns.forEach((b, i) => b.classList.toggle('active', i === idx));
+      updateCalculations();
+    }
+
+    function selectCycle(key, months, discount, el) {
+      currentCycle = { key, months, discount };
+      document.querySelectorAll('.cycle-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      updateCalculations();
+    }
+
+    function selectDomainMode(mode, el) {
+      domainMode = mode;
+      document.querySelectorAll('.domain-tab-btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+
+      const group = document.getElementById('domainInputGroup');
+      const input = document.getElementById('domainInput');
+      const ext = document.getElementById('domainExt');
+      const checkBtn = document.getElementById('btnCheckDomain');
+
+      if (mode === 'new') {
+        group.style.display = 'flex';
+        ext.style.display = 'block';
+        checkBtn.style.display = 'block';
+        input.placeholder = 'Enter new domain name (e.g. mycompany)';
+        isDomainAdded = true;
+      } else if (mode === 'transfer') {
+        group.style.display = 'flex';
+        ext.style.display = 'block';
+        checkBtn.style.display = 'block';
+        input.placeholder = 'Enter domain to transfer (e.g. mycompany)';
+        isDomainAdded = true;
+      } else if (mode === 'existing') {
+        group.style.display = 'flex';
+        ext.style.display = 'none';
+        checkBtn.style.display = 'none';
+        input.placeholder = 'Enter your existing domain (e.g. mydomain.com)';
+        isDomainAdded = false;
+      } else if (mode === 'none') {
+        group.style.display = 'none';
+        isDomainAdded = false;
+      }
+
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function getCleanDomain() {
+      const raw = document.getElementById('domainInput').value.trim() || 'mycompany';
+      return raw.replace(/\.[a-z.]+$/i, '');
+    }
+
+    function getFullDomain() {
+      const raw = document.getElementById('domainInput').value.trim() || 'mycompany';
+      if (domainMode === 'existing') {
+        return raw.includes('.') ? raw : raw + '.com';
+      }
+      if (domainMode === 'none' || !isDomainAdded) {
+        return 'None';
+      }
+      const ext = document.getElementById('domainExt').value;
+      return getCleanDomain() + ext;
+    }
+
+    function getDomainExtensionPrice(ext) {
+      return DOMAIN_PRICING[ext] || 1450;
+    }
+
+    function getDomainPrice() {
+      if ((domainMode === 'new' || domainMode === 'transfer') && isDomainAdded) {
+        const ext = document.getElementById('domainExt').value;
+        return getDomainExtensionPrice(ext);
+      }
+      return 0; // Existing or None or Deselected is 0
+    }
+
+    function handleDomainInputChange() {
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function handleDomainExtChange() {
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function checkDomainAvailability() {
+      isDomainAdded = true;
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function toggleDomainCart() {
+      if (domainMode === 'none') {
+        selectDomainMode('new', document.getElementById('tabDomNew'));
+        isDomainAdded = true;
+      } else {
+        isDomainAdded = !isDomainAdded;
+      }
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function removeDomainFromCart() {
+      isDomainAdded = false;
+      domainMode = 'none';
+      const noneBtn = document.getElementById('tabDomNone');
+      if (noneBtn) selectDomainMode('none', noneBtn);
+      syncDomainCartUI();
+      updateCalculations();
+    }
+
+    function syncDomainCartUI() {
+      const btn = document.getElementById('btnToggleDomainCart');
+      const box = document.getElementById('domainStatusBox');
+      const msg = document.getElementById('domainStatusMsg');
+      const extEl = document.getElementById('domainExt');
+      const ext = extEl ? extEl.value : '.com';
+      const full = getCleanDomain() + ext;
+      const price = getDomainExtensionPrice(ext);
+
+      if (domainMode === 'new' || domainMode === 'transfer') {
+        if (box) box.style.display = 'block';
+        if (isDomainAdded) {
+          if (msg) msg.innerHTML = `✔ <strong>${full}</strong> is AVAILABLE for instant registration! (৳${price.toLocaleString()}/yr)`;
+          if (btn) {
+            btn.style.display = 'inline-flex';
+            btn.className = 'btn-domain-action is-added';
+            btn.innerHTML = '✓ Added to Order (Click to Remove)';
+          }
+        } else {
+          if (msg) msg.innerHTML = `ℹ️ <strong>${full}</strong> is available (Not added to cart).`;
+          if (btn) {
+            btn.style.display = 'inline-flex';
+            btn.className = 'btn-domain-action';
+            btn.innerHTML = '+ Add Domain to Order';
+          }
+        }
+      } else if (domainMode === 'existing') {
+        if (box) box.style.display = 'block';
+        if (msg) msg.innerHTML = `ℹ️ <strong>Free ৳0</strong>: Using existing domain <strong>${getFullDomain()}</strong>.`;
+        if (btn) btn.style.display = 'none';
+      } else {
+        if (box) box.style.display = 'none';
+        if (btn) btn.style.display = 'none';
+      }
+    }
+
+    function updateCalculations() {
+      // 1. Hosting Calculation
+      let rawHostingSubtotal = 0;
+      let hostingDiscount = 0;
+      let opt = null;
+
+      if (isHostingSelected && currentPlan) {
+        opt = (currentPlan.storageOptions && currentPlan.storageOptions[currentStorageIndex]) || (currentPlan.storageOptions && currentPlan.storageOptions[0]) || { gb: 5, price: currentPlan.basePrice, ram: '2 GB', cpu: '1 Core', bandwidth: 'Unlimited' };
+
+        document.getElementById('specRam').innerText = opt.ram || '-';
+        document.getElementById('specCpu').innerText = opt.cpu || '-';
+        document.getElementById('specBandwidth').innerText = opt.bandwidth || 'Unlimited';
+
+        const mPrice = opt.price;
+        const aPrice = Math.round(mPrice * 12 * 0.80);
+        const bPrice = Math.round(mPrice * 24 * 0.70);
+
+        document.getElementById('cyclePriceMonthly').innerText = `৳${mPrice}`;
+        document.getElementById('cyclePriceAnnual').innerText = `৳${aPrice.toLocaleString()}`;
+        document.getElementById('cyclePriceBiennial').innerText = `৳${bPrice.toLocaleString()}`;
+
+        rawHostingSubtotal = mPrice * currentCycle.months;
+        hostingDiscount = Math.round(rawHostingSubtotal * currentCycle.discount);
+
+        document.getElementById('summaryPlanName').innerText = `${currentPlan.name} (${opt.gb} GB NVMe)`;
+        document.getElementById('summaryCycle').innerText = currentCycle.key === 'monthly' ? '1 Month' : (currentCycle.key === 'annually' ? '1 Year (Save 20%)' : '2 Years (Save 30%)');
+        document.getElementById('summaryHostingRate').innerText = `৳${mPrice}/mo × ${currentCycle.months} mo = ৳${rawHostingSubtotal.toLocaleString()}`;
+        const remHost = document.getElementById('btnRemoveHostingSummary');
+        if (remHost) remHost.style.display = 'inline';
+      } else {
+        document.getElementById('summaryPlanName').innerText = 'None (Domain Only)';
+        document.getElementById('summaryCycle').innerText = 'None';
+        document.getElementById('summaryHostingRate').innerText = '৳0';
+        const remHost = document.getElementById('btnRemoveHostingSummary');
+        if (remHost) remHost.style.display = 'none';
+      }
+
+      // 2. Domain Calculation
+      const domainPrice = getDomainPrice();
+      const fullDomainName = getFullDomain();
+
+      if ((domainMode === 'new' || domainMode === 'transfer') && isDomainAdded) {
+        document.getElementById('summaryDomain').innerText = `${fullDomainName}${domainMode === 'transfer' ? ' (Transfer)' : ''}`;
+        document.getElementById('summaryDomainPriceRow').style.display = 'flex';
+        document.getElementById('summaryDomainRate').innerText = `৳${domainPrice.toLocaleString()} / 1 yr`;
+        const remDom = document.getElementById('btnRemoveDomainSummary');
+        if (remDom) remDom.style.display = 'inline';
+      } else if (domainMode === 'existing') {
+        document.getElementById('summaryDomain').innerText = `${fullDomainName} (Existing)`;
+        document.getElementById('summaryDomainPriceRow').style.display = 'flex';
+        document.getElementById('summaryDomainRate').innerText = '৳0 (Free)';
+        const remDom = document.getElementById('btnRemoveDomainSummary');
+        if (remDom) remDom.style.display = 'none';
+      } else {
+        document.getElementById('summaryDomain').innerText = 'None (Skipped)';
+        document.getElementById('summaryDomainPriceRow').style.display = 'none';
+        document.getElementById('summaryDomainRate').innerText = '৳0';
+        const remDom = document.getElementById('btnRemoveDomainSummary');
+        if (remDom) remDom.style.display = 'none';
+      }
+
+      // 3. Exact Mathematical Total (jog fol)
+      const subtotal = rawHostingSubtotal + domainPrice;
+      const totalDiscount = hostingDiscount;
+      const grandTotal = subtotal - totalDiscount;
+
+      document.getElementById('summarySubtotal').innerText = `৳${subtotal.toLocaleString()}`;
+      document.getElementById('summaryDiscount').innerText = totalDiscount > 0 ? `-৳${totalDiscount.toLocaleString()}` : '৳0';
+      document.getElementById('summaryDiscountLabel').innerText = totalDiscount > 0 ? `Discount (${Math.round(currentCycle.discount * 100)}% Off):` : 'Discount:';
+      document.getElementById('summaryTotal').innerText = `৳${grandTotal.toLocaleString()}`;
+
+      // 4. Validate that at least one item is chosen
+      const warningEl = document.getElementById('selectionWarningAlert');
+      const submitBtn = document.getElementById('btnOrderSummarySubmit');
+      const hasSomething = isHostingSelected || ((domainMode === 'new' || domainMode === 'transfer') && isDomainAdded);
+
+      if (!hasSomething) {
+        if (warningEl) warningEl.style.display = 'block';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.5';
+          submitBtn.style.cursor = 'not-allowed';
+        }
+      } else {
+        if (warningEl) warningEl.style.display = 'none';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '1';
+          submitBtn.style.cursor = 'pointer';
+        }
+      }
+    }
+
+    // Payment Gateway Modal Handlers
+    function openPaymentGatewayModal() {
+      const hasSomething = isHostingSelected || ((domainMode === 'new' || domainMode === 'transfer') && isDomainAdded);
+      if (!hasSomething) {
+        alert('Please select either a hosting package or a domain name to proceed with your order.');
+        return;
+      }
+
+      const name = document.getElementById('custName').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+
+      if (!name || !email || !phone || !address) {
+        alert('Please complete your Full Name, Email Address, Phone Number, and Billing Address in the form before proceeding.');
+        return;
+      }
+
+      const totalVal = document.getElementById('summaryTotal').innerText;
+      document.getElementById('modalPayAmount').innerText = totalVal + ' BDT';
+      document.getElementById('paymentGatewayModal').style.display = 'flex';
+    }
+
+    function closePaymentGatewayModal() {
+      document.getElementById('paymentGatewayModal').style.display = 'none';
+    }
+
+    function switchGwTab(tabKey, btn) {
+      document.querySelectorAll('.gw-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('gwTabMobile').style.display = tabKey === 'mobile' ? 'grid' : 'none';
+      document.getElementById('gwTabCards').style.display = tabKey === 'cards' ? 'grid' : 'none';
+      document.getElementById('gwTabNet').style.display = tabKey === 'net' ? 'grid' : 'none';
+    }
+
+    function confirmGatewayAndProvision() {
+      const btn = document.getElementById('btnGatewayConfirmPay');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Processing Secure Payment...</span>';
+
+      setTimeout(() => {
+        executeProcessPayment();
+      }, 600);
+    }
+
+    function executeProcessPayment() {
+      const name = document.getElementById('custName').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const company = document.getElementById('custCompany').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const pass = document.getElementById('custPassword').value.trim() || 'JaasBd#2026!';
+
+      const domain = getFullDomain();
+      const domainPrice = getDomainPrice();
+
+      let rawHostingSubtotal = 0;
+      let hostingDiscount = 0;
+      let hostingNet = 0;
+      let opt = null;
+
+      if (isHostingSelected && currentPlan) {
+        opt = (currentPlan.storageOptions && currentPlan.storageOptions[currentStorageIndex]) || (currentPlan.storageOptions && currentPlan.storageOptions[0]) || { gb: 5, price: currentPlan.basePrice, ram: '2 GB', cpu: '1 Core', bandwidth: 'Unlimited' };
+        rawHostingSubtotal = opt.price * currentCycle.months;
+        hostingDiscount = Math.round(rawHostingSubtotal * currentCycle.discount);
+        hostingNet = rawHostingSubtotal - hostingDiscount;
+      }
+
+      const subtotal = rawHostingSubtotal + domainPrice;
+      const total = subtotal - hostingDiscount;
+
+      // 1. Create client user account
+      const clientUser = {
+        name,
+        email,
+        phone,
+        company,
+        address,
+        password: pass,
+        loggedIn: true
+      };
+      JaasStore.setClientUser(clientUser);
+
+      // 2. Generate cPanel credentials
+      const cpanelUser = JaasStore.generateUsername(name, domain !== 'None' ? domain : 'jaas');
+      const cpanelPass = JaasStore.generatePassword();
+      const serverIP = '103.145.118.25';
+
+      // 3. Create active service if hosting was selected
+      let newService = null;
+      if (isHostingSelected && currentPlan && opt) {
+        const serviceId = 'SRV-' + Math.floor(100000 + Math.random() * 900000);
+        newService = {
+          id: serviceId,
+          planId: currentPlan.id,
+          name: currentPlan.name,
+          domain: domain !== 'None' ? domain : 'server.' + cpanelUser + '.jaasbd.com',
+          storage: `${opt.gb} GB NVMe SSD`,
+          billingCycle: currentCycle.key === 'monthly' ? 'Monthly' : (currentCycle.key === 'annually' ? '1 Year' : '2 Years'),
+          price: hostingNet,
+          status: 'Active',
+          regDate: new Date().toISOString().split('T')[0],
+          nextDue: new Date(Date.now() + currentCycle.months * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          serverIP: serverIP,
+          nameservers: ['ns1.jaasbd.com', 'ns2.jaasbd.com'],
+          cpanelUser: cpanelUser,
+          cpanelPass: cpanelPass,
+          diskUsed: '0.1 GB',
+          diskLimit: `${opt.gb} GB`,
+          bandwidthUsed: '0.5 GB'
+        };
+        JaasStore.saveService(newService);
+      }
+
+      // 4. Create and Save Official Invoice
+      const invoiceId = 'INV-2026-' + Math.floor(10000 + Math.random() * 90000);
+      const txnId = 'TXN-SSL-' + Math.floor(100000 + Math.random() * 900000);
+
+      let planDescription = '';
+      if (isHostingSelected && (domainMode === 'new' || domainMode === 'transfer') && isDomainAdded) {
+        planDescription = `${currentPlan.name} (${opt.gb} GB NVMe) + Domain: ${domain}`;
+      } else if (isHostingSelected) {
+        planDescription = `${currentPlan.name} (${opt.gb} GB NVMe)${domain !== 'None' ? ' [Domain: ' + domain + ']' : ''}`;
+      } else {
+        planDescription = `Domain Registration: ${domain} (1 Year)`;
+      }
+
+      const newInvoice = {
+        id: invoiceId,
+        date: new Date().toISOString().split('T')[0],
+        dueDate: new Date().toISOString().split('T')[0],
+        planName: planDescription,
+        domain: domain,
+        subtotal: subtotal,
+        discount: hostingDiscount,
+        amount: total,
+        status: 'PAID',
+        gateway: 'SSLCOMMERZ / EPS Online Payment',
+        txnId: txnId,
+        cpanelUser: isHostingSelected ? cpanelUser : 'N/A',
+        cpanelPass: isHostingSelected ? cpanelPass : 'N/A',
+        serverIP: serverIP
+      };
+      JaasStore.saveInvoice(newInvoice);
+
+      // 5. Store current checkout invoice ID in session
+      sessionStorage.setItem('jaas_latest_invoice_id', invoiceId);
+
+      // Background sync to MySQL database (if XAMPP/PHP active)
+      try {
+        JaasStore.syncOrderToBackend(clientUser, newInvoice, (isHostingSelected && currentPlan && opt) ? newService : null);
+      } catch (err) {}
+
+      // 6. Direct transition to invoice pad!
+      window.location.href = `invoice.html?id=${encodeURIComponent(invoiceId)}`;
+    }
+
+    // Run init on load
+    initPage();
+  </script>
+
+  <!-- Payment Gateway Simulation Modal -->
+  <div class="modal-overlay" id="paymentGatewayModal">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <img src="assets/images/pay-sslcommerz.png" alt="Payment Gateway" style="max-height:36px; max-width:240px; object-fit:contain;">
+        <button type="button" onclick="closePaymentGatewayModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B; padding:0 6px;">&times;</button>
+      </div>
+      <div style="font-size:12.5px; color:#64748B; margin-bottom:12px;">Merchant: <strong>JAAS BD Platform &bull; SSLCOMMERZ / EPS Gateway</strong></div>
+
+      <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:14px; margin-bottom:18px;">
+        <div style="font-size:12px; color:#166534; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">TOTAL AMOUNT TO PAY:</div>
+        <div style="font-size:28px; font-weight:900; color:#15803D;" id="modalPayAmount">৳5,280 BDT</div>
+      </div>
+
+      <div class="gw-tabs">
+        <button type="button" class="gw-tab-btn active" id="btnGwMobile" onclick="switchGwTab('mobile', this)">Mobile Banking</button>
+        <button type="button" class="gw-tab-btn" id="btnGwCards" onclick="switchGwTab('cards', this)">Cards &amp; Nexus</button>
+        <button type="button" class="gw-tab-btn" id="btnGwNet" onclick="switchGwTab('net', this)">Internet Banking</button>
+      </div>
+
+      <div id="gwTabMobile" class="gw-methods-grid">
+        <div class="gw-method-item selected"><strong>bKash</strong><br><span style="font-size:11px; color:#64748B;">Direct Payment</span></div>
+        <div class="gw-method-item"><strong>Nagad</strong><br><span style="font-size:11px; color:#64748B;">Post Office Fin</span></div>
+        <div class="gw-method-item"><strong>Rocket</strong><br><span style="font-size:11px; color:#64748B;">DBBL Mobile</span></div>
+      </div>
+
+      <div id="gwTabCards" class="gw-methods-grid" style="display:none;">
+        <div class="gw-method-item"><strong>Visa Card</strong><br><span style="font-size:11px; color:#64748B;">Debit / Credit</span></div>
+        <div class="gw-method-item"><strong>MasterCard</strong><br><span style="font-size:11px; color:#64748B;">Worldwide</span></div>
+        <div class="gw-method-item"><strong>DBBL Nexus</strong><br><span style="font-size:11px; color:#64748B;">Nexus Pay</span></div>
+      </div>
+
+      <div id="gwTabNet" class="gw-methods-grid" style="display:none;">
+        <div class="gw-method-item"><strong>CityTouch</strong><br><span style="font-size:11px; color:#64748B;">City Bank</span></div>
+        <div class="gw-method-item"><strong>i-Banking</strong><br><span style="font-size:11px; color:#64748B;">Islami Bank</span></div>
+        <div class="gw-method-item"><strong>EBL Skybanking</strong><br><span style="font-size:11px; color:#64748B;">Eastern Bank</span></div>
+      </div>
+
+      <button type="button" class="btn-checkout" id="btnGatewayConfirmPay" onclick="confirmGatewayAndProvision()" style="width:100%; padding:15px; font-size:16px;">
+        Confirm Payment &amp; Launch Services &rarr;
+      </button>
+
+      <div style="font-size:11.5px; color:#94A3B8; text-align:center; margin-top:10px;">
+        Instant cPanel Provisioning &bull; Official A4 Pad Invoice Generated
+      </div>
+    </div>
+  </div>
+</body>
+</html>

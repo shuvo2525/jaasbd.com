@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAAS BD &bull; Administrator Login</title>
+  <link rel="icon" type="image/png" href="assets/images/jaasbd-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 25%, rgba(0, 180, 216, 0.08) 0%, rgba(0, 119, 182, 0.04) 45%, #F8FAFC 90%);
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Glow Behind Card */
+    .glow-sphere {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(0, 180, 216, 0.18) 0%, rgba(0, 119, 182, 0.06) 50%, transparent 70%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      filter: blur(50px);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .login-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 42px 36px 36px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(0, 119, 182, 0.06);
+      text-align: center;
+    }
+
+    .brand-logo-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 22px;
+      text-decoration: none;
+    }
+    .brand-logo-img {
+      height: 58px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 119, 182, 0.2));
+      margin-bottom: 10px;
+    }
+    .admin-pill-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%);
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(0, 119, 182, 0.3);
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 13.5px;
+      color: #64748B;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #0077B6;
+      pointer-events: none;
+    }
+    .form-control {
+      width: 100%;
+      padding: 13px 14px 13px 44px;
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      font-size: 14.5px;
+      color: #0F172A;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .form-control:focus {
+      border-color: #0077B6;
+      box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.15);
+      background: #FFFFFF;
+    }
+    .toggle-pass-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #64748B;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px;
+    }
+    .toggle-pass-btn:hover { color: #0077B6; }
+
+    .form-options-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #475569;
+    }
+    .remember-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .remember-wrap input[type="checkbox"] {
+      accent-color: #0077B6;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .btn-login-submit {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0077B6 0%, #00B4D8 100%);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0, 119, 182, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-login-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 119, 182, 0.5);
+      background: linear-gradient(135deg, #023E8A 0%, #0096C7 100%);
+    }
+    .btn-login-submit:active {
+      transform: translateY(0);
+    }
+    .btn-login-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Error Alert */
+    .alert-error {
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: #DC2626;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: none;
+      text-align: left;
+    }
+
+    /* Demo Hint */
+    .demo-hint-box {
+      margin-top: 24px;
+      padding: 12px 14px;
+      background: #F0F9FF;
+      border: 1px dashed #7DD3FC;
+      border-radius: 10px;
+      font-size: 12.5px;
+      color: #0369A1;
+      line-height: 1.6;
+    }
+    .demo-hint-box strong { color: #0F172A; }
+    .demo-hint-box code {
+      background: #E0F2FE;
+      color: #0284C7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .back-home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      font-size: 13px;
+      color: #64748B;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-home-link:hover { color: #0077B6; }
+  </style>
+</head>
+<body>
+
+  <div class="glow-sphere"></div>
+
+  <div class="login-container">
+    <div class="login-card">
+
+      <!-- Logo & Brand Header -->
+      <a href="index.html" class="brand-logo-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD Logo" class="brand-logo-img">
+        <div class="admin-pill-badge">ADMIN</div>
+      </a>
+
+      <h1 class="card-title">Administration Portal</h1>
+      <p class="card-subtitle">Please enter your authorized administrator credentials to manage website services, packages &amp; settings.</p>
+
+      <!-- Alert Box -->
+      <div id="loginErrorAlert" class="alert-error"></div>
+
+      <!-- Login Form -->
+      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="adminUsername">Admin Username or Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="adminUsername" class="form-control" placeholder="admin or admin@jaasbd.com" value="admin" required autofocus>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="adminPassword">Admin Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="adminPassword" class="form-control" placeholder="Enter password" value="admin123" required>
+            <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-options-row">
+          <label class="remember-wrap">
+            <input type="checkbox" id="rememberMe" checked>
+            <span>Remember this device</span>
+          </label>
+        </div>
+
+        <button type="submit" id="loginBtn" class="btn-login-submit">
+          <span>Sign In to Admin Dashboard</span>
+          <span>&rarr;</span>
+        </button>
+      </form>
+
+      <!-- Quick Hint -->
+      <div class="demo-hint-box">
+        🔑 <strong>Default Admin Credentials:</strong><br>
+        Username: <code style="color:#FFF;">admin</code> &bull; Password: <code style="color:#FFF;">admin123</code>
+      </div>
+
+      <div>
+        <a href="index.html" class="back-home-link">
+          &larr; Back to Main Website
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Check if already authenticated
+    (function checkExistingSession() {
+      if (sessionStorage.getItem('jaas_admin_logged_in') === 'true' || localStorage.getItem('jaas_admin_logged_in') === 'true') {
+        window.location.replace('admin.html');
+      }
+    })();
+
+    function togglePasswordVisibility() {
+      const pass = document.getElementById('adminPassword');
+      pass.type = pass.type === 'password' ? 'text' : 'password';
+    }
+
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = document.getElementById('adminPassword').value.trim();
+      const remember = document.getElementById('rememberMe').checked;
+      const errorBox = document.getElementById('loginErrorAlert');
+      const loginBtn = document.getElementById('loginBtn');
+
+      errorBox.style.display = 'none';
+      errorBox.innerText = '';
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<span>Verifying credentials...</span>';
+
+      try {
+        let authSuccess = false;
+        let loggedUser = username;
+
+        // Try PHP MySQL API first, then Node.js API
+        const loginEndpoints = ['api.php?action=admin_login', '/api/admin/login'];
+        for (const ep of loginEndpoints) {
+          try {
+            const resp = await fetch(ep, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username, password })
+            });
+            if (resp.ok) {
+              const resData = await resp.json();
+              if (resData.success) {
+                authSuccess = true;
+                loggedUser = resData.user || username;
+                break;
+              }
+            }
+          } catch (netErr) {}
+        }
+
+        if (authSuccess) {
+          // Success!
+          sessionStorage.setItem('jaas_admin_logged_in', 'true');
+          sessionStorage.setItem('jaas_admin_user', loggedUser);
+          if (remember) {
+            localStorage.setItem('jaas_admin_logged_in', 'true');
+            localStorage.setItem('jaas_admin_user', loggedUser);
+          }
+
+          loginBtn.innerHTML = '<span>✓ Authentication Successful! Redirecting...</span>';
+          loginBtn.style.background = '#059669';
+
+          setTimeout(() => {
+            window.location.href = 'admin.html';
+          }, 500);
+          return;
+        } else {
+          // Check static/local config or show error
+          throw new Error('Invalid username or password');
+        }
+      } catch (err) {
+        // Fallback local check in case server is purely static
+        if ((username === 'admin' || username === 'admin@jaasbd.com') && password === 'admin123') {
+          sessionStorage.setItem('jaas_admin_logged_in', 'true');
+          sessionStorage.setItem('jaas_admin_user', username);
+          if (remember) {
+            localStorage.setItem('jaas_admin_logged_in', 'true');
+            localStorage.setItem('jaas_admin_user', username);
+          }
+          loginBtn.innerHTML = '<span>✓ Access Granted!</span>';
+          loginBtn.style.background = '#059669';
+          setTimeout(() => {
+            window.location.href = 'admin.html';
+          }, 600);
+          return;
+        }
+
+        errorBox.innerText = '⚠️ ' + (err.message || 'Invalid username or password! Please try again.');
+        errorBox.style.display = 'block';
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>Sign In to Admin Dashboard</span><span>&rarr;</span>';
+      }
+    }
+  </script>
+
+</body>
+</html>

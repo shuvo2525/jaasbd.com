@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud &amp; Dedicated Servers &bull; BDIX 10Gbps | JAAS BD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      color: #0F172A;
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-wrap img { height: 42px; width: auto; }
+    .brand-name { font-size: 24px; font-weight: 900; }
+    .nav-links { display: flex; align-items: center; gap: 25px; list-style: none; }
+    .nav-links a { color: #475569; text-decoration: none; font-size: 14.5px; font-weight: 600; }
+    .nav-links a:hover, .nav-links a.active { color: #0077B6; }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #FAF7FD 0%, #F0F6FC 50%, #F0FBF7 100%);
+      padding: 60px 0 50px;
+      text-align: center;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .hero-title { font-size: 38px; font-weight: 900; color: #0F172A; margin-bottom: 10px; }
+    .hero-sub { font-size: 16px; color: #64748B; max-width: 650px; margin: 0 auto; }
+
+    .servers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin: 60px 0 80px;
+    }
+    @media (max-width: 900px) { .servers-grid { grid-template-columns: 1fr; } }
+    .server-card {
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 35px 28px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .server-card:hover {
+      border-color: #7B2CBF;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(123, 44, 191, 0.12);
+    }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #F3E8FF;
+      color: #7B2CBF;
+      display: inline-block;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .server-title { font-size: 22px; font-weight: 800; color: #0F172A; margin-bottom: 6px; }
+    .server-price { font-size: 34px; font-weight: 900; color: #7B2CBF; margin: 15px 0 20px; }
+    .server-features { list-style: none; margin-bottom: 30px; }
+    .server-features li { margin-bottom: 12px; font-size: 13.5px; color: #334155; display: flex; align-items: center; gap: 8px; }
+    .server-features li b { color: #06D6A0; }
+
+    .btn-server-order {
+      background: #7B2CBF;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(123, 44, 191, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-server-order:hover { background: #5A189A; transform: translateY(-2px); }
+
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 16px 0;
+      font-size: 13.5px;
+      color: #64748B;
+    }
+    .footer-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-bottom-left-payments {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-payments-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1E293B;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .sslcommerz-footer-banner {
+      height: 46px;
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-bottom-right-copy {
+      color: #64748B;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 800px) {
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .footer-bottom-left-payments {
+        justify-content: center;
+      }
+      .footer-bottom-right-copy {
+        text-align: center;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hosting.html">Web Hosting</a></li>
+        <li><a href="domain.html">Domains</a></li>
+        <li><a href="servers.html" class="active">Servers</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="login.html" style="padding:9px 20px; border:1px solid #CBD5E1; color:#0F172A; text-decoration:none; font-weight:700; border-radius:6px;">&#128100; Login</a>
+        <a href="order.html?plan=managed-vps" style="padding:9px 22px; background:#7B2CBF; color:#FFFFFF; text-decoration:none; font-weight:700; border-radius:6px;">Get VPS</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero-banner">
+    <div class="container">
+      <h1 class="hero-title">High Performance Cloud VPS &amp; Dedicated Servers</h1>
+      <p class="hero-sub">Direct BDIX connectivity with 10Gbps uplinks, full root access, and 99.9% uptime SLA.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="servers-grid">
+
+      <!-- Managed Cloud VPS -->
+      <div class="server-card">
+        <div>
+          <span class="card-tag">Fully Managed</span>
+          <h3 class="server-title">Managed Cloud VPS</h3>
+          <p style="font-size:13px; color:#64748B;">cPanel/WHM or Webuzo Managed VPS with 24/7 proactive monitoring.</p>
+          <div class="server-price">৳1,650<span style="font-size:14px; color:#64748B; font-weight:600;">/mo</span></div>
+          <ul class="server-features">
+            <li><b>✓</b> 2 vCPU Cores &bull; 4 GB RAM</li>
+            <li><b>✓</b> 40 GB Pure NVMe SSD</li>
+            <li><b>✓</b> 2 TB BDIX Bandwidth (10Gbps)</li>
+            <li><b>✓</b> 1 Dedicated IPv4 Address</li>
+            <li><b>✓</b> Free cPanel Migration</li>
+            <li><b>✓</b> 24/7 Managed Server Care</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=managed-vps" class="btn-server-order">Deploy Server Now &rarr;</a>
+      </div>
+
+      <!-- BDIX KVM VPS -->
+      <div class="server-card">
+        <div>
+          <span class="card-tag" style="background:#EFF6FF; color:#0077B6;">Unmanaged Root</span>
+          <h3 class="server-title">BDIX KVM VPS</h3>
+          <p style="font-size:13px; color:#64748B;">Root access KVM virtualization for developers and custom stacks.</p>
+          <div class="server-price" style="color:#0077B6;">৳1,999<span style="font-size:14px; color:#64748B; font-weight:600;">/mo</span></div>
+          <ul class="server-features">
+            <li><b>✓</b> 4 vCPU Cores &bull; 8 GB RAM</li>
+            <li><b>✓</b> 80 GB NVMe Storage RAID-10</li>
+            <li><b>✓</b> Unlimited BDIX Bandwidth</li>
+            <li><b>✓</b> Full Root SSH Access</li>
+            <li><b>✓</b> Custom OS (Ubuntu, Alma, Debian)</li>
+            <li><b>✓</b> 1ms BDIX Latency in BD</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=managed-vps" class="btn-server-order" style="background:#0077B6;">Deploy Server Now &rarr;</a>
+      </div>
+
+      <!-- BDIX Dedicated Server -->
+      <div class="server-card">
+        <div>
+          <span class="card-tag" style="background:#FFF1E6; color:#F77F00;">Enterprise Bare Metal</span>
+          <h3 class="server-title">BDIX Dedicated Server</h3>
+          <p style="font-size:13px; color:#64748B;">Dedicated hardware for banks, media streaming, and high throughput apps.</p>
+          <div class="server-price" style="color:#F77F00;">৳25,000<span style="font-size:14px; color:#64748B; font-weight:600;">/mo</span></div>
+          <ul class="server-features">
+            <li><b>✓</b> Intel Xeon 16-Core / 32-Threads</li>
+            <li><b>✓</b> 64 GB DDR4 ECC RAM</li>
+            <li><b>✓</b> 2x 1TB NVMe SSD RAID-1</li>
+            <li><b>✓</b> 1 Gbps Dedicated BDIX Port</li>
+            <li><b>✓</b> 5 Usable Usable IPv4s</li>
+            <li><b>✓</b> 99.99% Enterprise Uptime SLA</li>
+          </ul>
+        </div>
+        <a href="order.html?plan=managed-vps" class="btn-server-order" style="background:#F77F00;">Configure Server &rarr;</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom-bar">
+      <div class="footer-bottom-left-payments">
+        <span class="footer-payments-label">Payments</span>
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+      </div>
+      <div class="footer-bottom-right-copy">
+        &copy; 2026 JAAS BD. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

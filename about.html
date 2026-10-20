@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us &bull; Infrastructure &amp; Datacenter | JAAS BD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #FFFFFF;
+      color: #0F172A;
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-wrap img { height: 42px; width: auto; }
+    .brand-name { font-size: 24px; font-weight: 900; }
+    .nav-links { display: flex; align-items: center; gap: 25px; list-style: none; }
+    .nav-links a { color: #475569; text-decoration: none; font-size: 14.5px; font-weight: 600; }
+    .nav-links a:hover { color: #0077B6; }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #FAF7FD 0%, #F0F6FC 50%, #F0FBF7 100%);
+      padding: 70px 0 60px;
+      text-align: center;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .hero-title { font-size: 40px; font-weight: 900; color: #0F172A; margin-bottom: 12px; }
+    .hero-sub { font-size: 16px; color: #64748B; max-width: 680px; margin: 0 auto; }
+
+    .about-section { padding: 70px 0 80px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 60px; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 40px 0;
+      border-top: 1px solid #E2E8F0;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+    @media (max-width: 768px) { .stats-strip { grid-template-columns: repeat(2, 1fr); } }
+    .stat-n { font-size: 36px; font-weight: 900; color: #0077B6; margin-bottom: 4px; }
+    .stat-l { font-size: 13px; color: #64748B; font-weight: 600; }
+
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 16px 0;
+      font-size: 13.5px;
+      color: #64748B;
+    }
+    .footer-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-bottom-left-payments {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-payments-label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1E293B;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .sslcommerz-footer-banner {
+      height: 46px;
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-bottom-right-copy {
+      color: #64748B;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-align: right;
+      white-space: nowrap;
+    }
+    @media (max-width: 800px) {
+      .footer-bottom-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 14px;
+      }
+      .footer-bottom-left-payments {
+        justify-content: center;
+      }
+      .footer-bottom-right-copy {
+        text-align: center;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="index.html" class="brand-wrap">
+        <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="hosting.html">Web Hosting</a></li>
+        <li><a href="domain.html">Domains</a></li>
+        <li><a href="servers.html">Servers</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="login.html" style="padding:9px 20px; border:1px solid #CBD5E1; color:#0F172A; text-decoration:none; font-weight:700; border-radius:6px;">&#128100; Login</a>
+        <a href="order.html?plan=business-hosting" style="padding:9px 22px; background:#0077B6; color:#FFFFFF; text-decoration:none; font-weight:700; border-radius:6px;">Get Deal</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero-banner">
+    <div class="container">
+      <h1 class="hero-title">About JAAS BD</h1>
+      <p class="hero-sub">Pioneering Next-Gen Cloud, Web Hosting, and BDIX Connectivity in Bangladesh.</p>
+    </div>
+  </div>
+
+  <div class="container about-section">
+    <div class="about-grid">
+      <div>
+        <h2 style="font-size:28px; font-weight:900; color:#0F172A; margin-bottom:16px;">
+          Engineered for Extreme Speed &amp; Reliability
+        </h2>
+        <p style="font-size:15px; color:#475569; line-height:1.7; margin-bottom:16px;">
+          Founded with a commitment to empower businesses across Bangladesh and worldwide, <strong>JAAS BD</strong> delivers enterprise-grade cloud hosting, domain registration, and high-performance server infrastructure.
+        </p>
+        <p style="font-size:15px; color:#475569; line-height:1.7;">
+          Operating with direct Tier-III BDIX peering in Dhaka and global data routing nodes in USA and Europe, we provide sub-millisecond local latency, automated SSL, daily backups, and cPanel single-sign-on integration.
+        </p>
+      </div>
+
+      <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:16px; padding:35px;">
+        <h3 style="font-size:18px; font-weight:800; color:#0077B6; margin-bottom:12px;">Our Mission</h3>
+        <p style="font-size:14px; color:#475569; line-height:1.6; margin-bottom:20px;">
+          To provide affordable, ultra-fast, and secure hosting with transparent billing, automated provisioning, and genuine 24/7 human technical support.
+        </p>
+        <div style="font-size:13.5px; color:#0F172A; font-weight:700;">
+          &#128205; Head Office: 843/06, Kadim Dewhata, Mirzapur, Tangail. 1940.<br>
+          &#128222; Helpline: +88-01818-430308
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-strip">
+      <div>
+        <div class="stat-n" style="color:#06D6A0;">5,375+</div>
+        <div class="stat-l">Active Hosted Websites</div>
+      </div>
+      <div>
+        <div class="stat-n" style="color:#0077B6;">7,544+</div>
+        <div class="stat-l">Happy Clients</div>
+      </div>
+      <div>
+        <div class="stat-n" style="color:#F77F00;">99.9%</div>
+        <div class="stat-l">Uptime SLA Guaranteed</div>
+      </div>
+      <div>
+        <div class="stat-n" style="color:#7B2CBF;">10 Gbps</div>
+        <div class="stat-l">BDIX Direct Uplink</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-bottom-bar">
+      <div class="footer-bottom-left-payments">
+        <span class="footer-payments-label">Payments</span>
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+      </div>
+      <div class="footer-bottom-right-copy">
+        &copy; 2026 JAAS BD. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
