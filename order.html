@@ -35,12 +35,19 @@
       align-items: center;
       justify-content: space-between;
       height: 75px;
+      gap: 20px;
+    }
+    .header-inner nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }
     .brand-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
+      flex-shrink: 0;
     }
     .brand-wrap img {
       height: 42px;
@@ -54,17 +61,21 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
+      justify-content: center;
+      gap: 20px;
       list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      white-space: nowrap;
     }
     .nav-links a {
       color: #475569;
       text-decoration: none;
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 600;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: #0077B6; }
+    .nav-links a:hover, .nav-links a.active { color: #0077B6; }
     .header-btns {
       display: flex;
       align-items: center;
@@ -711,13 +722,18 @@
         <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
       </a>
 
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="hosting.html">Web Hosting</a></li>
-        <li><a href="domain.html">Domains</a></li>
-        <li><a href="servers.html">Servers</a></li>
-        <li><a href="contact.html">Support</a></li>
-      </ul>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="hosting.html">Web Hosting</a></li>
+          <li><a href="javascript:void(0)" onclick="switchOrderCategory('BDIX Web Hosting')">BDIX Hosting</a></li>
+          <li><a href="javascript:void(0)" onclick="switchOrderCategory('BDIX Cloud VPS')" class="active">BDIX Cloud VPS</a></li>
+          <li><a href="servers.html#dedicated">Dedicated Server</a></li>
+          <li><a href="domain.html">Domains</a></li>
+          <li><a href="javascript:void(0)" onclick="switchOrderCategory('Software')">Software</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </nav>
 
       <div class="header-btns">
         <a href="clientarea.html" class="btn-outline">&#128100; Client Area</a>
@@ -785,7 +801,14 @@
               <span class="deal-cat-icon">⚡</span>
               <div>
                 <div class="deal-cat-title">Cloud &amp; VPS</div>
-                <div class="deal-cat-subtitle">3 Dedicated Root Plans</div>
+                <div class="deal-cat-subtitle">Dedicated Root Plans</div>
+              </div>
+            </button>
+            <button type="button" class="deal-cat-tab" id="tabCatReseller" onclick="switchOrderCategory('Reseller Hosting', this)">
+              <span class="deal-cat-icon">👥</span>
+              <div>
+                <div class="deal-cat-title">Reseller Hosting</div>
+                <div class="deal-cat-subtitle">WHM Client Accounts</div>
               </div>
             </button>
             <button type="button" class="deal-cat-tab" id="tabCatSoftware" onclick="switchOrderCategory('Software', this)">
@@ -1043,6 +1066,19 @@
     </div>
   </div>
 
+  <!-- DianaHost White Bottom Bar in order.html -->
+  <footer style="background:#FFFFFF; border-top:1px solid #E2E8F0; padding:18px 0; margin-top:50px;">
+    <div class="container footer-bottom-bar" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+      <div class="footer-bottom-left-payments" style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
+        <span class="footer-payments-label" style="font-size:15px; font-weight:800; color:#0F172A; letter-spacing:0.3px;">Payments</span>
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner" style="height:64px; max-height:70px; width:auto; max-width:100%; object-fit:contain; display:block;">
+      </div>
+      <div class="footer-bottom-right-copy" style="color:#64748B; font-size:13.5px; font-weight:600;">
+        &copy; 2026 JAAS BD. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
   <script src="assets/js/jaas-system.js"></script>
   <script>
     // URL Params
@@ -1066,19 +1102,90 @@
     let isDomainAdded = true;
     let currentCategoryHead = 'Web Hosting';
 
+    async function loadConfigAndPackages() {
+      let cfgPkgs = [];
+      try {
+        const resp = await fetch('/api/config');
+        if (resp.ok) {
+          const cfg = await resp.json();
+          if (cfg && Array.isArray(cfg.packages)) {
+            cfgPkgs = cfg.packages;
+            localStorage.setItem('jaas_site_config', JSON.stringify(cfg));
+          }
+        }
+      } catch (e) {}
+
+      if (cfgPkgs.length === 0) {
+        try {
+          const raw = localStorage.getItem('jaas_site_config');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.packages)) cfgPkgs = parsed.packages;
+          }
+        } catch(e) {}
+      }
+
+      if (cfgPkgs.length === 0) {
+        try {
+          const raw2 = localStorage.getItem('jaas_packages');
+          if (raw2) {
+            const parsed2 = JSON.parse(raw2);
+            if (Array.isArray(parsed2)) cfgPkgs = parsed2;
+          }
+        } catch(e) {}
+      }
+
+      if (cfgPkgs && cfgPkgs.length > 0) {
+        cfgPkgs.forEach(p => {
+          if (!p || !p.name) return;
+          const id = p.id || p.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+          const basePrice = parseInt(p.basePrice) || 199;
+          const annualPrice = parseInt(p.annualPrice) || (basePrice * 12);
+          const storageVal = p.storage || '10 GB NVMe';
+          const numGbMatch = storageVal.match(/\d+/);
+          const numGb = numGbMatch ? parseInt(numGbMatch[0]) : 10;
+          const ramVal = p.ram || '2 GB RAM';
+          const cpuVal = p.cpu || '1 Core CPU';
+          const bwVal = p.bandwidth || 'Unlimited BDIX';
+          const sitesVal = p.websites || '1 Website';
+
+          JAAS_CATALOG[id] = {
+            id: id,
+            name: p.name,
+            category: p.category || 'Web Hosting',
+            badge: p.badge || 'Popular',
+            basePrice: basePrice,
+            annualPrice: annualPrice,
+            storage: storageVal,
+            websites: sitesVal,
+            ram: ramVal,
+            cpu: cpuVal,
+            bandwidth: bwVal,
+            features: Array.isArray(p.features) && p.features.length > 0 ? p.features : ['Free SSL Certificate', 'Daily Auto Backups', 'cPanel Control Panel'],
+            storageOptions: Array.isArray(p.storageOptions) && p.storageOptions.length > 0 ? p.storageOptions : [
+              { gb: numGb, price: basePrice, ram: ramVal, cpu: cpuVal, sites: sitesVal, bandwidth: bwVal }
+            ]
+          };
+        });
+      }
+    }
+
     function getPlanHead(p) {
       if (!p) return 'Web Hosting';
       const id = (p.id || '').toLowerCase();
       const cat = (p.category || '').toLowerCase();
       const name = (p.name || '').toLowerCase();
 
+      if (cat.includes('reseller') || id.includes('reseller') || name.includes('reseller')) {
+        return 'Reseller Hosting';
+      }
       if (id.includes('bdix') || name.includes('bdix') || cat.includes('bdix')) {
-        if (id.includes('vps') || id.includes('rdp') || cat.includes('vps') || cat.includes('server')) {
+        if (id.includes('vps') || id.includes('rdp') || cat.includes('vps') || cat.includes('server') || cat.includes('cloud')) {
           return 'BDIX Cloud VPS';
         }
         return 'BDIX Web Hosting';
       }
-      if (id.includes('vps') || id.includes('server') || cat.includes('server') || cat.includes('vps')) {
+      if (id.includes('vps') || id.includes('server') || cat.includes('server') || cat.includes('vps') || cat.includes('cloud')) {
         return 'BDIX Cloud VPS';
       }
       if (id.includes('ssl') || id.includes('cpanel') || id.includes('license') || id.includes('software') || cat.includes('software')) {
@@ -1087,7 +1194,13 @@
       return 'Web Hosting';
     }
 
-    function initPage() {
+    async function initPage() {
+      await loadConfigAndPackages();
+
+      if (selectedPlanParam && JAAS_CATALOG[selectedPlanParam]) {
+        currentPlan = JAAS_CATALOG[selectedPlanParam];
+      }
+
       // Check for domain param in URL
       const urlDomain = urlParams.get('domain');
       if (urlDomain) {
@@ -1178,6 +1291,7 @@
         'BDIX Web Hosting': 'tabCatBdix',
         'Web Hosting': 'tabCatWeb',
         'BDIX Cloud VPS': 'tabCatCloud',
+        'Reseller Hosting': 'tabCatReseller',
         'Software': 'tabCatSoftware'
       };
       const activeBtn = btnEl || document.getElementById(tabIdMap[catName]);
@@ -1187,6 +1301,7 @@
         'BDIX Web Hosting': '1. BDIX Ultra-Fast Web Hosting Packages',
         'Web Hosting': '1. NVMe cPanel Web Hosting Packages',
         'BDIX Cloud VPS': '1. Dedicated BDIX Cloud & VPS Servers',
+        'Reseller Hosting': '1. White-Label Reseller Hosting Packages',
         'Software': '1. Software & cPanel Licenses'
       };
       const titleEl = document.querySelector('.deal-picker-title');
@@ -1204,19 +1319,53 @@
       const allList = Object.values(JAAS_CATALOG);
 
       if (catName === 'Software') {
-        pkgs = [
-          { id: 'ssl-cert', name: 'PositiveSSL Certificate', category: 'Security', badge: 'Essential', basePrice: 125, storage: '256-bit Encryption', websites: '1 Domain', ram: 'Browser Padlock', features: ['Instant SSL Activation', 'Free Reissues', 'Green HTTPS Padlock'] },
-          { id: 'cpanel-solo', name: 'cPanel Solo License', category: 'Software', badge: 'Official Partner', basePrice: 1899, storage: '1 Account', websites: '1 User', ram: 'Full WHM/cPanel', features: ['Official cPanel License', '1 Account Provisioning', 'Automatic Updates'] },
-          { id: 'litespeed-ent', name: 'LiteSpeed Enterprise', category: 'Software', badge: 'Ultra Fast', basePrice: 1250, storage: 'Unlimited Cache', websites: 'High Traffic', ram: 'LSCache Engine', features: ['5x Apache Speed', 'Built-in Anti-DDoS', 'WordPress Accelerator'] }
-        ];
+        pkgs = allList.filter(p => {
+          const c = (p.category || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          return c.includes('software') || c.includes('license') || c.includes('security') || id.includes('ssl') || id.includes('cpanel') || id.includes('license') || id.includes('litespeed');
+        });
+        if (pkgs.length === 0) {
+          pkgs = [
+            { id: 'ssl-cert', name: 'PositiveSSL Certificate', category: 'Security', badge: 'Essential', basePrice: 125, storage: '256-bit Encryption', websites: '1 Domain', ram: 'Browser Padlock', features: ['Instant SSL Activation', 'Free Reissues', 'Green HTTPS Padlock'] },
+            { id: 'cpanel-solo', name: 'cPanel Solo License', category: 'Software', badge: 'Official Partner', basePrice: 1899, storage: '1 Account', websites: '1 User', ram: 'Full WHM/cPanel', features: ['Official cPanel License', '1 Account Provisioning', 'Automatic Updates'] },
+            { id: 'litespeed-ent', name: 'LiteSpeed Enterprise', category: 'Software', badge: 'Ultra Fast', basePrice: 1250, storage: 'Unlimited Cache', websites: 'High Traffic', ram: 'LSCache Engine', features: ['5x Apache Speed', 'Built-in Anti-DDoS', 'WordPress Accelerator'] }
+          ];
+        }
       } else if (catName === 'BDIX Web Hosting') {
-        pkgs = allList.filter(p => (p.category === 'BDIX Web Hosting' || p.id === 'bdix-hosting' || p.id === 'wordpress-hosting') && !p.id.includes('vps') && !p.id.includes('rdp'));
-        if (pkgs.length === 0) pkgs = [JAAS_CATALOG['bdix-hosting'], JAAS_CATALOG['wordpress-hosting']];
-      } else if (catName === 'BDIX Cloud VPS') {
-        pkgs = allList.filter(p => p.category === 'Cloud & Servers' || p.id.includes('vps') || p.id.includes('rdp'));
+        pkgs = allList.filter(p => {
+          const c = (p.category || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          const n = (p.name || '').toLowerCase();
+          const isBdix = c.includes('bdix') || id.includes('bdix') || n.includes('bdix');
+          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp') || n.includes('vps');
+          return isBdix && !isVps;
+        });
+      } else if (catName === 'BDIX Cloud VPS' || catName === 'Cloud & VPS') {
+        pkgs = allList.filter(p => {
+          const c = (p.category || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          const n = (p.name || '').toLowerCase();
+          return c.includes('vps') || c.includes('cloud') || c.includes('server') || id.includes('vps') || id.includes('rdp') || n.includes('vps') || n.includes('cloud');
+        });
+      } else if (catName === 'Reseller Hosting') {
+        pkgs = allList.filter(p => {
+          const c = (p.category || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          const n = (p.name || '').toLowerCase();
+          return c.includes('reseller') || id.includes('reseller') || n.includes('reseller');
+        });
       } else {
         // Web Hosting
-        pkgs = allList.filter(p => (p.category === 'Shared Hosting' || p.category === 'Corporate Hosting' || p.category === 'Enterprise Hosting' || p.category === 'Windows Cloud' || p.category === 'Reseller Hosting') && p.id !== 'bdix-hosting' && !p.id.includes('vps') && !p.id.includes('rdp'));
+        pkgs = allList.filter(p => {
+          const c = (p.category || '').toLowerCase();
+          const id = (p.id || '').toLowerCase();
+          const n = (p.name || '').toLowerCase();
+          const isBdix = c.includes('bdix') || id.includes('bdix') || n.includes('bdix');
+          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp');
+          const isReseller = c.includes('reseller') || id.includes('reseller') || n.includes('reseller');
+          const isSoft = c.includes('software') || id.includes('ssl');
+          return !isBdix && !isVps && !isReseller && !isSoft;
+        });
       }
 
       // De-duplicate by ID

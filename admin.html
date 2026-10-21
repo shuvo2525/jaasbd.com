@@ -667,6 +667,12 @@
             <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Reseller Hosting', this)">
               🏢 Reseller Hosting (<span id="countResellerPkgs">3</span> Packages)
             </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Dedicated Server', this)">
+              🖥️ Dedicated Server
+            </button>
+            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Software', this)">
+              🚀 Software &amp; Licenses
+            </button>
           </div>
 
           <div class="table-responsive">
@@ -934,6 +940,8 @@
             <option value="BDIX Cloud VPS">BDIX Cloud VPS</option>
             <option value="Reseller Hosting">Reseller Hosting</option>
             <option value="Corporate Hosting">Corporate Hosting</option>
+            <option value="Dedicated Server">Dedicated Server</option>
+            <option value="Software">Software &amp; Licenses</option>
           </select>
         </div>
       </div>
@@ -1576,6 +1584,7 @@
 
       // Always save to localStorage immediately
       localStorage.setItem('jaas_site_config', JSON.stringify(siteConfig));
+      localStorage.setItem('jaas_packages', JSON.stringify(siteConfig.packages || []));
 
       // Save to server API (MySQL via api.php or Node.js via /api/config)
       try {

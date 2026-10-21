@@ -31,20 +31,30 @@
       align-items: center;
       justify-content: space-between;
       height: 75px;
+      gap: 20px;
+    }
+    .header-inner nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }
     .brand-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
+      flex-shrink: 0;
     }
     .brand-wrap img { height: 42px; width: auto; }
     .brand-name { font-size: 24px; font-weight: 900; }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
+      justify-content: center;
+      gap: 20px;
       list-style: none;
+      margin: 0 auto;
+      padding: 0;
     }
     .nav-links a {
       color: #475569;
@@ -154,7 +164,7 @@
     footer {
       background: #FFFFFF;
       border-top: 1px solid #E2E8F0;
-      padding: 16px 0;
+      padding: 18px 0;
       font-size: 13.5px;
       color: #64748B;
     }
@@ -168,19 +178,19 @@
     .footer-bottom-left-payments {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
       flex-wrap: wrap;
     }
     .footer-payments-label {
-      font-size: 14.5px;
-      font-weight: 700;
-      color: #1E293B;
-      letter-spacing: 0.2px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: 0.3px;
       white-space: nowrap;
     }
     .sslcommerz-footer-banner {
-      height: 46px;
-      max-height: 50px;
+      height: 64px;
+      max-height: 70px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
@@ -218,16 +228,18 @@
         <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:44px; width:auto;">
       </a>
 
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="hosting.html">Web Hosting</a></li>
-        <li><a href="domain.html" class="active">Domains</a></li>
-        <li><a href="servers.html">Servers</a></li>
-        <li><a href="contact.html">Support</a></li>
-      </ul>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="hosting.html">Web Hosting</a></li>
+          <li><a href="domain.html" class="active">Domains</a></li>
+          <li><a href="servers.html">Servers</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </nav>
 
       <div style="display:flex; align-items:center; gap:12px;">
-        <a href="login.html" style="padding:9px 20px; border:1px solid #CBD5E1; color:#0F172A; text-decoration:none; font-weight:700; border-radius:6px;">&#128100; Login</a>
+        <a href="login.html" style="padding:9px 20px; border:1px solid #CBD5E1; color:#0F172A; text-decoration:none; font-weight:700; border-radius:6px;">&#128100; Client Area</a>
         <a href="order.html?plan=business-hosting" style="padding:9px 22px; background:#0077B6; color:#FFFFFF; text-decoration:none; font-weight:700; border-radius:6px;">Get Deal</a>
       </div>
     </div>

@@ -108,7 +108,7 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
       border: 1px solid #E2E8F0;
       position: relative;
-      padding: 210px 65px 140px; /* Leaves top origami & bottom address completely intact */
+      padding: 110px 50px 75px; /* Cleanly clears scaled-down top & bottom branding */
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -295,7 +295,7 @@
         border-radius: 0 !important;
         box-shadow: none !important;
         background-size: 210mm 297mm !important;
-        padding: 55mm 18mm 38mm !important;
+        padding: 28mm 14mm 20mm !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         page-break-inside: avoid !important;
@@ -373,15 +373,11 @@
 
           <div style="text-align:right;">
             <div class="info-box-title">Service Provider:</div>
-            <div class="client-name" style="display:inline-flex; align-items:center; justify-content:flex-end; gap:8px;">
-              <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height:32px; width:auto; object-fit:contain;">
-              <span style="font-size:18px; font-weight:800; color:#0F172A; letter-spacing:-0.3px;">jaasbd.com</span>
-            </div>
             <div class="client-details">
-              Cloud Infrastructure, Domains &amp; BDIX Hosting<br>
-              Office: 843/06, Kadim Dewhata, Mirzapur, Tangail. 1940.<br>
-              Helpline: +88-01818-430308 &bull; info@jaasbd.com<br>
-              Web: www.jaasbd.com
+              <div style="font-weight:600; color:#1E293B;">843/06, KD, Mirzapur, Tangail.</div>
+              <div id="provMobile">Mobile No: +88-01818-430308</div>
+              <div id="provEmail">Email: info@jaasbd.com</div>
+              <div id="provWebsite">Website: www.jaasbd.com</div>
             </div>
           </div>
         </div>
@@ -483,6 +479,17 @@
       document.getElementById('invClientEmail').innerText = 'Email: ' + (client.email || 'ashish@example.com');
       document.getElementById('alertClientEmail').innerText = client.email || 'ashish@example.com';
     }
+
+    // Dynamic config sync for provider info
+    fetch('/api/config')
+      .then(res => res.json())
+      .then(cfg => {
+        if (cfg && cfg.contact) {
+          if (cfg.contact.phone) document.getElementById('provMobile').innerText = 'Mobile No: ' + cfg.contact.phone;
+          if (cfg.contact.email) document.getElementById('provEmail').innerText = 'Email: ' + cfg.contact.email;
+        }
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>

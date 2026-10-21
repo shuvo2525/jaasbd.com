@@ -67,6 +67,25 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // API: POST /api/save_image
+  if (req.method === 'POST' && reqPath === '/api/save_image') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const { filename, base64 } = JSON.parse(body);
+        const data = base64.replace(/^data:image\/\w+;base64,/, '');
+        fs.writeFileSync(path.join(BASE_DIR, filename), Buffer.from(data, 'base64'));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
   // API 3: POST /api/admin/login
   if (req.method === 'POST' && reqPath === '/api/admin/login') {
     let body = '';
