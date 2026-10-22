@@ -362,6 +362,68 @@
       object-fit: contain;
     }
 
+    /* File Upload Controls */
+    .btn-upload {
+      background: #0077B6;
+      color: #FFFFFF;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-upload:hover {
+      background: #023E8A;
+      box-shadow: 0 3px 10px rgba(0, 119, 182, 0.3);
+    }
+    .input-upload-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Category Head Pills */
+    .category-head-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .category-head-pill .btn-icon-action {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+    .category-head-pill .btn-icon-action:hover {
+      background: #F1F5F9;
+    }
+
+    /* Footer CMS Column Cards */
+    .footer-col-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
     /* Data Tables */
     .table-responsive {
       overflow-x: auto;
@@ -546,6 +608,12 @@
           <span class="num-pill">Pass</span>
         </a>
       </li>
+      <li>
+        <a class="menu-link" onclick="switchAdminTab('footer', this)">
+          <span>📄</span> 9. Footer &amp; Content CMS
+          <span class="num-pill">Footer/Menus</span>
+        </a>
+      </li>
     </ul>
 
     <div class="sidebar-user">
@@ -593,8 +661,12 @@
               <input type="text" id="cfgSiteTitle" class="form-control" value="JAAS BD • Web Hosting, BDIX VPS &amp; Cloud Servers in Bangladesh">
             </div>
             <div class="form-group">
-              <label>Favicon Image Path / URL</label>
-              <input type="text" id="cfgFavicon" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFavicon', this.value)">
+              <label>Favicon (Browser Tab Icon)</label>
+              <div class="input-upload-group">
+                <input type="text" id="cfgFavicon" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFavicon', this.value)">
+                <input type="file" id="fileFavicon" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'cfgFavicon', 'previewFavicon')">
+                <button type="button" class="btn-upload" onclick="document.getElementById('fileFavicon').click()">📁 Upload</button>
+              </div>
               <div class="img-preview-box">
                 <img id="previewFavicon" src="assets/images/jaasbd-logo.png" alt="Favicon Preview">
                 <span style="font-size:12px; color:#64748B;">Favicon Preview</span>
@@ -604,8 +676,12 @@
 
           <div class="form-grid-2">
             <div class="form-group">
-              <label>Header Brand Logo Path / URL</label>
-              <input type="text" id="cfgHeaderLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewHeaderLogo', this.value)">
+              <label>Header Brand Logo (Top Navbar)</label>
+              <div class="input-upload-group">
+                <input type="text" id="cfgHeaderLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewHeaderLogo', this.value)">
+                <input type="file" id="fileHeaderLogo" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'cfgHeaderLogo', 'previewHeaderLogo')">
+                <button type="button" class="btn-upload" onclick="document.getElementById('fileHeaderLogo').click()">📁 Upload</button>
+              </div>
               <div class="img-preview-box">
                 <img id="previewHeaderLogo" src="assets/images/jaasbd-logo.png" alt="Header Logo Preview">
                 <span style="font-size:12px; color:#64748B;">Header Logo (Logo Only)</span>
@@ -613,8 +689,12 @@
             </div>
 
             <div class="form-group">
-              <label>Footer Brand Logo Path / URL</label>
-              <input type="text" id="cfgFooterLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFooterLogo', this.value)">
+              <label>Footer Brand Logo (Bottom Bar)</label>
+              <div class="input-upload-group">
+                <input type="text" id="cfgFooterLogo" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewFooterLogo', this.value)">
+                <input type="file" id="fileFooterLogo" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'cfgFooterLogo', 'previewFooterLogo')">
+                <button type="button" class="btn-upload" onclick="document.getElementById('fileFooterLogo').click()">📁 Upload</button>
+              </div>
               <div class="img-preview-box">
                 <img id="previewFooterLogo" src="assets/images/jaasbd-logo.png" alt="Footer Logo Preview">
                 <span style="font-size:12px; color:#64748B;">Footer Logo</span>
@@ -650,30 +730,22 @@
             </button>
           </div>
 
-          <!-- Category Quick Filter Buttons -->
-          <div class="cat-filter-wrap">
-            <button type="button" class="cat-filter-btn active" onclick="filterPackagesByCategory('all', this)">
-              🌐 All Packages (<span id="countAllPkgs">0</span>)
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Web Hosting', this)">
-              💻 Web Hosting (<span id="countWebPkgs">3</span> Packages)
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('BDIX Web Hosting', this)">
-              🇧🇩 BDIX Web Hosting (<span id="countBdixPkgs">3</span> Packages)
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('BDIX Cloud VPS', this)">
-              ⚡ BDIX Cloud VPS (<span id="countVpsPkgs">3</span> Packages)
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Reseller Hosting', this)">
-              🏢 Reseller Hosting (<span id="countResellerPkgs">3</span> Packages)
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Dedicated Server', this)">
-              🖥️ Dedicated Server
-            </button>
-            <button type="button" class="cat-filter-btn" onclick="filterPackagesByCategory('Software', this)">
-              🚀 Software &amp; Licenses
-            </button>
+          <!-- Category Heads / Tabs Manager -->
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:18px; margin-bottom:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h4 style="font-size:15px; font-weight:800; color:#0F172A; margin-bottom:2px;">Get Deal Category Heads (Tabs)</h4>
+                <p style="font-size:12.5px; color:#64748B;">Add, rename, or delete category heads displayed on the website and Get Deal order page.</p>
+              </div>
+              <button type="button" class="btn-upload" onclick="openAddCategoryModal()">
+                + Add New Category Head
+              </button>
+            </div>
+            <div id="categoryHeadsList" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
           </div>
+
+          <!-- Category Quick Filter Buttons (Dynamic) -->
+          <div class="cat-filter-wrap" id="categoryFilterContainer"></div>
 
           <div class="table-responsive">
             <table class="data-table">
@@ -682,10 +754,10 @@
                   <th>Plan Name</th>
                   <th>Category</th>
                   <th>Badge</th>
-                  <th>Monthly Price</th>
-                  <th>Annual Price</th>
-                  <th>Storage &amp; Sites</th>
-                  <th>CPU / RAM</th>
+                  <th>Regular Price</th>
+                  <th>Sale / Discount Price</th>
+                  <th>Save %</th>
+                  <th>Govt. VAT</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -761,7 +833,11 @@
             </div>
             <div class="form-group">
               <label>Orbit Center Image (No Text &bull; Pure Logo)</label>
-              <input type="text" id="cfgOrbitImg" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewOrbitImg', this.value)">
+              <div class="input-upload-group">
+                <input type="text" id="cfgOrbitImg" class="form-control" value="assets/images/jaasbd-logo.png" onchange="previewImg('previewOrbitImg', this.value)">
+                <input type="file" id="fileOrbitImg" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'cfgOrbitImg', 'previewOrbitImg')">
+                <button type="button" class="btn-upload" onclick="document.getElementById('fileOrbitImg').click()">📁 Upload</button>
+              </div>
               <div class="img-preview-box">
                 <img id="previewOrbitImg" src="assets/images/jaasbd-logo.png" alt="Orbit Preview">
                 <span style="font-size:12px; color:#64748B;">Centered Bird Logo</span>
@@ -916,8 +992,101 @@
         </div>
       </div>
 
+      <!-- ==========================================
+           TAB 9: FOOTER & CONTENT CMS
+           ========================================== -->
+      <div class="admin-tab" id="tab-footer">
+        <div class="admin-card">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Footer &amp; Website Content CMS</h2>
+              <p class="card-desc">Manage footer about text, copyright rights, payment methods picture/banner, and menu links.</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Footer About / Company Summary</label>
+              <textarea id="cfgFooterAbout" class="form-control" style="min-height: 80px;" placeholder="About JAAS BD in footer..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Footer Copyright Rights Text</label>
+              <input type="text" id="cfgFooterCopyright" class="form-control" placeholder="e.g. © 2026 JAAS BD. All Rights Reserved.">
+              <span style="font-size:12px; color:#64748B; margin-top:4px; display:block;">Displayed at the very bottom next to payment methods.</span>
+            </div>
+          </div>
+
+          <!-- Footer Payment Gateway Picture & Banner -->
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px; margin-top:15px; margin-bottom:20px;">
+            <h4 style="font-size:15px; font-weight:800; color:#0F172A; margin-bottom:6px;">Footer Payment Methods Banner / Picture</h4>
+            <p style="font-size:12.5px; color:#64748B; margin-bottom:14px;">Upload or set custom payment gateway banner image (SSLCommerz, bKash, Nagad, Visa, MasterCard) displayed in the footer.</p>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Payment Picture / Banner Path or URL</label>
+                <div class="input-upload-group">
+                  <input type="text" id="cfgPaymentBanner" class="form-control" placeholder="assets/images/payment-methods.png" onchange="previewImg('previewPaymentBanner', this.value)">
+                  <input type="file" id="filePaymentBanner" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'cfgPaymentBanner', 'previewPaymentBanner')">
+                  <button type="button" class="btn-upload" onclick="document.getElementById('filePaymentBanner').click()">📁 Upload Picture</button>
+                </div>
+                <div class="img-preview-box" style="margin-top:10px;">
+                  <img id="previewPaymentBanner" src="assets/images/jaasbd-logo.png" alt="Payment Banner Preview" style="max-height:50px; max-width:280px; object-fit:contain;">
+                  <span style="font-size:12px; color:#64748B;">Payment Methods Preview</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Show Payment Methods in Footer</label>
+                <div style="margin-top:10px;">
+                  <label style="display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; cursor:pointer;">
+                    <input type="checkbox" id="cfgShowPaymentGateways" style="width:18px; height:18px;" checked>
+                    <span>Display Payment Methods banner / badges in website footer</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Menu Columns Manager -->
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h4 style="font-size:15px; font-weight:800; color:#0F172A; margin-bottom:2px;">Footer Menu Navigation Columns</h4>
+                <p style="font-size:12.5px; color:#64748B;">Configure titles and links for footer navigation columns.</p>
+              </div>
+              <button type="button" class="btn-upload" onclick="addFooterMenuColumn()">
+                + Add Menu Column
+              </button>
+            </div>
+            <div id="footerMenuColumnsContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px;"></div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </main>
+
+  <!-- Category Modal -->
+  <div class="modal-overlay" id="categoryHeadModal">
+    <div class="modal-box" style="max-width: 440px;">
+      <div class="card-header">
+        <h3 class="card-title" id="modalCatTitle">Add Category Head</h3>
+        <button type="button" class="btn-sm" onclick="closeCategoryModal()">&times; Close</button>
+      </div>
+      <div class="form-group">
+        <label>Category Name</label>
+        <input type="text" id="editCatName" class="form-control" placeholder="e.g. BDIX Web Hosting" required>
+      </div>
+      <div class="form-group">
+        <label>Category Icon / Emoji</label>
+        <input type="text" id="editCatIcon" class="form-control" placeholder="e.g. 🇧🇩 or 💻 or ⚡">
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
+        <button type="button" class="btn-sm" onclick="closeCategoryModal()">Cancel</button>
+        <button type="button" class="btn-primary-action" onclick="saveCategoryFromModal()">Save Category</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Edit/Add Package Modal -->
   <div class="modal-overlay" id="packageModal">
@@ -933,31 +1102,46 @@
           <input type="text" id="editPkgName" class="form-control" placeholder="e.g. BDIX Starter Hosting">
         </div>
         <div class="form-group">
-          <label>Category</label>
+          <label>Category Head (Tab)</label>
           <select id="editPkgCategory" class="form-control">
-            <option value="Web Hosting">Web Hosting (Shared)</option>
-            <option value="BDIX Web Hosting">BDIX Web Hosting</option>
-            <option value="BDIX Cloud VPS">BDIX Cloud VPS</option>
-            <option value="Reseller Hosting">Reseller Hosting</option>
-            <option value="Corporate Hosting">Corporate Hosting</option>
-            <option value="Dedicated Server">Dedicated Server</option>
-            <option value="Software">Software &amp; Licenses</option>
+            <!-- Dynamically populated from siteConfig.packageCategories -->
           </select>
         </div>
       </div>
 
+      <!-- Pricing with Discount and VAT -->
       <div class="form-grid-3">
         <div class="form-group">
           <label>Badge / Ribbon</label>
           <input type="text" id="editPkgBadge" class="form-control" placeholder="e.g. Popular, 10Gbps BDIX">
         </div>
         <div class="form-group">
-          <label>Monthly Price (BDT)</label>
-          <input type="number" id="editPkgBasePrice" class="form-control" placeholder="e.g. 134">
+          <label>Regular Price (BDT/mo)</label>
+          <input type="number" id="editPkgRegularPrice" class="form-control" placeholder="e.g. 199" oninput="autoComputeDiscount()">
+          <span style="font-size:11px; color:#64748B;">Original price (crossed out)</span>
         </div>
         <div class="form-group">
-          <label>Annual Price (BDT)</label>
+          <label>Discount / Sale Price (BDT/mo)</label>
+          <input type="number" id="editPkgBasePrice" class="form-control" placeholder="e.g. 134" oninput="autoComputeDiscount()">
+          <span style="font-size:11px; color:#059669; font-weight:700;">Customer pays this price</span>
+        </div>
+      </div>
+
+      <div class="form-grid-3">
+        <div class="form-group">
+          <label>Discount Save %</label>
+          <input type="number" id="editPkgDiscountPercent" class="form-control" placeholder="e.g. 33">
+          <span style="font-size:11px; color:#64748B;">Auto-calculated or custom</span>
+        </div>
+        <div class="form-group">
+          <label>Govt. VAT / Tax (%)</label>
+          <input type="number" id="editPkgVatRate" class="form-control" placeholder="0 for none, or 5" value="0">
+          <span style="font-size:11px; color:#64748B;">0 = no VAT; >0 shows at checkout</span>
+        </div>
+        <div class="form-group">
+          <label>Annual Price (BDT/yr)</label>
           <input type="number" id="editPkgAnnualPrice" class="form-control" placeholder="e.g. 1608">
+          <span style="font-size:11px; color:#64748B;">Discounted yearly total</span>
         </div>
       </div>
 
@@ -1021,8 +1205,12 @@
 
       <div class="form-grid-2">
         <div class="form-group">
-          <label>Customer Picture URL</label>
-          <input type="text" id="editTestiImg" class="form-control" placeholder="https://... or assets/images/..." onchange="previewImg('previewTestiImg', this.value)">
+          <label>Customer Picture (Avatar / Photo)</label>
+          <div class="input-upload-group">
+            <input type="text" id="editTestiImg" class="form-control" placeholder="https://... or assets/images/..." onchange="previewImg('previewTestiImg', this.value)">
+            <input type="file" id="fileTestiImg" accept="image/*" style="display:none;" onchange="handleFileUpload(this, 'editTestiImg', 'previewTestiImg')">
+            <button type="button" class="btn-upload" onclick="document.getElementById('fileTestiImg').click()">📁 Upload Photo</button>
+          </div>
           <div class="img-preview-box">
             <img id="previewTestiImg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Avatar Preview" style="width:48px; height:48px; border-radius:50%; object-fit:cover;">
             <span style="font-size:12px; color:#64748B;">Avatar Preview</span>
@@ -1129,7 +1317,10 @@
         document.getElementById('cfgAdminEmail').value = siteConfig.admin.email || 'admin@jaasbd.com';
       }
 
-      // Tab 2: Packages
+      // Tab 2: Category Heads, Filters & Packages
+      renderCategoryHeads();
+      renderCategoryFilters();
+      populateCategoryDropdown();
       renderPackagesTable();
 
       // Tab 3: Domains
@@ -1140,6 +1331,198 @@
 
       // Tab 7: Orders
       renderOrdersTable();
+
+      // Tab 9: Footer CMS
+      renderFooterCMS();
+    }
+
+    // ----------------------------------------------------
+    // IMAGE & LOGO UPLOAD HANDLER
+    // ----------------------------------------------------
+    async function handleFileUpload(input, targetInputId, previewImgId) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const base64 = e.target.result;
+        if (previewImgId) {
+          const imgEl = document.getElementById(previewImgId);
+          if (imgEl) imgEl.src = base64;
+        }
+
+        try {
+          const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+          const resp = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: 'assets/images/' + safeName,
+              base64: base64
+            })
+          });
+          const data = await resp.json();
+          if (data.success && data.url) {
+            document.getElementById(targetInputId).value = data.url;
+            if (previewImgId) {
+              const imgEl = document.getElementById(previewImgId);
+              if (imgEl) imgEl.src = data.url;
+            }
+            showToast('✓ Image uploaded successfully: ' + data.url);
+          } else {
+            document.getElementById(targetInputId).value = base64;
+            showToast('✓ Image loaded');
+          }
+        } catch (err) {
+          document.getElementById(targetInputId).value = base64;
+          showToast('✓ Image loaded locally');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ----------------------------------------------------
+    // AUTO COMPUTE DISCOUNT %
+    // ----------------------------------------------------
+    function autoComputeDiscount() {
+      const reg = parseFloat(document.getElementById('editPkgRegularPrice').value) || 0;
+      const sale = parseFloat(document.getElementById('editPkgBasePrice').value) || 0;
+      if (reg > 0 && sale > 0 && reg > sale) {
+        const pct = Math.round(((reg - sale) / reg) * 100);
+        document.getElementById('editPkgDiscountPercent').value = pct;
+      }
+      if (sale > 0 && !document.getElementById('editPkgAnnualPrice').value) {
+        document.getElementById('editPkgAnnualPrice').value = Math.round(sale * 12 * 0.95);
+      }
+    }
+
+    // ----------------------------------------------------
+    // CATEGORY HEADS (GET DEAL TABS) MANAGER
+    // ----------------------------------------------------
+    let editingCatIdx = -1;
+
+    function renderCategoryHeads() {
+      const container = document.getElementById('categoryHeadsList');
+      if (!container) return;
+      container.innerHTML = '';
+      siteConfig.packageCategories = siteConfig.packageCategories || [
+        { id: 'web-hosting', name: 'Web Hosting', icon: '💻' },
+        { id: 'bdix-hosting', name: 'BDIX Web Hosting', icon: '🇧🇩' },
+        { id: 'cloud-vps', name: 'BDIX Cloud VPS', icon: '⚡' },
+        { id: 'reseller-hosting', name: 'Reseller Hosting', icon: '🏢' },
+        { id: 'dedicated-server', name: 'Dedicated Server', icon: '🖥️' },
+        { id: 'software', name: 'Software', icon: '🚀' }
+      ];
+
+      siteConfig.packageCategories.forEach((cat, idx) => {
+        container.innerHTML += `
+          <div class="category-head-pill">
+            <span>${cat.icon || '📦'}</span>
+            <strong>${cat.name}</strong>
+            <button type="button" class="btn-icon-action" onclick="editCategoryHead(${idx})" title="Rename Category">✏️</button>
+            <button type="button" class="btn-icon-action" style="color:#DC2626;" onclick="deleteCategoryHead(${idx})" title="Delete Category Head">🗑️</button>
+          </div>
+        `;
+      });
+    }
+
+    function renderCategoryFilters() {
+      const container = document.getElementById('categoryFilterContainer');
+      if (!container) return;
+      container.innerHTML = '';
+      const allPkgs = siteConfig.packages || [];
+
+      // All button
+      container.innerHTML += `
+        <button type="button" class="cat-filter-btn ${currentCategoryFilter === 'all' ? 'active' : ''}" onclick="filterPackagesByCategory('all', this)">
+          🌐 All Packages (<span id="countAllPkgs">${allPkgs.length}</span>)
+        </button>
+      `;
+
+      (siteConfig.packageCategories || []).forEach(cat => {
+        const count = allPkgs.filter(p => p.category === cat.name).length;
+        container.innerHTML += `
+          <button type="button" class="cat-filter-btn ${currentCategoryFilter === cat.name ? 'active' : ''}" onclick="filterPackagesByCategory('${cat.name}', this)">
+            ${cat.icon || ''} ${cat.name} (${count})
+          </button>
+        `;
+      });
+    }
+
+    function populateCategoryDropdown(selectedVal) {
+      const select = document.getElementById('editPkgCategory');
+      if (!select) return;
+      select.innerHTML = '';
+      (siteConfig.packageCategories || []).forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat.name;
+        opt.innerText = (cat.icon ? cat.icon + ' ' : '') + cat.name;
+        if (selectedVal && selectedVal === cat.name) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function openAddCategoryModal() {
+      editingCatIdx = -1;
+      document.getElementById('modalCatTitle').innerText = 'Add Category Head (Get Deal Tab)';
+      document.getElementById('editCatName').value = '';
+      document.getElementById('editCatIcon').value = '📦';
+      document.getElementById('categoryHeadModal').style.display = 'flex';
+    }
+
+    function editCategoryHead(idx) {
+      editingCatIdx = idx;
+      const cat = siteConfig.packageCategories[idx];
+      document.getElementById('modalCatTitle').innerText = 'Edit Category Head: ' + cat.name;
+      document.getElementById('editCatName').value = cat.name;
+      document.getElementById('editCatIcon').value = cat.icon || '📦';
+      document.getElementById('categoryHeadModal').style.display = 'flex';
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('categoryHeadModal').style.display = 'none';
+    }
+
+    function saveCategoryFromModal() {
+      const name = document.getElementById('editCatName').value.trim();
+      const icon = document.getElementById('editCatIcon').value.trim() || '📦';
+      if (!name) {
+        alert('Please enter category name');
+        return;
+      }
+      siteConfig.packageCategories = siteConfig.packageCategories || [];
+      const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+
+      if (editingCatIdx >= 0) {
+        const oldName = siteConfig.packageCategories[editingCatIdx].name;
+        siteConfig.packageCategories[editingCatIdx] = { id, name, icon };
+        if (Array.isArray(siteConfig.packages)) {
+          siteConfig.packages.forEach(p => {
+            if (p.category === oldName) p.category = name;
+          });
+        }
+      } else {
+        siteConfig.packageCategories.push({ id, name, icon });
+      }
+
+      closeCategoryModal();
+      renderCategoryHeads();
+      renderCategoryFilters();
+      populateCategoryDropdown();
+      renderPackagesTable();
+      showToast('Category head updated! Click Save All Changes to persist to disk.');
+    }
+
+    function deleteCategoryHead(idx) {
+      const cat = siteConfig.packageCategories[idx];
+      if (confirm(`Are you sure you want to delete category head "${cat.name}"?`)) {
+        siteConfig.packageCategories.splice(idx, 1);
+        if (currentCategoryFilter === cat.name) currentCategoryFilter = 'all';
+        renderCategoryHeads();
+        renderCategoryFilters();
+        populateCategoryDropdown();
+        renderPackagesTable();
+        showToast(`Category "${cat.name}" deleted.`);
+      }
     }
 
     function filterPackagesByCategory(cat, btn) {
@@ -1151,21 +1534,13 @@
 
     function renderPackagesTable() {
       const tbody = document.getElementById('packagesTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
       const allPkgs = siteConfig.packages || [];
-      document.getElementById('pkgCountPill').innerText = allPkgs.length;
-      document.getElementById('countAllPkgs').innerText = allPkgs.length;
-
-      // Update category count pills
-      const webPkgs = allPkgs.filter(p => p.category === 'Web Hosting');
-      const bdixPkgs = allPkgs.filter(p => p.category === 'BDIX Web Hosting');
-      const vpsPkgs = allPkgs.filter(p => p.category === 'BDIX Cloud VPS');
-      const resPkgs = allPkgs.filter(p => p.category === 'Reseller Hosting');
-
-      document.getElementById('countWebPkgs').innerText = webPkgs.length;
-      document.getElementById('countBdixPkgs').innerText = bdixPkgs.length;
-      document.getElementById('countVpsPkgs').innerText = vpsPkgs.length;
-      document.getElementById('countResellerPkgs').innerText = resPkgs.length;
+      const pill = document.getElementById('pkgCountPill');
+      if (pill) pill.innerText = allPkgs.length;
+      const countAll = document.getElementById('countAllPkgs');
+      if (countAll) countAll.innerText = allPkgs.length;
 
       const pkgsToDisplay = currentCategoryFilter === 'all' 
         ? allPkgs 
@@ -1178,11 +1553,10 @@
 
       pkgsToDisplay.forEach((p) => {
         const actualIdx = allPkgs.indexOf(p);
-        const storageVal = p.storage || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].gb + ' GB NVMe' : 'Custom');
-        const sitesVal = p.websites || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].sites + ' Website' : '1');
-        const ramVal = p.ram || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].ram : '-');
-        const cpuVal = p.cpu || (p.storageOptions && p.storageOptions[0] ? p.storageOptions[0].cpu : '-');
-        const annPrice = p.annualPrice || Math.round(p.basePrice * 12);
+        const regPrice = p.regularPrice || Math.round((p.basePrice || 199) * 1.35);
+        const salePrice = p.discountPrice || p.basePrice || 199;
+        const discountPct = p.discountPercent !== undefined ? p.discountPercent : Math.round(((regPrice - salePrice) / regPrice) * 100);
+        const vatDisplay = (p.vatRate && p.vatRate > 0) ? `<span class="badge badge-purple">${p.vatRate}% VAT</span>` : `<span style="color:#94A3B8; font-size:12px;">0% (None)</span>`;
 
         let badgeClass = 'badge-primary';
         if (p.badge === 'Starter') badgeClass = 'badge-purple';
@@ -1197,15 +1571,10 @@
             </td>
             <td><span class="badge badge-primary">${p.category}</span></td>
             <td><span class="badge ${badgeClass}">${p.badge || 'Active'}</span></td>
-            <td><strong style="color:#0077B6; font-size:15px;">৳${p.basePrice}</strong><span style="font-size:12px; color:#64748B;">/mo</span></td>
-            <td><strong style="color:#10B981; font-size:14px;">৳${annPrice}</strong><span style="font-size:11px; color:#64748B;">/yr</span></td>
-            <td>
-              <strong>${storageVal}</strong><br>
-              <span style="font-size:11px; color:#64748B;">${sitesVal}</span>
-            </td>
-            <td style="font-size:12px; color:#475569;">
-              ${ramVal} &bull; ${cpuVal}
-            </td>
+            <td><span style="text-decoration:line-through; color:#94A3B8; font-size:13px;">৳${regPrice}</span></td>
+            <td><strong style="color:#0077B6; font-size:15px;">৳${salePrice}</strong><span style="font-size:12px; color:#64748B;">/mo</span></td>
+            <td><span class="badge badge-success">Save ${discountPct}%</span></td>
+            <td>${vatDisplay}</td>
             <td>
               <div style="display:flex; gap:6px;">
                 <button type="button" class="btn-sm" onclick="editPackage(${actualIdx})" title="Edit Package">✏️ Edit</button>
@@ -1389,7 +1758,8 @@
         contact: '5. Company & Office Contact Information',
         testimonials: '6. Happy Testimonials & Reviews',
         orders: '7. Customer Orders & Invoices',
-        security: '8. Admin Security & Credentials'
+        security: '8. Admin Security & Credentials',
+        footer: '9. Footer & Website Content CMS'
       };
       document.getElementById('adminHeaderTitle').innerText = titles[tabId] || 'Admin Panel';
     }
@@ -1415,17 +1785,28 @@
     });
     resetAdminInactivity();
 
-    // Edit package modal logic
+    // ----------------------------------------------------
+    // EDIT & ADD PACKAGE MODAL LOGIC
+    // ----------------------------------------------------
     let editingPkgIdx = -1;
     function editPackage(idx) {
       editingPkgIdx = idx;
       const pkg = siteConfig.packages[idx];
+      populateCategoryDropdown(pkg.category);
       document.getElementById('modalPkgTitle').innerText = 'Edit Plan: ' + pkg.name;
       document.getElementById('editPkgName').value = pkg.name;
       document.getElementById('editPkgCategory').value = pkg.category;
       document.getElementById('editPkgBadge').value = pkg.badge || 'Popular';
-      document.getElementById('editPkgBasePrice').value = pkg.basePrice;
-      document.getElementById('editPkgAnnualPrice').value = pkg.annualPrice || Math.round(pkg.basePrice * 12);
+      
+      const reg = pkg.regularPrice || Math.round((pkg.basePrice || 199) * 1.35);
+      const sale = pkg.discountPrice || pkg.basePrice || 199;
+      const pct = pkg.discountPercent !== undefined ? pkg.discountPercent : Math.round(((reg - sale) / reg) * 100);
+
+      document.getElementById('editPkgRegularPrice').value = reg;
+      document.getElementById('editPkgBasePrice').value = sale;
+      document.getElementById('editPkgDiscountPercent').value = pct;
+      document.getElementById('editPkgVatRate').value = pkg.vatRate !== undefined ? pkg.vatRate : 0;
+      document.getElementById('editPkgAnnualPrice').value = pkg.annualPrice || Math.round(sale * 12);
       document.getElementById('editPkgStorage').value = pkg.storage || (pkg.storageOptions && pkg.storageOptions[0] ? pkg.storageOptions[0].gb + ' GB NVMe' : '5 GB NVMe');
       document.getElementById('editPkgWebsites').value = pkg.websites || '1 Website';
       document.getElementById('editPkgRam').value = pkg.ram || '2 GB RAM';
@@ -1437,11 +1818,17 @@
 
     function openAddPackageModal() {
       editingPkgIdx = -1;
+      populateCategoryDropdown(currentCategoryFilter !== 'all' ? currentCategoryFilter : '');
       document.getElementById('modalPkgTitle').innerText = 'Add New Hosting Package';
       document.getElementById('editPkgName').value = '';
-      document.getElementById('editPkgCategory').value = currentCategoryFilter !== 'all' ? currentCategoryFilter : 'Web Hosting';
+      if (currentCategoryFilter !== 'all') {
+        document.getElementById('editPkgCategory').value = currentCategoryFilter;
+      }
       document.getElementById('editPkgBadge').value = 'Popular';
+      document.getElementById('editPkgRegularPrice').value = 250;
       document.getElementById('editPkgBasePrice').value = 199;
+      document.getElementById('editPkgDiscountPercent').value = 20;
+      document.getElementById('editPkgVatRate').value = 0;
       document.getElementById('editPkgAnnualPrice').value = 2388;
       document.getElementById('editPkgStorage').value = '15 GB NVMe';
       document.getElementById('editPkgWebsites').value = '3 Websites';
@@ -1460,8 +1847,11 @@
       const name = document.getElementById('editPkgName').value.trim();
       const cat = document.getElementById('editPkgCategory').value.trim();
       const badge = document.getElementById('editPkgBadge').value.trim();
-      const price = parseInt(document.getElementById('editPkgBasePrice').value) || 99;
-      const annPrice = parseInt(document.getElementById('editPkgAnnualPrice').value) || (price * 12);
+      const regPrice = parseFloat(document.getElementById('editPkgRegularPrice').value) || 199;
+      const price = parseFloat(document.getElementById('editPkgBasePrice').value) || 149;
+      const discountPct = parseInt(document.getElementById('editPkgDiscountPercent').value) || Math.round(((regPrice - price) / regPrice) * 100);
+      const vatRate = parseFloat(document.getElementById('editPkgVatRate').value) || 0;
+      const annPrice = parseFloat(document.getElementById('editPkgAnnualPrice').value) || Math.round(price * 12);
       const storage = document.getElementById('editPkgStorage').value.trim() || '5 GB NVMe';
       const websites = document.getElementById('editPkgWebsites').value.trim() || '1 Website';
       const ram = document.getElementById('editPkgRam').value.trim() || '1 GB RAM';
@@ -1482,7 +1872,11 @@
         name: name,
         category: cat,
         badge: badge,
+        regularPrice: regPrice,
+        discountPrice: price,
         basePrice: price,
+        discountPercent: discountPct,
+        vatRate: vatRate,
         annualPrice: annPrice,
         storage: storage,
         websites: websites,
@@ -1509,6 +1903,7 @@
 
       closePackageModal();
       renderPackagesTable();
+      renderCategoryFilters();
       showToast('Package updated! Click "Save All Changes" to persist to disk.');
     }
 
@@ -1516,7 +1911,124 @@
       if (confirm('Are you sure you want to delete this package?')) {
         siteConfig.packages.splice(idx, 1);
         renderPackagesTable();
+        renderCategoryFilters();
         showToast('Package removed.');
+      }
+    }
+
+    // ----------------------------------------------------
+    // FOOTER & CONTENT CMS LOGIC
+    // ----------------------------------------------------
+    function renderFooterCMS() {
+      siteConfig.footer = siteConfig.footer || {};
+      if (document.getElementById('cfgFooterAbout')) {
+        document.getElementById('cfgFooterAbout').value = siteConfig.footer.aboutText || 'Leading Cloud Infrastructure, NVMe BDIX Web Hosting, and Software Solutions in Bangladesh.';
+      }
+      if (document.getElementById('cfgFooterCopyright')) {
+        document.getElementById('cfgFooterCopyright').value = siteConfig.footer.copyrightText || '© 2026 JAAS BD. All Rights Reserved.';
+      }
+      if (document.getElementById('cfgPaymentBanner')) {
+        document.getElementById('cfgPaymentBanner').value = siteConfig.footer.paymentBannerImg || '';
+        previewImg('previewPaymentBanner', siteConfig.footer.paymentBannerImg || 'assets/images/jaasbd-logo.png');
+      }
+      if (document.getElementById('cfgShowPaymentGateways')) {
+        document.getElementById('cfgShowPaymentGateways').checked = (siteConfig.footer.showPaymentGateways !== false);
+      }
+      renderFooterMenuColumns();
+    }
+
+    function renderFooterMenuColumns() {
+      const container = document.getElementById('footerMenuColumnsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      siteConfig.footer = siteConfig.footer || {};
+      siteConfig.footer.columns = siteConfig.footer.columns || [
+        {
+          title: "Hosting Services",
+          links: [
+            { text: "BDIX Web Hosting", url: "hosting.html" },
+            { text: "cPanel Shared Hosting", url: "hosting.html" },
+            { text: "Cloud VPS Server", url: "servers.html" },
+            { text: "Dedicated Server", url: "servers.html" }
+          ]
+        },
+        {
+          title: "Domain & SSL",
+          links: [
+            { text: "Register Domain", url: "domain.html" },
+            { text: ".BD Domain Registration", url: "domain.html" },
+            { text: "Transfer Domain", url: "domain.html" },
+            { text: "Free Automated SSL", url: "index.html#ssl" }
+          ]
+        },
+        {
+          title: "Company",
+          links: [
+            { text: "About JAAS BD", url: "about.html" },
+            { text: "Contact Support", url: "contact.html" },
+            { text: "Client Area Login", url: "login.html" },
+            { text: "Admin Portal", url: "admin-login.html" }
+          ]
+        }
+      ];
+
+      siteConfig.footer.columns.forEach((col, colIdx) => {
+        let linksHtml = '';
+        (col.links || []).forEach((lnk, lnkIdx) => {
+          linksHtml += `
+            <div style="display:flex; gap:6px; margin-bottom:8px; align-items:center;">
+              <input type="text" class="form-control" style="flex:1; padding:6px 10px; font-size:12px;" value="${lnk.text || ''}" onchange="updateFooterMenuLink(${colIdx}, ${lnkIdx}, 'text', this.value)" placeholder="Link Text">
+              <input type="text" class="form-control" style="flex:1; padding:6px 10px; font-size:12px;" value="${lnk.url || ''}" onchange="updateFooterMenuLink(${colIdx}, ${lnkIdx}, 'url', this.value)" placeholder="URL">
+              <button type="button" class="btn-sm btn-sm-danger" onclick="deleteFooterMenuLink(${colIdx}, ${lnkIdx})">🗑️</button>
+            </div>
+          `;
+        });
+
+        container.innerHTML += `
+          <div class="footer-col-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <input type="text" class="form-control" style="font-weight:800; font-size:14px; width:70%;" value="${col.title || ''}" onchange="siteConfig.footer.columns[${colIdx}].title = this.value" placeholder="Column Title">
+              <button type="button" class="btn-sm btn-sm-danger" onclick="deleteFooterMenuColumn(${colIdx})" title="Delete Column">Remove</button>
+            </div>
+            <div style="margin-bottom:10px;">${linksHtml}</div>
+            <button type="button" class="btn-sm" style="width:100%; border:1px dashed #CBD5E1;" onclick="addFooterMenuLink(${colIdx})">+ Add Link</button>
+          </div>
+        `;
+      });
+    }
+
+    function addFooterMenuColumn() {
+      siteConfig.footer = siteConfig.footer || {};
+      siteConfig.footer.columns = siteConfig.footer.columns || [];
+      siteConfig.footer.columns.push({
+        title: "New Column",
+        links: [{ text: "New Link", url: "#" }]
+      });
+      renderFooterMenuColumns();
+    }
+
+    function deleteFooterMenuColumn(idx) {
+      if (confirm('Delete this footer menu column?')) {
+        siteConfig.footer.columns.splice(idx, 1);
+        renderFooterMenuColumns();
+      }
+    }
+
+    function addFooterMenuLink(colIdx) {
+      siteConfig.footer.columns[colIdx].links = siteConfig.footer.columns[colIdx].links || [];
+      siteConfig.footer.columns[colIdx].links.push({ text: "Page Link", url: "#" });
+      renderFooterMenuColumns();
+    }
+
+    function deleteFooterMenuLink(colIdx, linkIdx) {
+      siteConfig.footer.columns[colIdx].links.splice(linkIdx, 1);
+      renderFooterMenuColumns();
+    }
+
+    function updateFooterMenuLink(colIdx, linkIdx, field, val) {
+      if (siteConfig.footer.columns[colIdx] && siteConfig.footer.columns[colIdx].links[linkIdx]) {
+        siteConfig.footer.columns[colIdx].links[linkIdx][field] = val;
       }
     }
 
@@ -1536,7 +2048,6 @@
       siteConfig.domainPricing.splice(idx, 1);
       renderDomainsTable();
     }
-
 
     async function saveAllConfigToServer() {
       // Gather inputs
@@ -1562,6 +2073,15 @@
         supportEmail: document.getElementById('cfgSupportEmail').value,
         address: document.getElementById('cfgAddress').value,
         whatsapp: document.getElementById('cfgWhatsapp').value
+      };
+
+      // Footer CMS gather
+      siteConfig.footer = {
+        aboutText: document.getElementById('cfgFooterAbout') ? document.getElementById('cfgFooterAbout').value : (siteConfig.footer?.aboutText || ''),
+        copyrightText: document.getElementById('cfgFooterCopyright') ? document.getElementById('cfgFooterCopyright').value : (siteConfig.footer?.copyrightText || '© 2026 JAAS BD. All Rights Reserved.'),
+        paymentBannerImg: document.getElementById('cfgPaymentBanner') ? document.getElementById('cfgPaymentBanner').value : (siteConfig.footer?.paymentBannerImg || ''),
+        showPaymentGateways: document.getElementById('cfgShowPaymentGateways') ? document.getElementById('cfgShowPaymentGateways').checked : true,
+        columns: siteConfig.footer?.columns || []
       };
 
       // Admin security credentials update

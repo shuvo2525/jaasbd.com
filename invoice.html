@@ -424,9 +424,9 @@
               <span>Promotional Discount:</span>
               <strong style="color:#10B981;" id="invDiscount">-৳1,197</strong>
             </div>
-            <div class="totals-row">
-              <span>Govt. VAT (0% Digital):</span>
-              <strong>৳0.00</strong>
+            <div class="totals-row" id="invVatRow" style="display:none;">
+              <span id="invVatLabel">Govt. VAT:</span>
+              <strong id="invVatVal">৳0.00</strong>
             </div>
             <div class="grand-total-row">
               <span>Amount Paid:</span>
@@ -469,6 +469,20 @@
       const discount = invoice.discount !== undefined ? invoice.discount : (subtotal - invoice.amount);
       document.getElementById('invSubtotal').innerText = `৳${subtotal.toLocaleString()}`;
       document.getElementById('invDiscount').innerText = discount > 0 ? `-৳${discount.toLocaleString()}` : '৳0';
+
+      // Govt. VAT display: only show if vatAmount > 0
+      const vatRow = document.getElementById('invVatRow');
+      const vatRate = invoice.vatRate || 0;
+      const vatAmount = invoice.vatAmount || 0;
+      if (vatRow) {
+        if (vatAmount > 0) {
+          vatRow.style.display = 'flex';
+          document.getElementById('invVatLabel').innerText = `Govt. VAT (${vatRate}%):`;
+          document.getElementById('invVatVal').innerText = `+৳${vatAmount.toLocaleString()}`;
+        } else {
+          vatRow.style.display = 'none';
+        }
+      }
     }
 
     if (client) {

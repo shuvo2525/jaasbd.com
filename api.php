@@ -161,6 +161,33 @@ try {
             echo json_encode(['success' => true, 'message' => 'Configuration saved to MySQL and file']);
             break;
 
+        case 'upload_image':
+        case 'save_image':
+            $input = getJsonInput();
+            $raw = isset($input['base64']) ? $input['base64'] : (isset($input['fileData']) ? $input['fileData'] : '');
+            if (!$raw) {
+                echo json_encode(['success' => false, 'error' => 'No image data sent']);
+                break;
+            }
+            $target = isset($input['filename']) ? $input['filename'] : (isset($input['fileName']) ? $input['fileName'] : '');
+            if (!$target) {
+                $ext = 'png';
+                if (preg_match('/^data:image\/(\w+);base64,/', $raw, $m)) {
+                    $ext = ($m[1] === 'jpeg') ? 'jpg' : (($m[1] === 'svg+xml') ? 'svg' : $m[1]);
+                }
+                $target = 'assets/images/upload_' . time() . '.' . $ext;
+            } else if (strpos($target, 'assets/images/') !== 0) {
+                $target = 'assets/images/' . basename($target);
+            }
+            $clean = preg_replace('/^data:image\/[\w+.-]+;base64,/', '', $raw);
+            $targetPath = __DIR__ . '/' . $target;
+            if (!is_dir(dirname($targetPath))) {
+                mkdir(dirname($targetPath), 0777, true);
+            }
+            file_put_contents($targetPath, base64_decode($clean));
+            echo json_encode(['success' => true, 'url' => $target, 'filename' => $target, 'message' => 'Image uploaded successfully']);
+            break;
+
         case 'admin_login':
             $input = getJsonInput();
             $username = isset($input['username']) ? trim($input['username']) : '';

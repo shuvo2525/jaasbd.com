@@ -67,20 +67,41 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // API: POST /api/save_image
-  if (req.method === 'POST' && reqPath === '/api/save_image') {
+  // API: POST /api/upload & /api/save_image (Full Image & Logo Upload Handler)
+  if (req.method === 'POST' && (reqPath === '/api/upload' || reqPath === '/api/save_image')) {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
       try {
-        const { filename, base64 } = JSON.parse(body);
-        const data = base64.replace(/^data:image\/\w+;base64,/, '');
-        fs.writeFileSync(path.join(BASE_DIR, filename), Buffer.from(data, 'base64'));
+        const parsed = JSON.parse(body);
+        const raw = parsed.base64 || parsed.fileData || parsed.data;
+        if (!raw) throw new Error('No image data provided');
+
+        let targetName = parsed.filename || parsed.fileName;
+        if (!targetName) {
+          const extMatch = raw.match(/^data:image\/(\w+);base64,/);
+          const ext = extMatch ? (extMatch[1] === 'jpeg' ? 'jpg' : (extMatch[1] === 'svg+xml' ? 'svg' : extMatch[1])) : 'png';
+          targetName = `assets/images/upload_${Date.now()}.${ext}`;
+        } else if (!targetName.startsWith('assets/images/')) {
+          targetName = `assets/images/${path.basename(targetName)}`;
+        }
+
+        const cleanBase64 = raw.replace(/^data:image\/[\w+.-]+;base64,/, '');
+        const targetPath = path.join(BASE_DIR, targetName);
+        fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+        fs.writeFileSync(targetPath, Buffer.from(cleanBase64, 'base64'));
+
+        console.log('Image uploaded successfully:', targetName);
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true }));
+        res.end(JSON.stringify({
+          success: true,
+          url: targetName,
+          filename: targetName,
+          message: 'Image uploaded successfully!'
+        }));
       } catch (e) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: e.message }));
+        res.end(JSON.stringify({ success: false, error: e.message }));
       }
     });
     return;

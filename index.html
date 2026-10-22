@@ -3043,9 +3043,9 @@
       <div class="footer-top-grid">
         <div>
           <a href="index.html" class="footer-brand-logo">
-            <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" style="height: 48px; width: auto;">
+            <img src="assets/images/jaasbd-logo.png" alt="JAAS BD" id="footerLogoImg" style="height: 48px; width: auto;">
           </a>
-          <p class="footer-brand-desc">
+          <p class="footer-brand-desc" id="footerAboutText">
             Reliable hosting and infrastructure solutions designed to help businesses start, build and scale online.
           </p>
           <div class="footer-social-row">
@@ -3124,10 +3124,10 @@
        <div class="container footer-bottom-bar">
          <div class="footer-bottom-left-payments">
            <span class="footer-payments-label">Payments</span>
-           <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner">
+           <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" id="footerPaymentBannerImg" class="sslcommerz-footer-banner">
          </div>
  
-         <div class="footer-bottom-right-copy">
+         <div class="footer-bottom-right-copy" id="footerCopyrightText">
            &copy; 2026 JAAS BD. All rights reserved.
          </div>
        </div>
@@ -3309,7 +3309,7 @@
   </script>
 
   <script>
-    // Dynamic Testimonials & Payment Methods Sync from Admin Config
+    // Dynamic Testimonials, Branding & Footer Content Sync from Admin Config
     (async function syncDynamicFrontEnd() {
       try {
         let cfg = null;
@@ -3323,7 +3323,40 @@
         }
         if (!cfg) return;
 
-        // 1. Sync Testimonials
+        // 1. Sync Logos & Favicon
+        if (cfg.site) {
+          if (cfg.site.headerLogo) {
+            document.querySelectorAll('.brand-logo img, .nav-brand img').forEach(el => {
+              el.src = cfg.site.headerLogo;
+            });
+          }
+          if (cfg.site.footerLogo) {
+            const fLogo = document.getElementById('footerLogoImg');
+            if (fLogo) fLogo.src = cfg.site.footerLogo;
+          }
+          if (cfg.site.favicon) {
+            const fav = document.querySelector('link[rel="icon"]');
+            if (fav) fav.href = cfg.site.favicon;
+          }
+        }
+
+        // 2. Sync Footer CMS
+        if (cfg.footer) {
+          if (cfg.footer.aboutText) {
+            const el = document.getElementById('footerAboutText');
+            if (el) el.innerText = cfg.footer.aboutText;
+          }
+          if (cfg.footer.copyrightText) {
+            const el = document.getElementById('footerCopyrightText');
+            if (el) el.innerText = cfg.footer.copyrightText;
+          }
+          if (cfg.footer.paymentBannerImg) {
+            const el = document.getElementById('footerPaymentBannerImg');
+            if (el) el.src = cfg.footer.paymentBannerImg;
+          }
+        }
+
+        // 3. Sync Testimonials
         if (cfg.testimonials && Array.isArray(cfg.testimonials) && cfg.testimonials.length > 0) {
           const tGrid = document.getElementById('testimonialsGrid');
           if (tGrid) {
@@ -3349,7 +3382,7 @@
           }
         }
 
-        // 2. Sync Payment Methods in Footer
+        // 4. Sync Payment Methods in Footer
         if (cfg.gateways && cfg.gateways.paymentMethods && Array.isArray(cfg.gateways.paymentMethods)) {
           const payRow = document.getElementById('footerPaymentMethodsRow');
           if (payRow) {

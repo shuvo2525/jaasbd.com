@@ -226,7 +226,7 @@
     .deal-packages-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      gap: 18px;
     }
     @media (max-width: 900px) {
       .deal-packages-grid { grid-template-columns: 1fr; }
@@ -234,40 +234,133 @@
     .deal-pkg-card {
       background: #FFFFFF;
       border: 2px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: 14px;
+      padding: 22px 20px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
     }
     .deal-pkg-card:hover {
       border-color: #0077B6;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 119, 182, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 119, 182, 0.12);
     }
     .deal-pkg-card.active {
       border-color: #0077B6;
-      background: #F0F9FF;
-      box-shadow: 0 0 0 2px #0077B6;
+      background: #F8FAFC;
+      box-shadow: 0 0 0 2px #0077B6, 0 8px 24px rgba(0, 119, 182, 0.14);
     }
-    .deal-pkg-card .pkg-name { font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
-    .deal-pkg-card .pkg-badge { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: #DCFCE7; color: #166534; display: inline-block; margin-bottom: 10px; }
-    .deal-pkg-card .pkg-price { font-size: 22px; font-weight: 900; color: #0077B6; margin-bottom: 6px; }
-    .deal-pkg-card .pkg-meta { font-size: 12px; color: #64748B; line-height: 1.5; margin-bottom: 14px; }
-    .deal-pkg-card .btn-choose-plan {
-      padding: 8px;
+    .deal-pkg-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .deal-pkg-card .pkg-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .deal-pkg-card .pkg-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #DCFCE7;
+      color: #166534;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+    .deal-pricing-box {
+      margin: 10px 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .deal-pricing-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .deal-reg-price {
+      font-size: 13.5px;
+      color: #94A3B8;
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+    .deal-sale-price {
+      font-size: 26px;
+      font-weight: 900;
+      color: #0077B6;
+    }
+    .deal-per-mo {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #64748B;
+    }
+    .deal-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .deal-save-pill {
+      background: #ECFDF5;
+      color: #059669;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
       border-radius: 6px;
+      border: 1px solid #A7F3D0;
+    }
+    .deal-vat-pill {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px solid #BFDBFE;
+    }
+    .deal-specs-list {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .deal-spec-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .deal-spec-item .spec-icon {
+      color: #059669;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .deal-pkg-card .btn-choose-plan {
+      padding: 10px;
+      border-radius: 8px;
       border: none;
       background: #0077B6;
       color: #FFFFFF;
-      font-size: 12.5px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
+      width: 100%;
+    }
+    .deal-pkg-card:hover .btn-choose-plan {
+      background: #023E8A;
     }
     .deal-pkg-card.active .btn-choose-plan {
       background: #059669;
@@ -782,7 +875,7 @@
             <p class="deal-picker-desc">Select a category below to see all packages and instantly configure your desired plan:</p>
           </div>
 
-          <div class="deal-categories-row">
+          <div class="deal-categories-row" id="orderCategoriesRow">
             <button type="button" class="deal-cat-tab active" id="tabCatBdix" onclick="switchOrderCategory('BDIX Web Hosting', this)">
               <span class="deal-cat-icon">🇧🇩</span>
               <div>
@@ -1046,6 +1139,11 @@
             <strong style="color:#06D6A0;">INCLUDED</strong>
           </div>
 
+          <div class="summary-line" id="summaryVatRow" style="display:none; color:#0077B6;">
+            <span id="summaryVatLabel">Govt. VAT (5%):</span>
+            <strong id="summaryVatVal" style="color:#0077B6;">+৳0</strong>
+          </div>
+
           <div class="summary-divider"></div>
 
           <div class="total-line">
@@ -1071,9 +1169,9 @@
     <div class="container footer-bottom-bar" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
       <div class="footer-bottom-left-payments" style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
         <span class="footer-payments-label" style="font-size:15px; font-weight:800; color:#0F172A; letter-spacing:0.3px;">Payments</span>
-        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" class="sslcommerz-footer-banner" style="height:64px; max-height:70px; width:auto; max-width:100%; object-fit:contain; display:block;">
+        <img src="assets/images/pay-sslcommerz.png" alt="Accepted Payment Methods" id="orderFooterPaymentImg" class="sslcommerz-footer-banner" style="height:64px; max-height:70px; width:auto; max-width:100%; object-fit:contain; display:block;">
       </div>
-      <div class="footer-bottom-right-copy" style="color:#64748B; font-size:13.5px; font-weight:600;">
+      <div class="footer-bottom-right-copy" id="orderFooterCopy" style="color:#64748B; font-size:13.5px; font-weight:600;">
         &copy; 2026 JAAS BD. All rights reserved.
       </div>
     </div>
@@ -1101,30 +1199,52 @@
 
     let isDomainAdded = true;
     let currentCategoryHead = 'Web Hosting';
+    window.siteConfig = null;
+    window.orderCategories = [
+      { id: 'web-hosting', name: 'Web Hosting', icon: '💻' },
+      { id: 'bdix-hosting', name: 'BDIX Web Hosting', icon: '🇧🇩' },
+      { id: 'cloud-vps', name: 'BDIX Cloud VPS', icon: '⚡' },
+      { id: 'reseller-hosting', name: 'Reseller Hosting', icon: '🏢' },
+      { id: 'dedicated-server', name: 'Dedicated Server', icon: '🖥️' },
+      { id: 'software', name: 'Software', icon: '🚀' }
+    ];
 
     async function loadConfigAndPackages() {
-      let cfgPkgs = [];
+      let cfg = null;
       try {
         const resp = await fetch('/api/config');
         if (resp.ok) {
-          const cfg = await resp.json();
-          if (cfg && Array.isArray(cfg.packages)) {
-            cfgPkgs = cfg.packages;
+          cfg = await resp.json();
+          if (cfg) {
+            window.siteConfig = cfg;
             localStorage.setItem('jaas_site_config', JSON.stringify(cfg));
           }
         }
       } catch (e) {}
 
-      if (cfgPkgs.length === 0) {
+      if (!cfg) {
         try {
           const raw = localStorage.getItem('jaas_site_config');
           if (raw) {
-            const parsed = JSON.parse(raw);
-            if (parsed && Array.isArray(parsed.packages)) cfgPkgs = parsed.packages;
+            cfg = JSON.parse(raw);
+            window.siteConfig = cfg;
           }
         } catch(e) {}
       }
 
+      if (cfg && Array.isArray(cfg.packageCategories) && cfg.packageCategories.length > 0) {
+        window.orderCategories = cfg.packageCategories;
+      }
+
+      // Sync footer if available
+      if (cfg && cfg.footer) {
+        const copyEl = document.getElementById('orderFooterCopy');
+        if (copyEl && cfg.footer.copyrightText) copyEl.innerText = cfg.footer.copyrightText;
+        const bannerEl = document.getElementById('orderFooterPaymentImg');
+        if (bannerEl && cfg.footer.paymentBannerImg) bannerEl.src = cfg.footer.paymentBannerImg;
+      }
+
+      let cfgPkgs = (cfg && Array.isArray(cfg.packages)) ? cfg.packages : [];
       if (cfgPkgs.length === 0) {
         try {
           const raw2 = localStorage.getItem('jaas_packages');
@@ -1156,6 +1276,10 @@
             badge: p.badge || 'Popular',
             basePrice: basePrice,
             annualPrice: annualPrice,
+            regularPrice: parseInt(p.regularPrice) || Math.round(basePrice * 1.35),
+            discountPrice: parseInt(p.discountPrice) || basePrice,
+            discountPercent: parseInt(p.discountPercent) || (p.regularPrice ? Math.round(((p.regularPrice - basePrice) / p.regularPrice) * 100) : 25),
+            vatRate: (p.vatRate !== undefined && p.vatRate !== null) ? parseFloat(p.vatRate) : 0,
             storage: storageVal,
             websites: sitesVal,
             ram: ramVal,
@@ -1229,11 +1353,37 @@
       }
 
       const activeHead = urlParams.get('cat') || getPlanHead(currentPlan);
+      renderCategoryTabs();
       initStorageGrid();
       syncHostingUI();
       switchOrderCategory(activeHead);
       syncDomainCartUI();
       updateCalculations();
+    }
+
+    function renderCategoryTabs() {
+      const container = document.getElementById('orderCategoriesRow');
+      if (!container) return;
+      container.innerHTML = '';
+
+      window.orderCategories.forEach(cat => {
+        const pkgs = getPackagesForCategory(cat.name);
+        const count = pkgs.length;
+        const isActive = cat.name.toLowerCase() === currentCategoryHead.toLowerCase();
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `deal-cat-tab ${isActive ? 'active' : ''}`;
+        btn.onclick = () => switchOrderCategory(cat.name, btn);
+        btn.innerHTML = `
+          <span class="deal-cat-icon">${cat.icon || '📦'}</span>
+          <div>
+            <div class="deal-cat-title">${cat.name}</div>
+            <div class="deal-cat-subtitle">${count} Plan${count !== 1 ? 's' : ''}</div>
+          </div>
+        `;
+        container.appendChild(btn);
+      });
     }
 
     function initStorageGrid() {
@@ -1286,28 +1436,79 @@
 
     function switchOrderCategory(catName, btnEl) {
       currentCategoryHead = catName;
-      document.querySelectorAll('.deal-cat-tab').forEach(b => b.classList.remove('active'));
-      const tabIdMap = {
-        'BDIX Web Hosting': 'tabCatBdix',
-        'Web Hosting': 'tabCatWeb',
-        'BDIX Cloud VPS': 'tabCatCloud',
-        'Reseller Hosting': 'tabCatReseller',
-        'Software': 'tabCatSoftware'
-      };
-      const activeBtn = btnEl || document.getElementById(tabIdMap[catName]);
-      if (activeBtn) activeBtn.classList.add('active');
+      document.querySelectorAll('.deal-cat-tab').forEach(b => {
+        const t = b.querySelector('.deal-cat-title');
+        if (t && t.innerText.trim().toLowerCase() === catName.toLowerCase()) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
+      if (btnEl) btnEl.classList.add('active');
 
-      const titleMap = {
-        'BDIX Web Hosting': '1. BDIX Ultra-Fast Web Hosting Packages',
-        'Web Hosting': '1. NVMe cPanel Web Hosting Packages',
-        'BDIX Cloud VPS': '1. Dedicated BDIX Cloud & VPS Servers',
-        'Reseller Hosting': '1. White-Label Reseller Hosting Packages',
-        'Software': '1. Software & cPanel Licenses'
-      };
       const titleEl = document.querySelector('.deal-picker-title');
-      if (titleEl) titleEl.innerText = titleMap[catName] || `${catName} Packages`;
+      if (titleEl) titleEl.innerText = `1. ${catName} Packages`;
 
       renderCategoryPackages(catName);
+    }
+
+    function getPackagesForCategory(catName) {
+      const allList = Object.values(JAAS_CATALOG);
+      const target = (catName || '').toLowerCase().trim();
+
+      let pkgs = allList.filter(p => {
+        const c = (p.category || '').toLowerCase().trim();
+        const id = (p.id || '').toLowerCase().trim();
+        const name = (p.name || '').toLowerCase().trim();
+
+        if (c === target) return true;
+
+        if (target.includes('bdix') && (target.includes('vps') || target.includes('cloud'))) {
+          return (c.includes('vps') || c.includes('cloud') || c.includes('server') || id.includes('vps') || id.includes('rdp') || name.includes('vps')) && (c.includes('bdix') || id.includes('bdix') || name.includes('bdix'));
+        }
+        if (target.includes('bdix') && target.includes('web')) {
+          const isBdix = c.includes('bdix') || id.includes('bdix') || name.includes('bdix');
+          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp');
+          return isBdix && !isVps;
+        }
+        if (target === 'cloud-vps' || target === 'bdix cloud vps' || target === 'cloud & vps') {
+          return c.includes('vps') || c.includes('cloud') || c.includes('server') || id.includes('vps') || id.includes('rdp');
+        }
+        if (target.includes('reseller')) {
+          return c.includes('reseller') || id.includes('reseller') || name.includes('reseller');
+        }
+        if (target.includes('dedicated')) {
+          return c.includes('dedicated') || id.includes('dedicated') || name.includes('dedicated');
+        }
+        if (target.includes('software') || target.includes('license') || target.includes('security')) {
+          return c.includes('software') || c.includes('license') || c.includes('security') || id.includes('ssl') || id.includes('cpanel') || id.includes('license') || id.includes('litespeed');
+        }
+        if (target.includes('web')) {
+          const isBdix = c.includes('bdix') || id.includes('bdix') || name.includes('bdix');
+          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp');
+          const isReseller = c.includes('reseller') || id.includes('reseller') || name.includes('reseller');
+          const isSoft = c.includes('software') || id.includes('ssl');
+          return !isBdix && !isVps && !isReseller && !isSoft;
+        }
+        return false;
+      });
+
+      // Built-in Software defaults if empty
+      if (pkgs.length === 0 && (target.includes('software') || target.includes('license'))) {
+        pkgs = [
+          { id: 'ssl-cert', name: 'PositiveSSL Certificate', category: 'Software', badge: 'Essential', basePrice: 125, regularPrice: 169, discountPercent: 26, vatRate: 0, storage: '256-bit Encryption', websites: '1 Domain', ram: 'Browser Padlock', cpu: 'SHA-256', bandwidth: 'Unlimited', features: ['Instant SSL Activation', 'Free Reissues', 'Green HTTPS Padlock'] },
+          { id: 'cpanel-solo', name: 'cPanel Solo License', category: 'Software', badge: 'Official Partner', basePrice: 1899, regularPrice: 2200, discountPercent: 14, vatRate: 5, storage: '1 Account', websites: '1 User', ram: 'Full WHM/cPanel', cpu: 'Auto Update', bandwidth: 'Unlimited', features: ['Official cPanel License', '1 Account Provisioning', 'Automatic Updates'] },
+          { id: 'litespeed-ent', name: 'LiteSpeed Enterprise', category: 'Software', badge: 'Ultra Fast', basePrice: 1250, regularPrice: 1550, discountPercent: 19, vatRate: 0, storage: 'Unlimited Cache', websites: 'High Traffic', ram: 'LSCache Engine', cpu: '2-Worker', bandwidth: 'Unlimited', features: ['5x Apache Speed', 'Built-in Anti-DDoS', 'WordPress Accelerator'] }
+        ];
+      }
+
+      // De-duplicate by ID
+      const seen = new Set();
+      return pkgs.filter(p => {
+        if (!p || seen.has(p.id)) return false;
+        seen.add(p.id);
+        return true;
+      });
     }
 
     function renderCategoryPackages(catName) {
@@ -1315,69 +1516,16 @@
       if (!showcase) return;
       showcase.innerHTML = '';
 
-      let pkgs = [];
-      const allList = Object.values(JAAS_CATALOG);
-
-      if (catName === 'Software') {
-        pkgs = allList.filter(p => {
-          const c = (p.category || '').toLowerCase();
-          const id = (p.id || '').toLowerCase();
-          return c.includes('software') || c.includes('license') || c.includes('security') || id.includes('ssl') || id.includes('cpanel') || id.includes('license') || id.includes('litespeed');
-        });
-        if (pkgs.length === 0) {
-          pkgs = [
-            { id: 'ssl-cert', name: 'PositiveSSL Certificate', category: 'Security', badge: 'Essential', basePrice: 125, storage: '256-bit Encryption', websites: '1 Domain', ram: 'Browser Padlock', features: ['Instant SSL Activation', 'Free Reissues', 'Green HTTPS Padlock'] },
-            { id: 'cpanel-solo', name: 'cPanel Solo License', category: 'Software', badge: 'Official Partner', basePrice: 1899, storage: '1 Account', websites: '1 User', ram: 'Full WHM/cPanel', features: ['Official cPanel License', '1 Account Provisioning', 'Automatic Updates'] },
-            { id: 'litespeed-ent', name: 'LiteSpeed Enterprise', category: 'Software', badge: 'Ultra Fast', basePrice: 1250, storage: 'Unlimited Cache', websites: 'High Traffic', ram: 'LSCache Engine', features: ['5x Apache Speed', 'Built-in Anti-DDoS', 'WordPress Accelerator'] }
-          ];
-        }
-      } else if (catName === 'BDIX Web Hosting') {
-        pkgs = allList.filter(p => {
-          const c = (p.category || '').toLowerCase();
-          const id = (p.id || '').toLowerCase();
-          const n = (p.name || '').toLowerCase();
-          const isBdix = c.includes('bdix') || id.includes('bdix') || n.includes('bdix');
-          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp') || n.includes('vps');
-          return isBdix && !isVps;
-        });
-      } else if (catName === 'BDIX Cloud VPS' || catName === 'Cloud & VPS') {
-        pkgs = allList.filter(p => {
-          const c = (p.category || '').toLowerCase();
-          const id = (p.id || '').toLowerCase();
-          const n = (p.name || '').toLowerCase();
-          return c.includes('vps') || c.includes('cloud') || c.includes('server') || id.includes('vps') || id.includes('rdp') || n.includes('vps') || n.includes('cloud');
-        });
-      } else if (catName === 'Reseller Hosting') {
-        pkgs = allList.filter(p => {
-          const c = (p.category || '').toLowerCase();
-          const id = (p.id || '').toLowerCase();
-          const n = (p.name || '').toLowerCase();
-          return c.includes('reseller') || id.includes('reseller') || n.includes('reseller');
-        });
-      } else {
-        // Web Hosting
-        pkgs = allList.filter(p => {
-          const c = (p.category || '').toLowerCase();
-          const id = (p.id || '').toLowerCase();
-          const n = (p.name || '').toLowerCase();
-          const isBdix = c.includes('bdix') || id.includes('bdix') || n.includes('bdix');
-          const isVps = c.includes('vps') || c.includes('server') || c.includes('cloud') || id.includes('vps') || id.includes('rdp');
-          const isReseller = c.includes('reseller') || id.includes('reseller') || n.includes('reseller');
-          const isSoft = c.includes('software') || id.includes('ssl');
-          return !isBdix && !isVps && !isReseller && !isSoft;
-        });
-      }
-
-      // De-duplicate by ID
-      const seen = new Set();
-      pkgs = pkgs.filter(p => {
-        if (!p || seen.has(p.id)) return false;
-        seen.add(p.id);
-        return true;
-      });
+      const pkgs = getPackagesForCategory(catName);
 
       if (pkgs.length === 0) {
-        showcase.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#64748B;">No packages in this head.</div>`;
+        showcase.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 35px 20px; text-align: center; color: #64748B; background: #F8FAFC; border: 1.5px dashed #CBD5E1; border-radius: 12px;">
+            <div style="font-size:24px; margin-bottom:8px;">📦</div>
+            <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:4px;">No packages found in "${catName}"</div>
+            <p style="font-size:13px; margin:0 auto; max-width:400px;">You can easily add new packages to this category head from the <strong>Admin CMS</strong> &rarr; <strong>Packages</strong> tab.</p>
+          </div>
+        `;
         return;
       }
 
@@ -1388,19 +1536,46 @@
         const sitesVal = p.websites || (opt ? opt.sites + ' Website' : '1 Website');
         const ramVal = p.ram || (opt ? opt.ram : '');
         const cpuVal = p.cpu || (opt ? opt.cpu : '');
+        const bwVal = p.bandwidth || 'Unlimited BDIX';
+
+        const regPrice = p.regularPrice || Math.round(p.basePrice * 1.35);
+        const salePrice = p.discountPrice || p.basePrice;
+        const savePercent = p.discountPercent || (regPrice > salePrice ? Math.round(((regPrice - salePrice) / regPrice) * 100) : 0);
+        const vatRate = (p.vatRate !== undefined && p.vatRate !== null) ? parseFloat(p.vatRate) : 0;
 
         showcase.innerHTML += `
           <div class="deal-pkg-card ${isCurrent ? 'active' : ''}" onclick="handleCategoryPackageClick('${p.id}')">
             <div>
-              <span class="pkg-badge">${p.badge || 'Popular'}</span>
+              <div class="deal-pkg-top">
+                <span class="pkg-badge">${p.badge || 'Popular'}</span>
+                ${vatRate > 0 ? `<span class="deal-vat-pill">+${vatRate}% VAT</span>` : ''}
+              </div>
+
               <div class="pkg-name">${p.name}</div>
-              <div class="pkg-price">৳${p.basePrice}<span style="font-size:13px; font-weight:500; color:#64748B;">/mo</span></div>
-              <div class="pkg-meta">
-                • <strong>${storageVal}</strong><br>
-                • ${sitesVal}<br>
-                • ${ramVal} ${cpuVal ? '• ' + cpuVal : ''}
+
+              <div class="deal-pricing-box">
+                <div class="deal-pricing-row">
+                  ${regPrice > salePrice ? `<span class="deal-reg-price">৳${regPrice.toLocaleString()}</span>` : ''}
+                  <span class="deal-sale-price">৳${salePrice.toLocaleString()}</span>
+                  <span class="deal-per-mo">/mo</span>
+                </div>
+                ${savePercent > 0 ? `
+                  <div class="deal-pills-row">
+                    <span class="deal-save-pill">🔥 Save ${savePercent}%</span>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="deal-specs-list">
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span><strong>${storageVal}</strong> Storage</span></div>
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span><strong>${sitesVal}</strong></span></div>
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span>${ramVal} ${cpuVal ? '• ' + cpuVal : ''}</span></div>
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span>${bwVal}</span></div>
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span>cPanel + LiteSpeed Web Server</span></div>
+                <div class="deal-spec-item"><span class="spec-icon">✓</span> <span>Free Automated SSL &amp; Daily Backups</span></div>
               </div>
             </div>
+
             <button type="button" class="btn-choose-plan">
               ${isCurrent ? '✓ Selected (Click to Deselect)' : 'Select This Plan →'}
             </button>
@@ -1426,6 +1601,9 @@
           category: 'Software',
           badge: 'Licensed',
           basePrice: planId === 'ssl-cert' ? 125 : 1250,
+          regularPrice: planId === 'ssl-cert' ? 169 : 1550,
+          discountPercent: 25,
+          vatRate: 0,
           storageOptions: [{ gb: 1, price: planId === 'ssl-cert' ? 125 : 1250, ram: '-', cpu: '-', sites: 1, bandwidth: 'Unlimited' }]
         };
       }
@@ -1596,6 +1774,9 @@
       // 1. Hosting Calculation
       let rawHostingSubtotal = 0;
       let hostingDiscount = 0;
+      let hostingNet = 0;
+      let vatRate = 0;
+      let vatAmount = 0;
       let opt = null;
 
       if (isHostingSelected && currentPlan) {
@@ -1609,12 +1790,18 @@
         const aPrice = Math.round(mPrice * 12 * 0.80);
         const bPrice = Math.round(mPrice * 24 * 0.70);
 
-        document.getElementById('cyclePriceMonthly').innerText = `৳${mPrice}`;
+        document.getElementById('cyclePriceMonthly').innerText = `৳${mPrice.toLocaleString()}`;
         document.getElementById('cyclePriceAnnual').innerText = `৳${aPrice.toLocaleString()}`;
         document.getElementById('cyclePriceBiennial').innerText = `৳${bPrice.toLocaleString()}`;
 
         rawHostingSubtotal = mPrice * currentCycle.months;
         hostingDiscount = Math.round(rawHostingSubtotal * currentCycle.discount);
+        hostingNet = rawHostingSubtotal - hostingDiscount;
+
+        vatRate = (currentPlan.vatRate !== undefined && currentPlan.vatRate !== null) ? parseFloat(currentPlan.vatRate) : 0;
+        if (vatRate > 0) {
+          vatAmount = Math.round(hostingNet * (vatRate / 100));
+        }
 
         document.getElementById('summaryPlanName').innerText = `${currentPlan.name} (${opt.gb} GB NVMe)`;
         document.getElementById('summaryCycle').innerText = currentCycle.key === 'monthly' ? '1 Month' : (currentCycle.key === 'annually' ? '1 Year (Save 20%)' : '2 Years (Save 30%)');
@@ -1656,14 +1843,29 @@
       // 3. Exact Mathematical Total (jog fol)
       const subtotal = rawHostingSubtotal + domainPrice;
       const totalDiscount = hostingDiscount;
-      const grandTotal = subtotal - totalDiscount;
+      const grandTotal = (subtotal - totalDiscount) + vatAmount;
 
       document.getElementById('summarySubtotal').innerText = `৳${subtotal.toLocaleString()}`;
       document.getElementById('summaryDiscount').innerText = totalDiscount > 0 ? `-৳${totalDiscount.toLocaleString()}` : '৳0';
       document.getElementById('summaryDiscountLabel').innerText = totalDiscount > 0 ? `Discount (${Math.round(currentCycle.discount * 100)}% Off):` : 'Discount:';
+
+      // 4. VAT Row Display - Only show if vatRate > 0 and vatAmount > 0
+      const vatRow = document.getElementById('summaryVatRow');
+      const vatLabel = document.getElementById('summaryVatLabel');
+      const vatVal = document.getElementById('summaryVatVal');
+      if (vatRow && vatLabel && vatVal) {
+        if (vatRate > 0 && vatAmount > 0) {
+          vatRow.style.display = 'flex';
+          vatLabel.innerText = `Govt. VAT (${vatRate}%):`;
+          vatVal.innerText = `+৳${vatAmount.toLocaleString()}`;
+        } else {
+          vatRow.style.display = 'none';
+        }
+      }
+
       document.getElementById('summaryTotal').innerText = `৳${grandTotal.toLocaleString()}`;
 
-      // 4. Validate that at least one item is chosen
+      // 5. Validate that at least one item is chosen
       const warningEl = document.getElementById('selectionWarningAlert');
       const submitBtn = document.getElementById('btnOrderSummarySubmit');
       const hasSomething = isHostingSelected || ((domainMode === 'new' || domainMode === 'transfer') && isDomainAdded);
@@ -1744,6 +1946,8 @@
       let rawHostingSubtotal = 0;
       let hostingDiscount = 0;
       let hostingNet = 0;
+      let vatRate = 0;
+      let vatAmount = 0;
       let opt = null;
 
       if (isHostingSelected && currentPlan) {
@@ -1751,10 +1955,15 @@
         rawHostingSubtotal = opt.price * currentCycle.months;
         hostingDiscount = Math.round(rawHostingSubtotal * currentCycle.discount);
         hostingNet = rawHostingSubtotal - hostingDiscount;
+
+        vatRate = (currentPlan.vatRate !== undefined && currentPlan.vatRate !== null) ? parseFloat(currentPlan.vatRate) : 0;
+        if (vatRate > 0) {
+          vatAmount = Math.round(hostingNet * (vatRate / 100));
+        }
       }
 
       const subtotal = rawHostingSubtotal + domainPrice;
-      const total = subtotal - hostingDiscount;
+      const total = (subtotal - hostingDiscount) + vatAmount;
 
       // 1. Create client user account
       const clientUser = {
@@ -1820,6 +2029,8 @@
         domain: domain,
         subtotal: subtotal,
         discount: hostingDiscount,
+        vatRate: vatRate,
+        vatAmount: vatAmount,
         amount: total,
         status: 'PAID',
         gateway: 'SSLCOMMERZ / EPS Online Payment',
